@@ -1,0 +1,99 @@
+syntax = "proto3";
+package proto.scg.billing.v1;
+import "google/protobuf/timestamp.proto";
+option go_package = "github.com/next-trace/scg-contracts/gen/go/proto/scg/billing/v1;billingv1";
+
+message EventEnvelope {
+  string event_id = 1 [json_name = "event_id"];
+  string event_type = 2 [json_name = "event_type"];
+  string actor_uuid = 3 [json_name = "actor_uuid"];
+  string trace_id = 4 [json_name = "trace_id"];
+  google.protobuf.Timestamp occurred_at = 5 [json_name = "occurred_at"];
+  int32 schema_version = 6 [json_name = "schema_version"];
+}
+
+message InvoiceCreated {
+  EventEnvelope meta = 1 [json_name = "meta"];
+  string invoice_uuid = 2 [json_name = "invoice_uuid"];
+  string customer_uuid = 3 [json_name = "customer_uuid"];
+  string invoice_number = 4 [json_name = "invoice_number"];
+  double total_amount = 5 [json_name = "total_amount"];
+  google.protobuf.Timestamp due_date = 6 [json_name = "due_date"];
+  google.protobuf.Timestamp created_at = 7 [json_name = "created_at"];
+}
+
+message InvoiceUpdated {
+  EventEnvelope meta = 1 [json_name = "meta"];
+  string invoice_uuid = 2 [json_name = "invoice_uuid"];
+  map<string, string> updated_fields = 3 [json_name = "updated_fields"];
+  google.protobuf.Timestamp updated_at = 4 [json_name = "updated_at"];
+}
+
+message InvoiceStatusChanged {
+  EventEnvelope meta = 1 [json_name = "meta"];
+  string invoice_uuid = 2 [json_name = "invoice_uuid"];
+  string previous_status = 3 [json_name = "previous_status"]; // Values from InvoiceStatus enum
+  string new_status = 4 [json_name = "new_status"]; // Values from InvoiceStatus enum
+  string reason = 5 [json_name = "reason"];
+  google.protobuf.Timestamp changed_at = 6 [json_name = "changed_at"];
+}
+
+message PaymentReceived {
+  EventEnvelope meta = 1 [json_name = "meta"];
+  string payment_uuid = 2 [json_name = "payment_uuid"];
+  string invoice_uuid = 3 [json_name = "invoice_uuid"];
+  double amount = 4 [json_name = "amount"];
+  string payment_method = 5 [json_name = "payment_method"]; // Values from PaymentMethod enum
+  string transaction_reference = 6 [json_name = "transaction_reference"];
+  google.protobuf.Timestamp received_at = 7 [json_name = "received_at"];
+}
+
+message PaymentStatusChanged {
+  EventEnvelope meta = 1 [json_name = "meta"];
+  string payment_uuid = 2 [json_name = "payment_uuid"];
+  string previous_status = 3 [json_name = "previous_status"]; // Values from PaymentStatus enum
+  string new_status = 4 [json_name = "new_status"]; // Values from PaymentStatus enum
+  string reason = 5 [json_name = "reason"];
+  google.protobuf.Timestamp changed_at = 6 [json_name = "changed_at"];
+}
+
+message RefundIssued {
+  EventEnvelope meta = 1 [json_name = "meta"];
+  string refund_uuid = 2 [json_name = "refund_uuid"];
+  string payment_uuid = 3 [json_name = "payment_uuid"];
+  double amount = 4 [json_name = "amount"];
+  string reason = 5 [json_name = "reason"];
+  string issued_by_uuid = 6 [json_name = "issued_by_uuid"];
+  google.protobuf.Timestamp issued_at = 7 [json_name = "issued_at"];
+}
+
+message DiscountApplied {
+  EventEnvelope meta = 1 [json_name = "meta"];
+  string discount_uuid = 2 [json_name = "discount_uuid"];
+  string invoice_uuid = 3 [json_name = "invoice_uuid"];
+  string discount_type = 4 [json_name = "discount_type"]; // Values from DiscountType enum
+  double amount = 5 [json_name = "amount"];
+  double percentage = 6 [json_name = "percentage"];
+  string reason = 7 [json_name = "reason"];
+  string applied_by_uuid = 8 [json_name = "applied_by_uuid"];
+  google.protobuf.Timestamp applied_at = 9 [json_name = "applied_at"];
+}
+
+message BillingCycleStarted {
+  EventEnvelope meta = 1 [json_name = "meta"];
+  string cycle_uuid = 2 [json_name = "cycle_uuid"];
+  string customer_uuid = 3 [json_name = "customer_uuid"];
+  string cycle_type = 4 [json_name = "cycle_type"]; // Values from BillingCycle enum
+  google.protobuf.Timestamp start_date = 5 [json_name = "start_date"];
+  google.protobuf.Timestamp end_date = 6 [json_name = "end_date"];
+}
+
+message BillingCycleEnded {
+  EventEnvelope meta = 1 [json_name = "meta"];
+  string cycle_uuid = 2 [json_name = "cycle_uuid"];
+  string customer_uuid = 3 [json_name = "customer_uuid"];
+  string cycle_type = 4 [json_name = "cycle_type"]; // Values from BillingCycle enum
+  google.protobuf.Timestamp start_date = 5 [json_name = "start_date"];
+  google.protobuf.Timestamp end_date = 6 [json_name = "end_date"];
+  int32 invoices_generated = 7 [json_name = "invoices_generated"];
+}

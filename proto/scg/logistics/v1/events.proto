@@ -1,0 +1,271 @@
+syntax = "proto3";
+package proto.scg.logistics.v1;
+import "google/protobuf/timestamp.proto";
+import "proto/scg/shared/v1/events.proto";
+option go_package = "github.com/next-trace/scg-contracts/gen/go/proto/scg/logistics/v1;logisticsv1";
+
+// --- CARRIER EVENTS ---
+message CarrierCreated {
+  proto.scg.shared.v1.EventEnvelope meta = 1 [json_name = "meta"];
+  string carrier_uuid = 2 [json_name = "carrier_uuid"];
+  string name = 3 [json_name = "name"];
+  string type = 4 [json_name = "type"];
+  google.protobuf.Timestamp created_at = 5 [json_name = "created_at"];
+}
+
+message CarrierUpdated {
+  proto.scg.shared.v1.EventEnvelope meta = 1 [json_name = "meta"];
+  string carrier_uuid = 2 [json_name = "carrier_uuid"];
+  map<string, string> updated_fields = 3 [json_name = "updated_fields"];
+  google.protobuf.Timestamp updated_at = 4 [json_name = "updated_at"];
+}
+
+message CarrierDeactivated {
+  proto.scg.shared.v1.EventEnvelope meta = 1 [json_name = "meta"];
+  string carrier_uuid = 2 [json_name = "carrier_uuid"];
+  string reason = 3 [json_name = "reason"];
+  google.protobuf.Timestamp deactivated_at = 4 [json_name = "deactivated_at"];
+}
+
+message CarrierReactivated {
+  proto.scg.shared.v1.EventEnvelope meta = 1 [json_name = "meta"];
+  string carrier_uuid = 2 [json_name = "carrier_uuid"];
+  google.protobuf.Timestamp reactivated_at = 3 [json_name = "reactivated_at"];
+}
+
+// --- VEHICLE EVENTS ---
+message VehicleRegistered {
+  proto.scg.shared.v1.EventEnvelope meta = 1 [json_name = "meta"];
+  string vehicle_uuid = 2 [json_name = "vehicle_uuid"];
+  string carrier_uuid = 3 [json_name = "carrier_uuid"];
+  string registration_number = 4 [json_name = "registration_number"];
+  string vehicle_type = 5 [json_name = "vehicle_type"];
+  google.protobuf.Timestamp registered_at = 6 [json_name = "registered_at"];
+}
+
+message VehicleUpdated {
+  proto.scg.shared.v1.EventEnvelope meta = 1 [json_name = "meta"];
+  string vehicle_uuid = 2 [json_name = "vehicle_uuid"];
+  map<string, string> updated_fields = 3 [json_name = "updated_fields"];
+  google.protobuf.Timestamp updated_at = 4 [json_name = "updated_at"];
+}
+
+message VehicleDeactivated {
+  proto.scg.shared.v1.EventEnvelope meta = 1 [json_name = "meta"];
+  string vehicle_uuid = 2 [json_name = "vehicle_uuid"];
+  string reason = 3 [json_name = "reason"];
+  google.protobuf.Timestamp deactivated_at = 4 [json_name = "deactivated_at"];
+}
+
+// --- DRIVER EVENTS ---
+message DriverRegistered {
+  proto.scg.shared.v1.EventEnvelope meta = 1 [json_name = "meta"];
+  string driver_uuid = 2 [json_name = "driver_uuid"];
+  string carrier_uuid = 3 [json_name = "carrier_uuid"];
+  string full_name = 4 [json_name = "full_name"];
+  string license_number = 5 [json_name = "license_number"];
+  google.protobuf.Timestamp registered_at = 6 [json_name = "registered_at"];
+}
+
+message DriverLicenseUpdated {
+  proto.scg.shared.v1.EventEnvelope meta = 1 [json_name = "meta"];
+  string driver_uuid = 2 [json_name = "driver_uuid"];
+  string license_number = 3 [json_name = "license_number"];
+  repeated string license_categories = 4 [json_name = "license_categories"];
+  google.protobuf.Timestamp license_expiry = 5 [json_name = "license_expiry"];
+  google.protobuf.Timestamp updated_at = 6 [json_name = "updated_at"];
+}
+
+message DriverDeactivated {
+  proto.scg.shared.v1.EventEnvelope meta = 1 [json_name = "meta"];
+  string driver_uuid = 2 [json_name = "driver_uuid"];
+  string reason = 3 [json_name = "reason"];
+  google.protobuf.Timestamp deactivated_at = 4 [json_name = "deactivated_at"];
+}
+
+// --- ROUTE EVENTS ---
+message RouteCreated {
+  proto.scg.shared.v1.EventEnvelope meta = 1 [json_name = "meta"];
+  string route_uuid = 2 [json_name = "route_uuid"];
+  string name = 3 [json_name = "name"];
+  string origin_location_uuid = 4 [json_name = "origin_location_uuid"];
+  string destination_location_uuid = 5 [json_name = "destination_location_uuid"];
+  string transport_mode = 6 [json_name = "transport_mode"];
+  google.protobuf.Timestamp created_at = 7 [json_name = "created_at"];
+}
+
+message RouteUpdated {
+  proto.scg.shared.v1.EventEnvelope meta = 1 [json_name = "meta"];
+  string route_uuid = 2 [json_name = "route_uuid"];
+  map<string, string> updated_fields = 3 [json_name = "updated_fields"];
+  google.protobuf.Timestamp updated_at = 4 [json_name = "updated_at"];
+}
+
+message RouteStatusChanged {
+  proto.scg.shared.v1.EventEnvelope meta = 1 [json_name = "meta"];
+  string route_uuid = 2 [json_name = "route_uuid"];
+  string previous_status = 3 [json_name = "previous_status"];
+  string new_status = 4 [json_name = "new_status"];
+  string reason = 5 [json_name = "reason"];
+  google.protobuf.Timestamp changed_at = 6 [json_name = "changed_at"];
+}
+
+// --- LOCATION EVENTS ---
+message LocationCreated {
+  proto.scg.shared.v1.EventEnvelope meta = 1 [json_name = "meta"];
+  string location_uuid = 2 [json_name = "location_uuid"];
+  string name = 3 [json_name = "name"];
+  string location_code = 4 [json_name = "location_code"];
+  string location_type = 5 [json_name = "location_type"];
+  google.protobuf.Timestamp created_at = 6 [json_name = "created_at"];
+}
+
+message LocationUpdated {
+  proto.scg.shared.v1.EventEnvelope meta = 1 [json_name = "meta"];
+  string location_uuid = 2 [json_name = "location_uuid"];
+  map<string, string> updated_fields = 3 [json_name = "updated_fields"];
+  google.protobuf.Timestamp updated_at = 4 [json_name = "updated_at"];
+}
+
+// --- SHIPMENT EVENTS ---
+message ShipmentCreated {
+  proto.scg.shared.v1.EventEnvelope meta = 1 [json_name = "meta"];
+  string shipment_uuid = 2 [json_name = "shipment_uuid"];
+  string consignment_uuid = 3 [json_name = "consignment_uuid"];
+  string carrier_uuid = 4 [json_name = "carrier_uuid"];
+  string route_uuid = 5 [json_name = "route_uuid"];
+  google.protobuf.Timestamp scheduled_pickup_time = 6 [json_name = "scheduled_pickup_time"];
+  google.protobuf.Timestamp estimated_delivery_time = 7 [json_name = "estimated_delivery_time"];
+  google.protobuf.Timestamp created_at = 8 [json_name = "created_at"];
+}
+
+message ShipmentAssigned {
+  proto.scg.shared.v1.EventEnvelope meta = 1 [json_name = "meta"];
+  string shipment_uuid = 2 [json_name = "shipment_uuid"];
+  string vehicle_uuid = 3 [json_name = "vehicle_uuid"];
+  string driver_uuid = 4 [json_name = "driver_uuid"];
+  google.protobuf.Timestamp assigned_at = 5 [json_name = "assigned_at"];
+}
+
+message ShipmentPickedUp {
+  proto.scg.shared.v1.EventEnvelope meta = 1 [json_name = "meta"];
+  string shipment_uuid = 2 [json_name = "shipment_uuid"];
+  string location_uuid = 3 [json_name = "location_uuid"];
+  google.protobuf.Timestamp picked_up_at = 4 [json_name = "picked_up_at"];
+}
+
+message ShipmentInTransit {
+  proto.scg.shared.v1.EventEnvelope meta = 1 [json_name = "meta"];
+  string shipment_uuid = 2 [json_name = "shipment_uuid"];
+  string current_location = 3 [json_name = "current_location"];
+  google.protobuf.Timestamp updated_at = 4 [json_name = "updated_at"];
+}
+
+message ShipmentArrivedAtCheckpoint {
+  proto.scg.shared.v1.EventEnvelope meta = 1 [json_name = "meta"];
+  string shipment_uuid = 2 [json_name = "shipment_uuid"];
+  string location_uuid = 3 [json_name = "location_uuid"];
+  google.protobuf.Timestamp arrived_at = 4 [json_name = "arrived_at"];
+}
+
+message ShipmentDepartedFromCheckpoint {
+  proto.scg.shared.v1.EventEnvelope meta = 1 [json_name = "meta"];
+  string shipment_uuid = 2 [json_name = "shipment_uuid"];
+  string location_uuid = 3 [json_name = "location_uuid"];
+  google.protobuf.Timestamp departed_at = 4 [json_name = "departed_at"];
+}
+
+message ShipmentDelayed {
+  proto.scg.shared.v1.EventEnvelope meta = 1 [json_name = "meta"];
+  string shipment_uuid = 2 [json_name = "shipment_uuid"];
+  string reason = 3 [json_name = "reason"];
+  int32 estimated_delay_minutes = 4 [json_name = "estimated_delay_minutes"];
+  google.protobuf.Timestamp new_estimated_delivery_time = 5 [json_name = "new_estimated_delivery_time"];
+  google.protobuf.Timestamp delayed_at = 6 [json_name = "delayed_at"];
+}
+
+message ShipmentArrived {
+  proto.scg.shared.v1.EventEnvelope meta = 1 [json_name = "meta"];
+  string shipment_uuid = 2 [json_name = "shipment_uuid"];
+  string location_uuid = 3 [json_name = "location_uuid"];
+  google.protobuf.Timestamp arrived_at = 4 [json_name = "arrived_at"];
+}
+
+message ShipmentDelivered {
+  proto.scg.shared.v1.EventEnvelope meta = 1 [json_name = "meta"];
+  string shipment_uuid = 2 [json_name = "shipment_uuid"];
+  string recipient_name = 3 [json_name = "recipient_name"];
+  string proof_of_delivery = 4 [json_name = "proof_of_delivery"];  // Could be a document UUID or signature
+  google.protobuf.Timestamp delivered_at = 5 [json_name = "delivered_at"];
+}
+
+message ShipmentException {
+  proto.scg.shared.v1.EventEnvelope meta = 1 [json_name = "meta"];
+  string shipment_uuid = 2 [json_name = "shipment_uuid"];
+  string exception_type = 3 [json_name = "exception_type"];  // "damage", "loss", "theft", etc.
+  string description = 4 [json_name = "description"];
+  string location_uuid = 5 [json_name = "location_uuid"];
+  google.protobuf.Timestamp reported_at = 6 [json_name = "reported_at"];
+}
+
+message ShipmentReturned {
+  proto.scg.shared.v1.EventEnvelope meta = 1 [json_name = "meta"];
+  string shipment_uuid = 2 [json_name = "shipment_uuid"];
+  string reason = 3 [json_name = "reason"];
+  string return_location_uuid = 4 [json_name = "return_location_uuid"];
+  google.protobuf.Timestamp returned_at = 5 [json_name = "returned_at"];
+}
+
+// --- CUSTOMS EVENTS ---
+message CustomsDeclarationSubmitted {
+  proto.scg.shared.v1.EventEnvelope meta = 1 [json_name = "meta"];
+  string customs_clearance_uuid = 2 [json_name = "customs_clearance_uuid"];
+  string shipment_uuid = 3 [json_name = "shipment_uuid"];
+  string country_code = 4 [json_name = "country_code"];
+  string declaration_number = 5 [json_name = "declaration_number"];
+  google.protobuf.Timestamp submitted_at = 6 [json_name = "submitted_at"];
+}
+
+message CustomsStatusUpdated {
+  proto.scg.shared.v1.EventEnvelope meta = 1 [json_name = "meta"];
+  string customs_clearance_uuid = 2 [json_name = "customs_clearance_uuid"];
+  string previous_status = 3 [json_name = "previous_status"];
+  string new_status = 4 [json_name = "new_status"];
+  string notes = 5 [json_name = "notes"];
+  google.protobuf.Timestamp updated_at = 6 [json_name = "updated_at"];
+}
+
+message CustomsCleared {
+  proto.scg.shared.v1.EventEnvelope meta = 1 [json_name = "meta"];
+  string customs_clearance_uuid = 2 [json_name = "customs_clearance_uuid"];
+  string shipment_uuid = 3 [json_name = "shipment_uuid"];
+  google.protobuf.Timestamp cleared_at = 4 [json_name = "cleared_at"];
+}
+
+// --- TRANSPORTATION PLAN EVENTS ---
+message TransportationPlanCreated {
+  proto.scg.shared.v1.EventEnvelope meta = 1 [json_name = "meta"];
+  string plan_uuid = 2 [json_name = "plan_uuid"];
+  string name = 3 [json_name = "name"];
+  repeated string shipment_uuids = 4 [json_name = "shipment_uuids"];
+  google.protobuf.Timestamp start_date = 5 [json_name = "start_date"];
+  google.protobuf.Timestamp end_date = 6 [json_name = "end_date"];
+  string created_by = 7 [json_name = "created_by"];
+  google.protobuf.Timestamp created_at = 8 [json_name = "created_at"];
+}
+
+message TransportationPlanUpdated {
+  proto.scg.shared.v1.EventEnvelope meta = 1 [json_name = "meta"];
+  string plan_uuid = 2 [json_name = "plan_uuid"];
+  map<string, string> updated_fields = 3 [json_name = "updated_fields"];
+  google.protobuf.Timestamp updated_at = 4 [json_name = "updated_at"];
+}
+
+message TransportationPlanStatusChanged {
+  proto.scg.shared.v1.EventEnvelope meta = 1 [json_name = "meta"];
+  string plan_uuid = 2 [json_name = "plan_uuid"];
+  string previous_status = 3 [json_name = "previous_status"];
+  string new_status = 4 [json_name = "new_status"];
+  string changed_by = 5 [json_name = "changed_by"];
+  google.protobuf.Timestamp changed_at = 6 [json_name = "changed_at"];
+}

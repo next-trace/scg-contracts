@@ -1,0 +1,68 @@
+syntax = "proto3";
+package proto.scg.logistics.v1;
+option go_package = "github.com/next-trace/scg-contracts/gen/go/proto/scg/logistics/v1;logisticsv1";
+
+// TransportMode represents different modes of transportation
+enum TransportMode {
+  TRANSPORT_MODE_UNSPECIFIED = 0;
+  TRANSPORT_MODE_ROAD = 1;       // Truck, van, etc.
+  TRANSPORT_MODE_RAIL = 2;       // Train
+  TRANSPORT_MODE_AIR = 3;        // Airplane, cargo plane
+  TRANSPORT_MODE_SEA = 4;        // Ship, container vessel
+  TRANSPORT_MODE_MULTIMODAL = 5; // Combination of different modes
+}
+
+// CarrierType represents different types of logistics carriers
+enum CarrierType {
+  CARRIER_TYPE_UNSPECIFIED = 0;
+  CARRIER_TYPE_FIRST_PARTY = 1;     // Owned by the company
+  CARRIER_TYPE_THIRD_PARTY = 2;     // External logistics provider
+  CARRIER_TYPE_FREIGHT_FORWARDER = 3; // Specialized in international shipping
+  CARRIER_TYPE_COURIER = 4;         // Express/parcel delivery
+}
+
+// RouteStatus represents the status of a logistics route
+enum RouteStatus {
+  ROUTE_STATUS_UNSPECIFIED = 0;
+  ROUTE_STATUS_PLANNED = 1;      // Route is planned but not active
+  ROUTE_STATUS_ACTIVE = 2;       // Route is currently active
+  ROUTE_STATUS_SUSPENDED = 3;    // Route is temporarily suspended
+  ROUTE_STATUS_DISCONTINUED = 4; // Route is no longer in use
+}
+
+// ShipmentStatus represents the status of a shipment
+enum ShipmentStatus {
+  SHIPMENT_STATUS_UNSPECIFIED = 0;
+  SHIPMENT_STATUS_CREATED = 1;       // Shipment created but not yet picked up
+  SHIPMENT_STATUS_PICKED_UP = 2;     // Shipment picked up from origin
+  SHIPMENT_STATUS_IN_TRANSIT = 3;    // Shipment in transit
+  SHIPMENT_STATUS_AT_CUSTOMS = 4;    // Shipment at customs
+  SHIPMENT_STATUS_DELAYED = 5;       // Shipment delayed
+  SHIPMENT_STATUS_ARRIVED = 6;       // Shipment arrived at destination
+  SHIPMENT_STATUS_DELIVERED = 7;     // Shipment delivered to consignee
+  SHIPMENT_STATUS_EXCEPTION = 8;     // Shipment has an exception
+  SHIPMENT_STATUS_RETURNED = 9;      // Shipment returned to sender
+}
+
+// VehicleType represents different types of vehicles used for transportation
+enum VehicleType {
+  VEHICLE_TYPE_UNSPECIFIED = 0;
+  VEHICLE_TYPE_TRUCK = 1;           // Standard truck
+  VEHICLE_TYPE_VAN = 2;             // Delivery van
+  VEHICLE_TYPE_REFRIGERATED = 3;    // Temperature-controlled vehicle
+  VEHICLE_TYPE_CONTAINER_TRUCK = 4; // Container truck
+  VEHICLE_TYPE_FLATBED = 5;         // Flatbed truck
+  VEHICLE_TYPE_TANKER = 6;          // Tanker truck
+}
+
+// CustomsClearanceStatus represents the status of customs clearance
+enum CustomsClearanceStatus {
+  CUSTOMS_CLEARANCE_STATUS_UNSPECIFIED = 0;
+  CUSTOMS_CLEARANCE_STATUS_PENDING = 1;      // Documents submitted, awaiting clearance
+  CUSTOMS_CLEARANCE_STATUS_IN_PROGRESS = 2;  // Customs processing in progress
+  CUSTOMS_CLEARANCE_STATUS_ADDITIONAL_INFO_REQUESTED = 3; // Additional information requested
+  CUSTOMS_CLEARANCE_STATUS_INSPECTION_REQUIRED = 4;       // Physical inspection required
+  CUSTOMS_CLEARANCE_STATUS_DUTIES_PENDING = 5;            // Awaiting payment of duties
+  CUSTOMS_CLEARANCE_STATUS_CLEARED = 6;                   // Customs cleared
+  CUSTOMS_CLEARANCE_STATUS_REJECTED = 7;                  // Clearance rejected
+}

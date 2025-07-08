@@ -1,0 +1,78 @@
+syntax = "proto3";
+package proto.scg.security.v1;
+option go_package = "github.com/next-trace/scg-contracts/gen/go/proto/scg/security/v1;securityv1";
+
+// SecurityEventType represents different types of security events
+enum SecurityEventType {
+  SECURITY_EVENT_TYPE_UNSPECIFIED = 0;
+  SECURITY_EVENT_TYPE_ACCESS_ATTEMPT = 1;     // Attempt to access a resource
+  SECURITY_EVENT_TYPE_AUTHENTICATION = 2;     // Authentication event
+  SECURITY_EVENT_TYPE_AUTHORIZATION = 3;      // Authorization event
+  SECURITY_EVENT_TYPE_DATA_ACCESS = 4;        // Data access event
+  SECURITY_EVENT_TYPE_CONFIGURATION = 5;      // Security configuration change
+  SECURITY_EVENT_TYPE_THREAT_DETECTION = 6;   // Threat detection event
+  SECURITY_EVENT_TYPE_VULNERABILITY = 7;      // Vulnerability event
+  SECURITY_EVENT_TYPE_COMPLIANCE = 8;         // Compliance event
+}
+
+// SecurityEventSeverity represents the severity of a security event
+enum SecurityEventSeverity {
+  SECURITY_EVENT_SEVERITY_UNSPECIFIED = 0;
+  SECURITY_EVENT_SEVERITY_INFO = 1;           // Informational event
+  SECURITY_EVENT_SEVERITY_LOW = 2;            // Low severity event
+  SECURITY_EVENT_SEVERITY_MEDIUM = 3;         // Medium severity event
+  SECURITY_EVENT_SEVERITY_HIGH = 4;           // High severity event
+  SECURITY_EVENT_SEVERITY_CRITICAL = 5;       // Critical severity event
+}
+
+// SecurityIncidentStatus represents the status of a security incident
+enum SecurityIncidentStatus {
+  SECURITY_INCIDENT_STATUS_UNSPECIFIED = 0;
+  SECURITY_INCIDENT_STATUS_OPEN = 1;          // Incident is open
+  SECURITY_INCIDENT_STATUS_INVESTIGATING = 2; // Incident is being investigated
+  SECURITY_INCIDENT_STATUS_CONTAINED = 3;     // Incident has been contained
+  SECURITY_INCIDENT_STATUS_REMEDIATED = 4;    // Incident has been remediated
+  SECURITY_INCIDENT_STATUS_RESOLVED = 5;      // Incident has been resolved
+  SECURITY_INCIDENT_STATUS_CLOSED = 6;        // Incident has been closed
+}
+
+// SecurityControlType represents different types of security controls
+enum SecurityControlType {
+  SECURITY_CONTROL_TYPE_UNSPECIFIED = 0;
+  SECURITY_CONTROL_TYPE_PREVENTIVE = 1;       // Preventive control
+  SECURITY_CONTROL_TYPE_DETECTIVE = 2;        // Detective control
+  SECURITY_CONTROL_TYPE_CORRECTIVE = 3;       // Corrective control
+  SECURITY_CONTROL_TYPE_DETERRENT = 4;        // Deterrent control
+  SECURITY_CONTROL_TYPE_RECOVERY = 5;         // Recovery control
+  SECURITY_CONTROL_TYPE_COMPENSATING = 6;     // Compensating control
+}
+
+// SecurityControlStatus represents the status of a security control
+enum SecurityControlStatus {
+  SECURITY_CONTROL_STATUS_UNSPECIFIED = 0;
+  SECURITY_CONTROL_STATUS_ENABLED = 1;        // Control is enabled
+  SECURITY_CONTROL_STATUS_DISABLED = 2;       // Control is disabled
+  SECURITY_CONTROL_STATUS_DEGRADED = 3;       // Control is degraded
+  SECURITY_CONTROL_STATUS_FAILED = 4;         // Control has failed
+  SECURITY_CONTROL_STATUS_MAINTENANCE = 5;    // Control is in maintenance
+}
+
+// VulnerabilityStatus represents the status of a vulnerability
+enum VulnerabilityStatus {
+  VULNERABILITY_STATUS_UNSPECIFIED = 0;
+  VULNERABILITY_STATUS_OPEN = 1;              // Vulnerability is open
+  VULNERABILITY_STATUS_CONFIRMED = 2;         // Vulnerability is confirmed
+  VULNERABILITY_STATUS_FALSE_POSITIVE = 3;    // Vulnerability is a false positive
+  VULNERABILITY_STATUS_REMEDIATED = 4;        // Vulnerability has been remediated
+  VULNERABILITY_STATUS_MITIGATED = 5;         // Vulnerability has been mitigated
+  VULNERABILITY_STATUS_ACCEPTED = 6;          // Vulnerability risk has been accepted
+}
+
+// VulnerabilitySeverity represents the severity of a vulnerability
+enum VulnerabilitySeverity {
+  VULNERABILITY_SEVERITY_UNSPECIFIED = 0;
+  VULNERABILITY_SEVERITY_LOW = 1;             // Low severity vulnerability
+  VULNERABILITY_SEVERITY_MEDIUM = 2;          // Medium severity vulnerability
+  VULNERABILITY_SEVERITY_HIGH = 3;            // High severity vulnerability
+  VULNERABILITY_SEVERITY_CRITICAL = 4;        // Critical severity vulnerability
+}

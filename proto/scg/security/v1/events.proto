@@ -1,0 +1,160 @@
+syntax = "proto3";
+package proto.scg.security.v1;
+import "google/protobuf/timestamp.proto";
+option go_package = "github.com/next-trace/scg-contracts/gen/go/proto/scg/security/v1;securityv1";
+
+message EventEnvelope {
+  string event_id = 1 [json_name = "event_id"];
+  string event_type = 2 [json_name = "event_type"];
+  string actor_uuid = 3 [json_name = "actor_uuid"];
+  string trace_id = 4 [json_name = "trace_id"];
+  google.protobuf.Timestamp occurred_at = 5 [json_name = "occurred_at"];
+  int32 schema_version = 6 [json_name = "schema_version"];
+}
+
+message SecurityEventDetected {
+  EventEnvelope meta = 1 [json_name = "meta"];
+  string event_uuid = 2 [json_name = "event_uuid"];
+  string event_type = 3 [json_name = "event_type"]; // Values from SecurityEventType enum
+  string severity = 4 [json_name = "severity"]; // Values from SecurityEventSeverity enum
+  string source = 5 [json_name = "source"];
+  string source_ip = 6 [json_name = "source_ip"];
+  string target_resource = 7 [json_name = "target_resource"];
+  string target_resource_type = 8 [json_name = "target_resource_type"];
+  string actor_uuid = 9 [json_name = "actor_uuid"];
+  string actor_type = 10 [json_name = "actor_type"];
+  string description = 11 [json_name = "description"];
+  map<string, string> metadata = 12 [json_name = "metadata"];
+  google.protobuf.Timestamp occurred_at = 13 [json_name = "occurred_at"];
+  google.protobuf.Timestamp detected_at = 14 [json_name = "detected_at"];
+}
+
+message SecurityIncidentCreated {
+  EventEnvelope meta = 1 [json_name = "meta"];
+  string incident_uuid = 2 [json_name = "incident_uuid"];
+  string title = 3 [json_name = "title"];
+  string description = 4 [json_name = "description"];
+  string severity = 5 [json_name = "severity"]; // Values from SecurityEventSeverity enum
+  string reported_by_uuid = 6 [json_name = "reported_by_uuid"];
+  repeated string related_event_uuids = 7 [json_name = "related_event_uuids"];
+  google.protobuf.Timestamp detected_at = 8 [json_name = "detected_at"];
+  google.protobuf.Timestamp created_at = 9 [json_name = "created_at"];
+}
+
+message SecurityIncidentUpdated {
+  EventEnvelope meta = 1 [json_name = "meta"];
+  string incident_uuid = 2 [json_name = "incident_uuid"];
+  map<string, string> updated_fields = 3 [json_name = "updated_fields"];
+  google.protobuf.Timestamp updated_at = 4 [json_name = "updated_at"];
+}
+
+message SecurityIncidentStatusChanged {
+  EventEnvelope meta = 1 [json_name = "meta"];
+  string incident_uuid = 2 [json_name = "incident_uuid"];
+  string previous_status = 3 [json_name = "previous_status"]; // Values from SecurityIncidentStatus enum
+  string new_status = 4 [json_name = "new_status"]; // Values from SecurityIncidentStatus enum
+  string reason = 5 [json_name = "reason"];
+  string changed_by_uuid = 6 [json_name = "changed_by_uuid"];
+  google.protobuf.Timestamp changed_at = 7 [json_name = "changed_at"];
+}
+
+message SecurityIncidentResolved {
+  EventEnvelope meta = 1 [json_name = "meta"];
+  string incident_uuid = 2 [json_name = "incident_uuid"];
+  string resolution = 3 [json_name = "resolution"];
+  string root_cause = 4 [json_name = "root_cause"];
+  string resolved_by_uuid = 5 [json_name = "resolved_by_uuid"];
+  google.protobuf.Timestamp resolved_at = 6 [json_name = "resolved_at"];
+}
+
+message SecurityControlCreated {
+  EventEnvelope meta = 1 [json_name = "meta"];
+  string control_uuid = 2 [json_name = "control_uuid"];
+  string name = 3 [json_name = "name"];
+  string description = 4 [json_name = "description"];
+  string control_type = 5 [json_name = "control_type"]; // Values from SecurityControlType enum
+  string status = 6 [json_name = "status"]; // Values from SecurityControlStatus enum
+  string owner_uuid = 7 [json_name = "owner_uuid"];
+  bool is_automated = 8 [json_name = "is_automated"];
+  google.protobuf.Timestamp created_at = 9 [json_name = "created_at"];
+}
+
+message SecurityControlStatusChanged {
+  EventEnvelope meta = 1 [json_name = "meta"];
+  string control_uuid = 2 [json_name = "control_uuid"];
+  string previous_status = 3 [json_name = "previous_status"]; // Values from SecurityControlStatus enum
+  string new_status = 4 [json_name = "new_status"]; // Values from SecurityControlStatus enum
+  string reason = 5 [json_name = "reason"];
+  string changed_by_uuid = 6 [json_name = "changed_by_uuid"];
+  google.protobuf.Timestamp changed_at = 7 [json_name = "changed_at"];
+}
+
+message SecurityControlTested {
+  EventEnvelope meta = 1 [json_name = "meta"];
+  string control_uuid = 2 [json_name = "control_uuid"];
+  bool test_passed = 3 [json_name = "test_passed"];
+  string test_results = 4 [json_name = "test_results"];
+  string tested_by_uuid = 5 [json_name = "tested_by_uuid"];
+  google.protobuf.Timestamp tested_at = 6 [json_name = "tested_at"];
+}
+
+message VulnerabilityDiscovered {
+  EventEnvelope meta = 1 [json_name = "meta"];
+  string vulnerability_uuid = 2 [json_name = "vulnerability_uuid"];
+  string title = 3 [json_name = "title"];
+  string description = 4 [json_name = "description"];
+  string severity = 5 [json_name = "severity"]; // Values from VulnerabilitySeverity enum
+  string cve_id = 6 [json_name = "cve_id"];
+  string affected_component = 7 [json_name = "affected_component"];
+  string affected_version = 8 [json_name = "affected_version"];
+  string discovered_by_uuid = 9 [json_name = "discovered_by_uuid"];
+  repeated string affected_resource_uuids = 10 [json_name = "affected_resource_uuids"];
+  google.protobuf.Timestamp discovered_at = 11 [json_name = "discovered_at"];
+}
+
+message VulnerabilityStatusChanged {
+  EventEnvelope meta = 1 [json_name = "meta"];
+  string vulnerability_uuid = 2 [json_name = "vulnerability_uuid"];
+  string previous_status = 3 [json_name = "previous_status"]; // Values from VulnerabilityStatus enum
+  string new_status = 4 [json_name = "new_status"]; // Values from VulnerabilityStatus enum
+  string reason = 5 [json_name = "reason"];
+  string changed_by_uuid = 6 [json_name = "changed_by_uuid"];
+  google.protobuf.Timestamp changed_at = 7 [json_name = "changed_at"];
+}
+
+message VulnerabilityRemediated {
+  EventEnvelope meta = 1 [json_name = "meta"];
+  string vulnerability_uuid = 2 [json_name = "vulnerability_uuid"];
+  string remediation_steps = 3 [json_name = "remediation_steps"];
+  string remediated_by_uuid = 4 [json_name = "remediated_by_uuid"];
+  google.protobuf.Timestamp remediated_at = 5 [json_name = "remediated_at"];
+}
+
+message SecurityPolicyCreated {
+  EventEnvelope meta = 1 [json_name = "meta"];
+  string policy_uuid = 2 [json_name = "policy_uuid"];
+  string name = 3 [json_name = "name"];
+  string description = 4 [json_name = "description"];
+  string policy_type = 5 [json_name = "policy_type"];
+  string owner_uuid = 6 [json_name = "owner_uuid"];
+  google.protobuf.Timestamp effective_from = 7 [json_name = "effective_from"];
+  google.protobuf.Timestamp created_at = 8 [json_name = "created_at"];
+}
+
+message SecurityPolicyUpdated {
+  EventEnvelope meta = 1 [json_name = "meta"];
+  string policy_uuid = 2 [json_name = "policy_uuid"];
+  map<string, string> updated_fields = 3 [json_name = "updated_fields"];
+  string updated_by_uuid = 4 [json_name = "updated_by_uuid"];
+  google.protobuf.Timestamp updated_at = 5 [json_name = "updated_at"];
+}
+
+message SecurityPolicyApprovalStatusChanged {
+  EventEnvelope meta = 1 [json_name = "meta"];
+  string policy_uuid = 2 [json_name = "policy_uuid"];
+  string previous_status = 3 [json_name = "previous_status"];
+  string new_status = 4 [json_name = "new_status"];
+  string reason = 5 [json_name = "reason"];
+  string changed_by_uuid = 6 [json_name = "changed_by_uuid"];
+  google.protobuf.Timestamp changed_at = 7 [json_name = "changed_at"];
+}

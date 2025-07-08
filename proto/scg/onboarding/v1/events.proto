@@ -1,0 +1,138 @@
+syntax = "proto3";
+package proto.scg.onboarding.v1;
+import "google/protobuf/timestamp.proto";
+option go_package = "github.com/next-trace/scg-contracts/gen/go/proto/scg/onboarding/v1;onboardingv1";
+
+message EventEnvelope {
+  string event_id = 1 [json_name = "event_id"];
+  string event_type = 2 [json_name = "event_type"];
+  string actor_uuid = 3 [json_name = "actor_uuid"];
+  string trace_id = 4 [json_name = "trace_id"];
+  google.protobuf.Timestamp occurred_at = 5 [json_name = "occurred_at"];
+  int32 schema_version = 6 [json_name = "schema_version"];
+}
+
+message OnboardingProcessCreated {
+  EventEnvelope meta = 1 [json_name = "meta"];
+  string process_uuid = 2 [json_name = "process_uuid"];
+  string entity_uuid = 3 [json_name = "entity_uuid"];
+  string entity_type = 4 [json_name = "entity_type"];
+  string assigned_to_uuid = 5 [json_name = "assigned_to_uuid"];
+  google.protobuf.Timestamp start_date = 6 [json_name = "start_date"];
+  google.protobuf.Timestamp created_at = 7 [json_name = "created_at"];
+}
+
+message OnboardingProcessUpdated {
+  EventEnvelope meta = 1 [json_name = "meta"];
+  string process_uuid = 2 [json_name = "process_uuid"];
+  map<string, string> updated_fields = 3 [json_name = "updated_fields"];
+  google.protobuf.Timestamp updated_at = 4 [json_name = "updated_at"];
+}
+
+message OnboardingProcessStatusChanged {
+  EventEnvelope meta = 1 [json_name = "meta"];
+  string process_uuid = 2 [json_name = "process_uuid"];
+  string previous_status = 3; // Values from OnboardingStatus enum
+  string new_status = 4; // Values from OnboardingStatus enum
+  string reason = 5 [json_name = "reason"];
+  google.protobuf.Timestamp changed_at = 6 [json_name = "changed_at"];
+}
+
+message OnboardingProcessCompleted {
+  EventEnvelope meta = 1 [json_name = "meta"];
+  string process_uuid = 2 [json_name = "process_uuid"];
+  string entity_uuid = 3 [json_name = "entity_uuid"];
+  string entity_type = 4 [json_name = "entity_type"];
+  google.protobuf.Timestamp completion_date = 5 [json_name = "completion_date"];
+}
+
+message OnboardingProcessCancelled {
+  EventEnvelope meta = 1 [json_name = "meta"];
+  string process_uuid = 2 [json_name = "process_uuid"];
+  string reason = 3 [json_name = "reason"];
+  string cancelled_by_uuid = 4 [json_name = "cancelled_by_uuid"];
+  google.protobuf.Timestamp cancelled_at = 5 [json_name = "cancelled_at"];
+}
+
+message OnboardingStepCreated {
+  EventEnvelope meta = 1 [json_name = "meta"];
+  string step_uuid = 2 [json_name = "step_uuid"];
+  string process_uuid = 3 [json_name = "process_uuid"];
+  string step_type = 4; // Values from OnboardingStepType enum
+  string status = 5; // Values from OnboardingStepStatus enum
+  int32 order = 6 [json_name = "order"];
+  string name = 7 [json_name = "name"];
+  bool is_required = 8 [json_name = "is_required"];
+  google.protobuf.Timestamp created_at = 9 [json_name = "created_at"];
+}
+
+message OnboardingStepStatusChanged {
+  EventEnvelope meta = 1 [json_name = "meta"];
+  string step_uuid = 2 [json_name = "step_uuid"];
+  string process_uuid = 3 [json_name = "process_uuid"];
+  string previous_status = 4; // Values from OnboardingStepStatus enum
+  string new_status = 5; // Values from OnboardingStepStatus enum
+  string reason = 6 [json_name = "reason"];
+  google.protobuf.Timestamp changed_at = 7 [json_name = "changed_at"];
+}
+
+message OnboardingStepCompleted {
+  EventEnvelope meta = 1 [json_name = "meta"];
+  string step_uuid = 2 [json_name = "step_uuid"];
+  string process_uuid = 3 [json_name = "process_uuid"];
+  google.protobuf.Timestamp completion_date = 4 [json_name = "completion_date"];
+}
+
+message DocumentUploaded {
+  EventEnvelope meta = 1 [json_name = "meta"];
+  string document_uuid = 2 [json_name = "document_uuid"];
+  string process_uuid = 3 [json_name = "process_uuid"];
+  string step_uuid = 4 [json_name = "step_uuid"];
+  string document_type = 5; // Values from DocumentType enum
+  string name = 6 [json_name = "name"];
+  string file_path = 7 [json_name = "file_path"];
+  string file_type = 8 [json_name = "file_type"];
+  int64 file_size = 9 [json_name = "file_size"];
+  string uploaded_by_uuid = 10 [json_name = "uploaded_by_uuid"];
+  google.protobuf.Timestamp uploaded_at = 11 [json_name = "uploaded_at"];
+}
+
+message DocumentStatusChanged {
+  EventEnvelope meta = 1 [json_name = "meta"];
+  string document_uuid = 2 [json_name = "document_uuid"];
+  string previous_status = 3; // Values from DocumentStatus enum
+  string new_status = 4; // Values from DocumentStatus enum
+  string reviewed_by_uuid = 5 [json_name = "reviewed_by_uuid"];
+  string reason = 6 [json_name = "reason"];
+  google.protobuf.Timestamp changed_at = 7 [json_name = "changed_at"];
+}
+
+message VerificationInitiated {
+  EventEnvelope meta = 1 [json_name = "meta"];
+  string verification_uuid = 2 [json_name = "verification_uuid"];
+  string process_uuid = 3 [json_name = "process_uuid"];
+  string step_uuid = 4 [json_name = "step_uuid"];
+  string verification_type = 5; // Values from VerificationType enum
+  string target = 6 [json_name = "target"];
+  google.protobuf.Timestamp expires_at = 7 [json_name = "expires_at"];
+  google.protobuf.Timestamp initiated_at = 8 [json_name = "initiated_at"];
+}
+
+message VerificationCompleted {
+  EventEnvelope meta = 1 [json_name = "meta"];
+  string verification_uuid = 2 [json_name = "verification_uuid"];
+  string process_uuid = 3 [json_name = "process_uuid"];
+  string step_uuid = 4 [json_name = "step_uuid"];
+  string verification_type = 5; // Values from VerificationType enum
+  google.protobuf.Timestamp verified_at = 6 [json_name = "verified_at"];
+}
+
+message VerificationFailed {
+  EventEnvelope meta = 1 [json_name = "meta"];
+  string verification_uuid = 2 [json_name = "verification_uuid"];
+  string process_uuid = 3 [json_name = "process_uuid"];
+  string step_uuid = 4 [json_name = "step_uuid"];
+  string verification_type = 5; // Values from VerificationType enum
+  string reason = 6 [json_name = "reason"];
+  google.protobuf.Timestamp failed_at = 7 [json_name = "failed_at"];
+}

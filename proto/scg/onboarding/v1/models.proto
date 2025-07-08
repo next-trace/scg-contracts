@@ -1,0 +1,93 @@
+syntax = "proto3";
+package proto.scg.onboarding.v1;
+import "google/protobuf/timestamp.proto";
+option go_package = "github.com/next-trace/scg-contracts/gen/go/proto/scg/onboarding/v1;onboardingv1";
+
+message OnboardingProcess {
+  string process_uuid = 1 [json_name = "process_uuid"];
+  string entity_uuid = 2 [json_name = "entity_uuid"];
+  string entity_type = 3 [json_name = "entity_type"]; // "user", "partner", "organization", etc.
+  string status = 4 [json_name = "status"]; // Values from OnboardingStatus enum
+  string assigned_to_uuid = 5 [json_name = "assigned_to_uuid"];
+  google.protobuf.Timestamp start_date = 6 [json_name = "start_date"];
+  google.protobuf.Timestamp completion_date = 7 [json_name = "completion_date"];
+  google.protobuf.Timestamp created_at = 8 [json_name = "created_at"];
+  google.protobuf.Timestamp updated_at = 9 [json_name = "updated_at"];
+  repeated OnboardingStep steps = 10 [json_name = "steps"];
+}
+
+message OnboardingStep {
+  string step_uuid = 1 [json_name = "step_uuid"];
+  string process_uuid = 2 [json_name = "process_uuid"];
+  string step_type = 3; // Values from OnboardingStepType enum
+  string status = 4; // Values from OnboardingStepStatus enum
+  int32 order = 5 [json_name = "order"];
+  string name = 6 [json_name = "name"];
+  string description = 7 [json_name = "description"];
+  bool is_required = 8 [json_name = "is_required"];
+  google.protobuf.Timestamp due_date = 9 [json_name = "due_date"];
+  google.protobuf.Timestamp completion_date = 10 [json_name = "completion_date"];
+  map<string, string> metadata = 11 [json_name = "metadata"];
+  google.protobuf.Timestamp created_at = 12 [json_name = "created_at"];
+  google.protobuf.Timestamp updated_at = 13 [json_name = "updated_at"];
+}
+
+message Verification {
+  string verification_uuid = 1 [json_name = "verification_uuid"];
+  string process_uuid = 2 [json_name = "process_uuid"];
+  string step_uuid = 3 [json_name = "step_uuid"];
+  string verification_type = 4; // Values from VerificationType enum
+  string status = 5; // "pending", "verified", "failed", etc.
+  string target = 6; // Email address, phone number, etc.
+  string verification_code = 7 [json_name = "verification_code"];
+  google.protobuf.Timestamp expires_at = 8 [json_name = "expires_at"];
+  google.protobuf.Timestamp verified_at = 9 [json_name = "verified_at"];
+  google.protobuf.Timestamp created_at = 10 [json_name = "created_at"];
+  google.protobuf.Timestamp updated_at = 11 [json_name = "updated_at"];
+}
+
+message Document {
+  string document_uuid = 1 [json_name = "document_uuid"];
+  string process_uuid = 2 [json_name = "process_uuid"];
+  string step_uuid = 3 [json_name = "step_uuid"];
+  string document_type = 4; // Values from DocumentType enum
+  string status = 5; // Values from DocumentStatus enum
+  string name = 6 [json_name = "name"];
+  string description = 7 [json_name = "description"];
+  string file_path = 8 [json_name = "file_path"];
+  string file_type = 9 [json_name = "file_type"];
+  int64 file_size = 10 [json_name = "file_size"];
+  string uploaded_by_uuid = 11 [json_name = "uploaded_by_uuid"];
+  string reviewed_by_uuid = 12 [json_name = "reviewed_by_uuid"];
+  string rejection_reason = 13 [json_name = "rejection_reason"];
+  google.protobuf.Timestamp expiry_date = 14 [json_name = "expiry_date"];
+  google.protobuf.Timestamp uploaded_at = 15 [json_name = "uploaded_at"];
+  google.protobuf.Timestamp reviewed_at = 16 [json_name = "reviewed_at"];
+  google.protobuf.Timestamp created_at = 17 [json_name = "created_at"];
+  google.protobuf.Timestamp updated_at = 18 [json_name = "updated_at"];
+}
+
+message OnboardingTemplate {
+  string template_uuid = 1 [json_name = "template_uuid"];
+  string name = 2 [json_name = "name"];
+  string description = 3 [json_name = "description"];
+  string entity_type = 4; // "user", "partner", "organization", etc.
+  bool is_active = 5 [json_name = "is_active"];
+  repeated OnboardingStepTemplate steps = 6 [json_name = "steps"];
+  google.protobuf.Timestamp created_at = 7 [json_name = "created_at"];
+  google.protobuf.Timestamp updated_at = 8 [json_name = "updated_at"];
+}
+
+message OnboardingStepTemplate {
+  string template_step_uuid = 1 [json_name = "template_step_uuid"];
+  string template_uuid = 2 [json_name = "template_uuid"];
+  string step_type = 3; // Values from OnboardingStepType enum
+  int32 order = 4 [json_name = "order"];
+  string name = 5 [json_name = "name"];
+  string description = 6 [json_name = "description"];
+  bool is_required = 7 [json_name = "is_required"];
+  int32 estimated_duration_days = 8 [json_name = "estimated_duration_days"];
+  map<string, string> default_metadata = 9 [json_name = "default_metadata"];
+  google.protobuf.Timestamp created_at = 10 [json_name = "created_at"];
+  google.protobuf.Timestamp updated_at = 11 [json_name = "updated_at"];
+}

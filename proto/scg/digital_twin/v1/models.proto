@@ -1,0 +1,23 @@
+syntax = "proto3";
+package proto.scg.digital_twin.v1;
+option go_package = "github.com/next-trace/scg-contracts/gen/go/proto/scg/digital_twin/v1;digitaltwinv1";
+
+import "proto/scg/shared/v1/events.proto";
+import "proto/scg/digital_twin/v1/enums.proto";
+
+message DigitalTwin {
+  string digital_twin_uuid = 1 [json_name = "digital_twin_uuid"];
+  string unit_uuid = 2 [json_name = "unit_uuid"];
+  proto.scg.digital_twin.v1.DigitalTwinModelType model_type = 3 [json_name = "model_type"];
+  string status = 4; // active, archived, obsolete, etc.
+  map<string, string> metadata = 5 [json_name = "metadata"];
+}
+
+message DigitalTwinSensorData {
+  string digital_twin_uuid = 1 [json_name = "digital_twin_uuid"];
+  string sensor_type = 2 [json_name = "sensor_type"];
+  string payload_json = 3 [json_name = "payload_json"];
+  string source = 4 [json_name = "source"];
+  string uuid = 5 [json_name = "uuid"];
+  proto.scg.shared.v1.EventEnvelope meta = 6 [json_name = "meta"];
+}

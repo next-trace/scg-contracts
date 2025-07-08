@@ -1,0 +1,10 @@
+syntax = "proto3";
+package proto.scg.custody.v1;
+option go_package = "github.com/next-trace/scg-contracts/gen/go/proto/scg/custody/v1;custodyv1";
+
+enum CustodyStatus {
+  CUSTODY_STATUS_UNSPECIFIED = 0;
+  CUSTODY_STATUS_IN_CUSTODY = 1;
+  CUSTODY_STATUS_RELEASED = 2;
+  CUSTODY_STATUS_DISPUTED = 3;
+}

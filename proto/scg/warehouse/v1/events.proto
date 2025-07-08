@@ -1,0 +1,93 @@
+syntax = "proto3";
+package proto.scg.warehouse.v1;
+
+import "google/protobuf/timestamp.proto";
+import "proto/scg/shared/v1/events.proto";
+import "proto/scg/warehouse/v1/enums.proto";
+
+option go_package = "github.com/next-trace/scg-contracts/gen/go/proto/scg/warehouse/v1;warehousev1";
+
+message WarehouseCreated {
+  proto.scg.shared.v1.EventEnvelope meta = 1 [json_name = "meta"];
+  string warehouse_uuid = 2 [json_name = "warehouse_uuid"];
+  string name = 3 [json_name = "name"];
+  string code = 4 [json_name = "code"];
+  string partner_uuid = 5 [json_name = "partner_uuid"];
+  WarehouseType warehouse_type = 6 [json_name = "warehouse_type"];
+  google.protobuf.Timestamp created_at = 7 [json_name = "created_at"];
+}
+
+message WarehouseUpdated {
+  proto.scg.shared.v1.EventEnvelope meta = 1 [json_name = "meta"];
+  string warehouse_uuid = 2 [json_name = "warehouse_uuid"];
+  map<string, string> updated_fields = 3 [json_name = "updated_fields"];
+  google.protobuf.Timestamp updated_at = 4 [json_name = "updated_at"];
+}
+
+message WarehouseStatusChanged {
+  proto.scg.shared.v1.EventEnvelope meta = 1 [json_name = "meta"];
+  string warehouse_uuid = 2 [json_name = "warehouse_uuid"];
+  WarehouseStatus previous_status = 3 [json_name = "previous_status"];
+  WarehouseStatus new_status = 4 [json_name = "new_status"];
+  string reason = 5 [json_name = "reason"];
+  google.protobuf.Timestamp changed_at = 6 [json_name = "changed_at"];
+}
+
+message WarehouseZoneCreated {
+  proto.scg.shared.v1.EventEnvelope meta = 1 [json_name = "meta"];
+  string zone_uuid = 2 [json_name = "zone_uuid"];
+  string warehouse_uuid = 3 [json_name = "warehouse_uuid"];
+  string name = 4 [json_name = "name"];
+  string code = 5 [json_name = "code"];
+  ZoneType zone_type = 6 [json_name = "zone_type"];
+  google.protobuf.Timestamp created_at = 7 [json_name = "created_at"];
+}
+
+message WarehouseLocationCreated {
+  proto.scg.shared.v1.EventEnvelope meta = 1 [json_name = "meta"];
+  string location_uuid = 2 [json_name = "location_uuid"];
+  string warehouse_uuid = 3 [json_name = "warehouse_uuid"];
+  string zone_uuid = 4 [json_name = "zone_uuid"];
+  string name = 5 [json_name = "name"];
+  string code = 6 [json_name = "code"];
+  LocationType location_type = 7 [json_name = "location_type"];
+  google.protobuf.Timestamp created_at = 8 [json_name = "created_at"];
+}
+
+message WarehouseOperationCreated {
+  proto.scg.shared.v1.EventEnvelope meta = 1 [json_name = "meta"];
+  string operation_uuid = 2 [json_name = "operation_uuid"];
+  string warehouse_uuid = 3 [json_name = "warehouse_uuid"];
+  OperationType operation_type = 4 [json_name = "operation_type"];
+  string reference_uuid = 5 [json_name = "reference_uuid"];
+  string reference_type = 6 [json_name = "reference_type"];
+  google.protobuf.Timestamp scheduled_time = 7 [json_name = "scheduled_time"];
+  google.protobuf.Timestamp created_at = 8 [json_name = "created_at"];
+}
+
+message WarehouseOperationStatusChanged {
+  proto.scg.shared.v1.EventEnvelope meta = 1 [json_name = "meta"];
+  string operation_uuid = 2 [json_name = "operation_uuid"];
+  OperationStatus previous_status = 3 [json_name = "previous_status"];
+  OperationStatus new_status = 4 [json_name = "new_status"];
+  google.protobuf.Timestamp changed_at = 5 [json_name = "changed_at"];
+}
+
+message WarehouseTaskCreated {
+  proto.scg.shared.v1.EventEnvelope meta = 1 [json_name = "meta"];
+  string task_uuid = 2 [json_name = "task_uuid"];
+  string operation_uuid = 3 [json_name = "operation_uuid"];
+  string warehouse_uuid = 4 [json_name = "warehouse_uuid"];
+  TaskType task_type = 5 [json_name = "task_type"];
+  string assigned_to_uuid = 6 [json_name = "assigned_to_uuid"];
+  google.protobuf.Timestamp due_time = 7 [json_name = "due_time"];
+  google.protobuf.Timestamp created_at = 8 [json_name = "created_at"];
+}
+
+message WarehouseTaskCompleted {
+  proto.scg.shared.v1.EventEnvelope meta = 1 [json_name = "meta"];
+  string task_uuid = 2 [json_name = "task_uuid"];
+  string operation_uuid = 3 [json_name = "operation_uuid"];
+  string performed_by_uuid = 4 [json_name = "performed_by_uuid"];
+  google.protobuf.Timestamp completed_at = 5 [json_name = "completed_at"];
+}

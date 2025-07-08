@@ -1,0 +1,14 @@
+version: v1
+managed:
+  enabled: true
+plugins:
+  # Standard Go plugin (managed remote) pinned for deterministic builds
+  - plugin: buf.build/protocolbuffers/go:v1.36.6
+    out: gen/go
+    opt:
+      - paths=source_relative
+  # Go gRPC plugin (managed remote) pinned
+  - plugin: buf.build/grpc/go:v1.5.1
+    out: gen/go
+    opt:
+      - paths=source_relative

@@ -1,0 +1,22 @@
+syntax = "proto3";
+
+package proto.scg.digital_twin.v1;
+
+import "proto/scg/shared/v1/events.proto";
+
+option go_package = "github.com/next-trace/scg-contracts/gen/go/proto/scg/digital_twin/v1;digitaltwinv1";
+
+message DigitalTwinCreated {
+  scg.shared.v1.EventEnvelope meta = 1 [json_name = "meta"];
+  string unit_uuid = 2 [json_name = "unit_uuid"];
+  string digital_twin_uuid = 3 [json_name = "digital_twin_uuid"];
+  string model = 4 [json_name = "model"];
+}
+
+message DigitalTwinUpdated {
+  scg.shared.v1.EventEnvelope meta = 1 [json_name = "meta"];
+  string unit_uuid = 2 [json_name = "unit_uuid"];
+  string digital_twin_uuid = 3 [json_name = "digital_twin_uuid"];
+  string update_type = 4 [json_name = "update_type"];
+  string update_details = 5 [json_name = "update_details"];
+}

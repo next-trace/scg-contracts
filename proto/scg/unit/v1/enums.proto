@@ -1,0 +1,27 @@
+syntax = "proto3";
+package proto.scg.unit.v1;
+option go_package = "github.com/next-trace/scg-contracts/gen/go/proto/scg/unit/v1;unitv1";
+
+enum UnitType {
+  UNIT_TYPE_UNSPECIFIED = 0;
+  UNIT_TYPE_PIECE = 1;
+  UNIT_TYPE_CASE = 2;
+  UNIT_TYPE_BATCH = 3;
+  UNIT_TYPE_PALLET = 4;
+  UNIT_TYPE_LOT = 5;
+  UNIT_TYPE_CONTAINER = 6;
+}
+
+enum UnitState {
+  UNIT_STATE_UNSPECIFIED = 0;
+  UNIT_STATE_REGISTERED = 1;
+  UNIT_STATE_ALLOCATED_TO_CONSIGNMENT = 2;
+  UNIT_STATE_IN_TRANSIT = 3;
+  UNIT_STATE_IN_STORAGE = 4;
+  UNIT_STATE_INSPECTION_HOLD = 5;
+  UNIT_STATE_QUARANTINED = 6;
+  UNIT_STATE_RECEIVED = 7;
+  UNIT_STATE_LOST = 8;
+  UNIT_STATE_DAMAGED = 9;
+  UNIT_STATE_DECOMMISSIONED = 10;
+}

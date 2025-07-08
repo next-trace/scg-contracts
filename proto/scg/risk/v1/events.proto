@@ -1,0 +1,273 @@
+syntax = "proto3";
+package proto.scg.risk.v1;
+import "google/protobuf/timestamp.proto";
+import "proto/scg/shared/v1/events.proto";
+option go_package = "github.com/next-trace/scg-contracts/gen/go/proto/scg/risk/v1;riskv1";
+
+// --- RISK EVENTS ---
+message RiskIdentified {
+  proto.scg.shared.v1.EventEnvelope meta = 1 [json_name = "meta"];
+  string risk_uuid = 2 [json_name = "risk_uuid"];
+  string name = 3 [json_name = "name"];
+  string category = 4 [json_name = "category"];
+  string severity = 5 [json_name = "severity"];
+  string probability = 6 [json_name = "probability"];
+  string entity_type = 7 [json_name = "entity_type"];
+  string entity_uuid = 8 [json_name = "entity_uuid"];
+  string identified_by = 9 [json_name = "identified_by"];
+  google.protobuf.Timestamp identified_at = 10 [json_name = "identified_at"];
+}
+
+message RiskAssessed {
+  proto.scg.shared.v1.EventEnvelope meta = 1 [json_name = "meta"];
+  string risk_uuid = 2 [json_name = "risk_uuid"];
+  string severity = 3 [json_name = "severity"];
+  string probability = 4 [json_name = "probability"];
+  double risk_score = 5 [json_name = "risk_score"];
+  string assessment_method = 6 [json_name = "assessment_method"];
+  string assessed_by = 7 [json_name = "assessed_by"];
+  google.protobuf.Timestamp assessed_at = 8 [json_name = "assessed_at"];
+}
+
+message RiskSeverityChanged {
+  proto.scg.shared.v1.EventEnvelope meta = 1 [json_name = "meta"];
+  string risk_uuid = 2 [json_name = "risk_uuid"];
+  string previous_severity = 3 [json_name = "previous_severity"];
+  string new_severity = 4 [json_name = "new_severity"];
+  double new_risk_score = 5 [json_name = "new_risk_score"];
+  string changed_by = 6 [json_name = "changed_by"];
+  google.protobuf.Timestamp changed_at = 7 [json_name = "changed_at"];
+}
+
+message RiskProbabilityChanged {
+  proto.scg.shared.v1.EventEnvelope meta = 1 [json_name = "meta"];
+  string risk_uuid = 2 [json_name = "risk_uuid"];
+  string previous_probability = 3 [json_name = "previous_probability"];
+  string new_probability = 4 [json_name = "new_probability"];
+  double new_risk_score = 5 [json_name = "new_risk_score"];
+  string changed_by = 6 [json_name = "changed_by"];
+  google.protobuf.Timestamp changed_at = 7 [json_name = "changed_at"];
+}
+
+message RiskStatusChanged {
+  proto.scg.shared.v1.EventEnvelope meta = 1 [json_name = "meta"];
+  string risk_uuid = 2 [json_name = "risk_uuid"];
+  string previous_status = 3 [json_name = "previous_status"];
+  string new_status = 4 [json_name = "new_status"];
+  string reason = 5 [json_name = "reason"];
+  string changed_by = 6 [json_name = "changed_by"];
+  google.protobuf.Timestamp changed_at = 7 [json_name = "changed_at"];
+}
+
+message RiskMitigated {
+  proto.scg.shared.v1.EventEnvelope meta = 1 [json_name = "meta"];
+  string risk_uuid = 2 [json_name = "risk_uuid"];
+  string mitigation_plan_uuid = 3 [json_name = "mitigation_plan_uuid"];
+  string mitigated_by = 4 [json_name = "mitigated_by"];
+  google.protobuf.Timestamp mitigated_at = 5 [json_name = "mitigated_at"];
+}
+
+message RiskAccepted {
+  proto.scg.shared.v1.EventEnvelope meta = 1 [json_name = "meta"];
+  string risk_uuid = 2 [json_name = "risk_uuid"];
+  string reason = 3 [json_name = "reason"];
+  string accepted_by = 4 [json_name = "accepted_by"];
+  google.protobuf.Timestamp accepted_at = 5 [json_name = "accepted_at"];
+}
+
+message RiskTransferred {
+  proto.scg.shared.v1.EventEnvelope meta = 1 [json_name = "meta"];
+  string risk_uuid = 2 [json_name = "risk_uuid"];
+  string transfer_method = 3 [json_name = "transfer_method"];  // "insurance", "outsourcing", etc.
+  string transferred_to = 4 [json_name = "transferred_to"];   // Entity the risk was transferred to
+  string transferred_by = 5 [json_name = "transferred_by"];
+  google.protobuf.Timestamp transferred_at = 6 [json_name = "transferred_at"];
+}
+
+message RiskMaterialized {
+  proto.scg.shared.v1.EventEnvelope meta = 1 [json_name = "meta"];
+  string risk_uuid = 2 [json_name = "risk_uuid"];
+  string risk_incident_uuid = 3 [json_name = "risk_incident_uuid"];
+  string severity = 4 [json_name = "severity"];
+  string impact_description = 5 [json_name = "impact_description"];
+  google.protobuf.Timestamp materialized_at = 6 [json_name = "materialized_at"];
+}
+
+// --- MITIGATION PLAN EVENTS ---
+message RiskMitigationPlanCreated {
+  proto.scg.shared.v1.EventEnvelope meta = 1 [json_name = "meta"];
+  string risk_plan_uuid = 2 [json_name = "risk_plan_uuid"];
+  string risk_uuid = 3 [json_name = "risk_uuid"];
+  string name = 4 [json_name = "name"];
+  string owner_uuid = 5 [json_name = "owner_uuid"];
+  google.protobuf.Timestamp start_date = 6 [json_name = "start_date"];
+  google.protobuf.Timestamp target_completion_date = 7 [json_name = "target_completion_date"];
+  google.protobuf.Timestamp created_at = 8 [json_name = "created_at"];
+}
+
+message RiskMitigationPlanUpdated {
+  proto.scg.shared.v1.EventEnvelope meta = 1 [json_name = "meta"];
+  string risk_plan_uuid = 2 [json_name = "risk_plan_uuid"];
+  map<string, string> updated_fields = 3 [json_name = "updated_fields"];
+  google.protobuf.Timestamp updated_at = 4 [json_name = "updated_at"];
+}
+
+message RiskMitigationPlanStatusChanged {
+  proto.scg.shared.v1.EventEnvelope meta = 1 [json_name = "meta"];
+  string risk_plan_uuid = 2 [json_name = "risk_plan_uuid"];
+  string previous_status = 3 [json_name = "previous_status"];
+  string new_status = 4 [json_name = "new_status"];
+  string changed_by = 5 [json_name = "changed_by"];
+  google.protobuf.Timestamp changed_at = 6 [json_name = "changed_at"];
+}
+
+message RiskMitigationActionAdded {
+  proto.scg.shared.v1.EventEnvelope meta = 1 [json_name = "meta"];
+  string risk_action_uuid = 2 [json_name = "risk_action_uuid"];
+  string risk_plan_uuid = 3 [json_name = "risk_plan_uuid"];
+  string description = 4 [json_name = "description"];
+  string owner_uuid = 5 [json_name = "owner_uuid"];
+  google.protobuf.Timestamp due_date = 6 [json_name = "due_date"];
+  google.protobuf.Timestamp added_at = 7 [json_name = "added_at"];
+}
+
+message RiskMitigationActionCompleted {
+  proto.scg.shared.v1.EventEnvelope meta = 1 [json_name = "meta"];
+  string risk_action_uuid = 2 [json_name = "risk_action_uuid"];
+  string risk_plan_uuid = 3 [json_name = "risk_plan_uuid"];
+  string completed_by = 4 [json_name = "completed_by"];
+  google.protobuf.Timestamp completed_at = 5 [json_name = "completed_at"];
+}
+
+// --- INCIDENT EVENTS ---
+message RiskIncidentCreated {
+  proto.scg.shared.v1.EventEnvelope meta = 1 [json_name = "meta"];
+  string risk_incident_uuid = 2 [json_name = "risk_incident_uuid"];
+  string risk_uuid = 3 [json_name = "risk_uuid"];
+  string title = 4 [json_name = "title"];
+  string severity = 5 [json_name = "severity"];
+  repeated string impact_types = 6 [json_name = "impact_types"];
+  google.protobuf.Timestamp occurred_at = 7 [json_name = "occurred_at"];
+  google.protobuf.Timestamp detected_at = 8 [json_name = "detected_at"];
+  google.protobuf.Timestamp created_at = 9 [json_name = "created_at"];
+}
+
+message RiskIncidentStatusChanged {
+  proto.scg.shared.v1.EventEnvelope meta = 1 [json_name = "meta"];
+  string risk_incident_uuid = 2 [json_name = "risk_incident_uuid"];
+  string previous_status = 3 [json_name = "previous_status"];
+  string new_status = 4 [json_name = "new_status"];
+  string changed_by = 5 [json_name = "changed_by"];
+  google.protobuf.Timestamp changed_at = 6 [json_name = "changed_at"];
+}
+
+message RiskIncidentResolved {
+  proto.scg.shared.v1.EventEnvelope meta = 1 [json_name = "meta"];
+  string risk_incident_uuid = 2 [json_name = "risk_incident_uuid"];
+  string resolution_summary = 3 [json_name = "resolution_summary"];
+  string resolved_by = 4 [json_name = "resolved_by"];
+  google.protobuf.Timestamp resolved_at = 5 [json_name = "resolved_at"];
+}
+
+message RiskIncidentImpactUpdated {
+  proto.scg.shared.v1.EventEnvelope meta = 1 [json_name = "meta"];
+  string risk_incident_uuid = 2 [json_name = "risk_incident_uuid"];
+  string impact_description = 3 [json_name = "impact_description"];
+  double financial_impact = 4 [json_name = "financial_impact"];
+  string financial_impact_currency = 5 [json_name = "financial_impact_currency"];
+  google.protobuf.Timestamp updated_at = 6 [json_name = "updated_at"];
+}
+
+// --- ASSESSMENT EVENTS ---
+message RiskAssessmentCreated {
+  proto.scg.shared.v1.EventEnvelope meta = 1 [json_name = "meta"];
+  string risk_assessment_uuid = 2 [json_name = "risk_assessment_uuid"];
+  string name = 3 [json_name = "name"];
+  string scope_type = 4 [json_name = "scope_type"];
+  string scope_uuid = 5 [json_name = "scope_uuid"];
+  string assessment_method = 6 [json_name = "assessment_method"];
+  string conducted_by = 7 [json_name = "conducted_by"];
+  google.protobuf.Timestamp assessment_date = 8 [json_name = "assessment_date"];
+  google.protobuf.Timestamp created_at = 9 [json_name = "created_at"];
+}
+
+message RiskAssessmentCompleted {
+  proto.scg.shared.v1.EventEnvelope meta = 1 [json_name = "meta"];
+  string risk_assessment_uuid = 2 [json_name = "risk_assessment_uuid"];
+  int32 risks_identified = 3 [json_name = "risks_identified"];
+  string summary = 4 [json_name = "summary"];
+  string completed_by = 5 [json_name = "completed_by"];
+  google.protobuf.Timestamp completed_at = 6 [json_name = "completed_at"];
+}
+
+message RiskAssessmentApproved {
+  proto.scg.shared.v1.EventEnvelope meta = 1 [json_name = "meta"];
+  string risk_assessment_uuid = 2 [json_name = "risk_assessment_uuid"];
+  string approved_by = 3 [json_name = "approved_by"];
+  google.protobuf.Timestamp approved_at = 4 [json_name = "approved_at"];
+}
+
+// --- MONITORING EVENTS ---
+message RiskMonitoringRuleCreated {
+  proto.scg.shared.v1.EventEnvelope meta = 1 [json_name = "meta"];
+  string risk_rule_uuid = 2 [json_name = "risk_rule_uuid"];
+  string name = 3 [json_name = "name"];
+  string category = 4 [json_name = "category"];
+  string min_severity = 5 [json_name = "min_severity"];
+  string min_probability = 6 [json_name = "min_probability"];
+  double min_risk_score = 7 [json_name = "min_risk_score"];
+  int32 monitoring_frequency_days = 8 [json_name = "monitoring_frequency_days"];
+  google.protobuf.Timestamp created_at = 9 [json_name = "created_at"];
+}
+
+message RiskMonitoringRuleUpdated {
+  proto.scg.shared.v1.EventEnvelope meta = 1 [json_name = "meta"];
+  string risk_rule_uuid = 2 [json_name = "risk_rule_uuid"];
+  map<string, string> updated_fields = 3 [json_name = "updated_fields"];
+  google.protobuf.Timestamp updated_at = 4 [json_name = "updated_at"];
+}
+
+message RiskMonitoringRuleActivated {
+  proto.scg.shared.v1.EventEnvelope meta = 1 [json_name = "meta"];
+  string risk_rule_uuid = 2 [json_name = "risk_rule_uuid"];
+  string activated_by = 3 [json_name = "activated_by"];
+  google.protobuf.Timestamp activated_at = 4 [json_name = "activated_at"];
+}
+
+message RiskMonitoringRuleDeactivated {
+  proto.scg.shared.v1.EventEnvelope meta = 1 [json_name = "meta"];
+  string risk_rule_uuid = 2 [json_name = "risk_rule_uuid"];
+  string reason = 3 [json_name = "reason"];
+  string deactivated_by = 4 [json_name = "deactivated_by"];
+  google.protobuf.Timestamp deactivated_at = 5 [json_name = "deactivated_at"];
+}
+
+message RiskThresholdExceeded {
+  proto.scg.shared.v1.EventEnvelope meta = 1 [json_name = "meta"];
+  string risk_uuid = 2 [json_name = "risk_uuid"];
+  string risk_rule_uuid = 3 [json_name = "risk_rule_uuid"];
+  string threshold_type = 4 [json_name = "threshold_type"];  // "severity", "probability", "score"
+  string previous_value = 5 [json_name = "previous_value"];
+  string current_value = 6 [json_name = "current_value"];
+  google.protobuf.Timestamp detected_at = 7 [json_name = "detected_at"];
+}
+
+// --- KPI EVENTS ---
+message RiskKPICreated {
+  proto.scg.shared.v1.EventEnvelope meta = 1 [json_name = "meta"];
+  string risk_kpi_uuid = 2 [json_name = "risk_kpi_uuid"];
+  string name = 3 [json_name = "name"];
+  string metric_type = 4 [json_name = "metric_type"];
+  double target_value = 5 [json_name = "target_value"];
+  google.protobuf.Timestamp created_at = 6 [json_name = "created_at"];
+}
+
+message RiskKPIUpdated {
+  proto.scg.shared.v1.EventEnvelope meta = 1 [json_name = "meta"];
+  string risk_kpi_uuid = 2 [json_name = "risk_kpi_uuid"];
+  double previous_value = 3 [json_name = "previous_value"];
+  double current_value = 4 [json_name = "current_value"];
+  string status = 5 [json_name = "status"];
+  google.protobuf.Timestamp measurement_date = 6 [json_name = "measurement_date"];
+  google.protobuf.Timestamp updated_at = 7 [json_name = "updated_at"];
+}

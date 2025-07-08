@@ -1,0 +1,24 @@
+syntax = "proto3";
+
+package proto.scg.unit.v1;
+
+import "google/protobuf/timestamp.proto";
+import "proto/scg/unit/v1/enums.proto";
+import "proto/scg/shared/v1/types.proto";
+
+option go_package = "github.com/next-trace/scg-contracts/gen/go/proto/scg/unit/v1;unitv1";
+
+message Unit {
+  string uuid = 1 [json_name = "uuid"];
+  string name = 2 [json_name = "name"];
+  string sku = 3 [json_name = "sku"];
+  UnitType unit_type = 4 [json_name = "unit_type"];
+  string description = 5 [json_name = "description"];
+  UnitState status = 6 [json_name = "status"];
+  proto.scg.shared.v1.Address current_location = 7 [json_name = "current_location"];
+  string custodian_partner_uuid = 8 [json_name = "custodian_partner_uuid"];
+  string manufacturer_partner_uuid = 9 [json_name = "manufacturer_partner_uuid"];
+  google.protobuf.Timestamp created_at = 10 [json_name = "created_at"];
+  google.protobuf.Timestamp updated_at = 11 [json_name = "updated_at"];
+  string digital_twin_id = 12 [json_name = "digital_twin_id"];
+}

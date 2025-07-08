@@ -1,0 +1,18 @@
+syntax = "proto3";
+package proto.scg.event_log.v1;
+import "proto/scg/shared/v1/events.proto";
+option go_package = "github.com/next-trace/scg-contracts/gen/go/proto/scg/event_log/v1;eventlogv1";
+
+// EventLogEntry represents a single event in the audit log
+message EventLogEntry {
+  // Metadata about the event (timestamp, actor, etc.)
+  proto.scg.shared.v1.EventEnvelope meta = 1 [json_name = "meta"];
+  // UUID of the entity this event relates to
+  string entity_uuid = 2 [json_name = "entity_uuid"];
+  // Type of entity (Unit, Consignment, etc.)
+  string entity_type = 3 [json_name = "entity_type"];
+  // Type of event that occurred
+  string event_type = 4 [json_name = "event_type"];
+  // JSON serialized event data
+  string data_json = 5 [json_name = "data_json"];
+}

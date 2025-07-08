@@ -1,0 +1,16 @@
+syntax = "proto3";
+
+package proto.scg.shared.v1;
+
+import "google/protobuf/timestamp.proto";
+
+option go_package = "github.com/next-trace/scg-contracts/gen/go/proto/scg/shared/v1;sharedv1";
+
+message EventEnvelope {
+  string event_id = 1 [json_name = "event_id"];
+  string event_type = 2 [json_name = "event_type"];
+  string actor_uuid = 3 [json_name = "actor_uuid"];
+  string trace_id = 4 [json_name = "trace_id"];
+  google.protobuf.Timestamp occurred_at = 5 [json_name = "occurred_at"];
+  int32 schema_version = 6 [json_name = "schema_version"];
+}

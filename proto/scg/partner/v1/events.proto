@@ -1,0 +1,72 @@
+syntax = "proto3";
+package proto.scg.partner.v1;
+import "proto/scg/partner/v1/models.proto";
+import "proto/scg/shared/v1/events.proto";
+import "proto/scg/partner/v1/enums.proto";
+option go_package = "github.com/next-trace/scg-contracts/gen/go/proto/scg/partner/v1;partnerv1";
+
+message PartnerOnboardingInitiated {
+  proto.scg.shared.v1.EventEnvelope meta = 1 [json_name = "meta"];
+  proto.scg.partner.v1.Partner partner = 2 [json_name = "partner"];
+}
+
+message PartnerRegistered {
+  proto.scg.shared.v1.EventEnvelope meta = 1 [json_name = "meta"];
+  string partner_uuid = 2 [json_name = "partner_uuid"];
+}
+
+message PartnerVerified {
+  proto.scg.shared.v1.EventEnvelope meta = 1 [json_name = "meta"];
+  string partner_id = 2 [json_name = "partner_id"];
+  string verified_by = 3 [json_name = "verified_by"];
+}
+message PartnerSuspended {
+  proto.scg.shared.v1.EventEnvelope meta = 1 [json_name = "meta"];
+  string partner_id = 2 [json_name = "partner_id"];
+  string reason = 3 [json_name = "reason"];
+}
+message PartnerReinstated {
+  proto.scg.shared.v1.EventEnvelope meta = 1 [json_name = "meta"];
+  string partner_id = 2 [json_name = "partner_id"];
+  string reinstated_by = 3 [json_name = "reinstated_by"];
+}
+message PartnerBlacklisted {
+  proto.scg.shared.v1.EventEnvelope meta = 1 [json_name = "meta"];
+  string partner_id = 2 [json_name = "partner_id"];
+  string reason = 3 [json_name = "reason"];
+}
+
+message PartnerUpdated {
+  proto.scg.shared.v1.EventEnvelope meta = 1 [json_name = "meta"];
+  string partner_uuid = 2 [json_name = "partner_uuid"];
+}
+
+message PartnerStatusChanged {
+  proto.scg.shared.v1.EventEnvelope meta = 1 [json_name = "meta"];
+  string partner_uuid = 2 [json_name = "partner_uuid"];
+  proto.scg.partner.v1.PartnerStatus old_status = 3 [json_name = "old_status"];
+  scg.partner.v1.PartnerStatus new_status = 4 [json_name = "new_status"];
+}
+
+message PartnerVettingStarted {
+  scg.shared.v1.EventEnvelope meta = 1 [json_name = "meta"];
+  string partner_uuid = 2 [json_name = "partner_uuid"];
+}
+message PartnerApproved {
+  scg.shared.v1.EventEnvelope meta = 1 [json_name = "meta"];
+  string partner_uuid = 2 [json_name = "partner_uuid"];
+}
+message PartnerRejected {
+  scg.shared.v1.EventEnvelope meta = 1 [json_name = "meta"];
+  string partner_uuid = 2 [json_name = "partner_uuid"];
+  string reason = 3 [json_name = "reason"];
+}
+message PartnerSuspendedByUuid {
+  scg.shared.v1.EventEnvelope meta = 1 [json_name = "meta"];
+  string partner_uuid = 2 [json_name = "partner_uuid"];
+  string reason = 3 [json_name = "reason"];
+}
+message PartnerDeactivated {
+  scg.shared.v1.EventEnvelope meta = 1 [json_name = "meta"];
+  string partner_uuid = 2 [json_name = "partner_uuid"];
+}

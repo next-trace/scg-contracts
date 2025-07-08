@@ -1,0 +1,13 @@
+syntax = "proto3";
+package proto.scg.custody.v1;
+option go_package = "github.com/next-trace/scg-contracts/gen/go/proto/scg/custody/v1;custodyv1";
+
+import "proto/scg/custody/v1/enums.proto";
+import "google/protobuf/timestamp.proto";
+
+message Custody {
+  string unit_uuid = 1 [json_name = "unit_uuid"];
+  string partner_uuid = 2 [json_name = "partner_uuid"];
+  proto.scg.custody.v1.CustodyStatus status = 3 [json_name = "status"];
+  google.protobuf.Timestamp since = 4 [json_name = "since"];
+}

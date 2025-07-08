@@ -1,0 +1,15 @@
+syntax = "proto3";
+package proto.scg.consignment.v1;
+option go_package = "github.com/next-trace/scg-contracts/gen/go/proto/scg/consignment/v1;consignmentv1";
+
+enum ConsignmentState {
+  CONSIGNMENT_STATE_UNSPECIFIED = 0;
+  CONSIGNMENT_STATE_DRAFT = 1;
+  CONSIGNMENT_STATE_FINALIZED = 2;
+  CONSIGNMENT_STATE_SHIPPED = 3;
+  CONSIGNMENT_STATE_DELAYED = 4;
+  CONSIGNMENT_STATE_ARRIVED = 5;
+  CONSIGNMENT_STATE_PARTIALLY_RECEIVED = 6;
+  CONSIGNMENT_STATE_RECEIVED = 7;
+  CONSIGNMENT_STATE_CLOSED = 8;
+}

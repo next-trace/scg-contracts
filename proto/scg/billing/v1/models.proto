@@ -1,0 +1,96 @@
+syntax = "proto3";
+package proto.scg.billing.v1;
+import "google/protobuf/timestamp.proto";
+option go_package = "github.com/next-trace/scg-contracts/gen/go/proto/scg/billing/v1;billingv1";
+
+message Invoice {
+  string invoice_uuid = 1 [json_name = "invoice_uuid"];
+  string customer_uuid = 2 [json_name = "customer_uuid"];
+  string invoice_number = 3 [json_name = "invoice_number"];
+  string description = 4 [json_name = "description"];
+  double subtotal = 5 [json_name = "subtotal"];
+  double tax_amount = 6 [json_name = "tax_amount"];
+  double discount_amount = 7 [json_name = "discount_amount"];
+  double total_amount = 8 [json_name = "total_amount"];
+  string status = 9 [json_name = "status"]; // Values from InvoiceStatus enum
+  google.protobuf.Timestamp issue_date = 10 [json_name = "issue_date"];
+  google.protobuf.Timestamp due_date = 11 [json_name = "due_date"];
+  google.protobuf.Timestamp created_at = 12 [json_name = "created_at"];
+  google.protobuf.Timestamp updated_at = 13 [json_name = "updated_at"];
+  repeated InvoiceLineItem line_items = 14 [json_name = "line_items"];
+  repeated Payment payments = 15 [json_name = "payments"];
+}
+
+message InvoiceLineItem {
+  string line_item_uuid = 1 [json_name = "line_item_uuid"];
+  string invoice_uuid = 2 [json_name = "invoice_uuid"];
+  string description = 3 [json_name = "description"];
+  string item_reference_uuid = 4 [json_name = "item_reference_uuid"];
+  string item_reference_type = 5 [json_name = "item_reference_type"];
+  double quantity = 6 [json_name = "quantity"];
+  double unit_price = 7 [json_name = "unit_price"];
+  double tax_rate = 8 [json_name = "tax_rate"];
+  double tax_amount = 9 [json_name = "tax_amount"];
+  double discount_amount = 10 [json_name = "discount_amount"];
+  double total_amount = 11 [json_name = "total_amount"];
+}
+
+message Payment {
+  string payment_uuid = 1 [json_name = "payment_uuid"];
+  string invoice_uuid = 2 [json_name = "invoice_uuid"];
+  double amount = 3 [json_name = "amount"];
+  string payment_method = 4 [json_name = "payment_method"]; // Values from PaymentMethod enum
+  string status = 5 [json_name = "status"]; // Values from PaymentStatus enum
+  string transaction_reference = 6 [json_name = "transaction_reference"];
+  string notes = 7 [json_name = "notes"];
+  google.protobuf.Timestamp payment_date = 8 [json_name = "payment_date"];
+  google.protobuf.Timestamp created_at = 9 [json_name = "created_at"];
+  google.protobuf.Timestamp updated_at = 10 [json_name = "updated_at"];
+}
+
+message Refund {
+  string refund_uuid = 1 [json_name = "refund_uuid"];
+  string payment_uuid = 2 [json_name = "payment_uuid"];
+  double amount = 3 [json_name = "amount"];
+  string reason = 4 [json_name = "reason"];
+  string issued_by_uuid = 5 [json_name = "issued_by_uuid"];
+  google.protobuf.Timestamp refund_date = 6 [json_name = "refund_date"];
+  google.protobuf.Timestamp created_at = 7 [json_name = "created_at"];
+}
+
+message Discount {
+  string discount_uuid = 1 [json_name = "discount_uuid"];
+  string name = 2 [json_name = "name"];
+  string description = 3 [json_name = "description"];
+  string discount_type = 4 [json_name = "discount_type"]; // Values from DiscountType enum
+  double percentage = 5 [json_name = "percentage"];
+  double fixed_amount = 6 [json_name = "fixed_amount"];
+  google.protobuf.Timestamp valid_from = 7 [json_name = "valid_from"];
+  google.protobuf.Timestamp valid_to = 8 [json_name = "valid_to"];
+  bool is_active = 9 [json_name = "is_active"];
+  google.protobuf.Timestamp created_at = 10 [json_name = "created_at"];
+  google.protobuf.Timestamp updated_at = 11 [json_name = "updated_at"];
+}
+
+message BillingCycleInfo {
+  string cycle_uuid = 1 [json_name = "cycle_uuid"];
+  string customer_uuid = 2 [json_name = "customer_uuid"];
+  string cycle_type = 3 [json_name = "cycle_type"]; // Values from BillingCycle enum
+  google.protobuf.Timestamp start_date = 4 [json_name = "start_date"];
+  google.protobuf.Timestamp end_date = 5 [json_name = "end_date"];
+  bool is_active = 6 [json_name = "is_active"];
+  google.protobuf.Timestamp created_at = 7 [json_name = "created_at"];
+  google.protobuf.Timestamp updated_at = 8 [json_name = "updated_at"];
+}
+
+message TaxRate {
+  string tax_rate_uuid = 1 [json_name = "tax_rate_uuid"];
+  string name = 2 [json_name = "name"];
+  string description = 3 [json_name = "description"];
+  string tax_type = 4 [json_name = "tax_type"]; // Values from TaxType enum
+  double rate = 5 [json_name = "rate"];
+  string region = 6 [json_name = "region"];
+  bool is_active = 7 [json_name = "is_active"];
+  google.protobuf.Timestamp created_at = 8 [json_name = "created_at"];
+  google.protobuf.Timestamp updated_at = 9 [json_name = "updated_at"];
+}

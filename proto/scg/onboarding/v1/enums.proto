@@ -1,0 +1,74 @@
+syntax = "proto3";
+package proto.scg.onboarding.v1;
+option go_package = "github.com/next-trace/scg-contracts/gen/go/proto/scg/onboarding/v1;onboardingv1";
+
+// OnboardingStatus represents the status of an onboarding process
+enum OnboardingStatus {
+  ONBOARDING_STATUS_UNSPECIFIED = 0;
+  ONBOARDING_STATUS_INITIATED = 1;       // Onboarding process has been initiated
+  ONBOARDING_STATUS_IN_PROGRESS = 2;     // Onboarding is in progress
+  ONBOARDING_STATUS_PENDING_REVIEW = 3;  // Onboarding is pending review
+  ONBOARDING_STATUS_APPROVED = 4;        // Onboarding has been approved
+  ONBOARDING_STATUS_REJECTED = 5;        // Onboarding has been rejected
+  ONBOARDING_STATUS_COMPLETED = 6;       // Onboarding has been completed
+  ONBOARDING_STATUS_CANCELLED = 7;       // Onboarding has been cancelled
+}
+
+// VerificationType represents different types of verification
+enum VerificationType {
+  VERIFICATION_TYPE_UNSPECIFIED = 0;
+  VERIFICATION_TYPE_EMAIL = 1;           // Email verification
+  VERIFICATION_TYPE_PHONE = 2;           // Phone verification
+  VERIFICATION_TYPE_DOCUMENT = 3;        // Document verification
+  VERIFICATION_TYPE_IDENTITY = 4;        // Identity verification
+  VERIFICATION_TYPE_ADDRESS = 5;         // Address verification
+  VERIFICATION_TYPE_BUSINESS = 6;        // Business verification
+}
+
+// DocumentType represents different types of documents
+enum DocumentType {
+  DOCUMENT_TYPE_UNSPECIFIED = 0;
+  DOCUMENT_TYPE_ID_CARD = 1;             // ID card
+  DOCUMENT_TYPE_PASSPORT = 2;            // Passport
+  DOCUMENT_TYPE_DRIVERS_LICENSE = 3;     // Driver's license
+  DOCUMENT_TYPE_BUSINESS_LICENSE = 4;    // Business license
+  DOCUMENT_TYPE_TAX_ID = 5;              // Tax ID
+  DOCUMENT_TYPE_UTILITY_BILL = 6;        // Utility bill
+  DOCUMENT_TYPE_BANK_STATEMENT = 7;      // Bank statement
+  DOCUMENT_TYPE_CERTIFICATE = 8;         // Certificate
+  DOCUMENT_TYPE_OTHER = 9;               // Other document type
+}
+
+// DocumentStatus represents the status of a document
+enum DocumentStatus {
+  DOCUMENT_STATUS_UNSPECIFIED = 0;
+  DOCUMENT_STATUS_PENDING = 1;           // Document is pending review
+  DOCUMENT_STATUS_APPROVED = 2;          // Document has been approved
+  DOCUMENT_STATUS_REJECTED = 3;          // Document has been rejected
+  DOCUMENT_STATUS_EXPIRED = 4;           // Document has expired
+  DOCUMENT_STATUS_REQUIRES_UPDATE = 5;   // Document requires update
+}
+
+// OnboardingStepType represents different types of onboarding steps
+enum OnboardingStepType {
+  ONBOARDING_STEP_TYPE_UNSPECIFIED = 0;
+  ONBOARDING_STEP_TYPE_REGISTRATION = 1;     // Registration step
+  ONBOARDING_STEP_TYPE_VERIFICATION = 2;     // Verification step
+  ONBOARDING_STEP_TYPE_DOCUMENTATION = 3;    // Documentation step
+  ONBOARDING_STEP_TYPE_TRAINING = 4;         // Training step
+  ONBOARDING_STEP_TYPE_INTEGRATION = 5;      // Integration step
+  ONBOARDING_STEP_TYPE_CONFIGURATION = 6;    // Configuration step
+  ONBOARDING_STEP_TYPE_APPROVAL = 7;         // Approval step
+  ONBOARDING_STEP_TYPE_ACTIVATION = 8;       // Activation step
+}
+
+// OnboardingStepStatus represents the status of an onboarding step
+enum OnboardingStepStatus {
+  ONBOARDING_STEP_STATUS_UNSPECIFIED = 0;
+  ONBOARDING_STEP_STATUS_NOT_STARTED = 1;    // Step has not been started
+  ONBOARDING_STEP_STATUS_IN_PROGRESS = 2;    // Step is in progress
+  ONBOARDING_STEP_STATUS_COMPLETED = 3;      // Step has been completed
+  ONBOARDING_STEP_STATUS_SKIPPED = 4;        // Step has been skipped
+  ONBOARDING_STEP_STATUS_FAILED = 5;         // Step has failed
+  ONBOARDING_STEP_STATUS_PENDING = 6;        // Step is pending
+}

@@ -1,0 +1,73 @@
+syntax = "proto3";
+package proto.scg.billing.v1;
+option go_package = "github.com/next-trace/scg-contracts/gen/go/proto/scg/billing/v1;billingv1";
+
+// InvoiceStatus represents the status of an invoice
+enum InvoiceStatus {
+  INVOICE_STATUS_UNSPECIFIED = 0;
+  INVOICE_STATUS_DRAFT = 1;           // Invoice is in draft state
+  INVOICE_STATUS_ISSUED = 2;          // Invoice has been issued to the customer
+  INVOICE_STATUS_PAID = 3;            // Invoice has been paid in full
+  INVOICE_STATUS_PARTIALLY_PAID = 4;  // Invoice has been partially paid
+  INVOICE_STATUS_OVERDUE = 5;         // Invoice is past due date
+  INVOICE_STATUS_CANCELLED = 6;       // Invoice has been cancelled
+  INVOICE_STATUS_VOID = 7;            // Invoice has been voided
+}
+
+// PaymentStatus represents the status of a payment
+enum PaymentStatus {
+  PAYMENT_STATUS_UNSPECIFIED = 0;
+  PAYMENT_STATUS_PENDING = 1;         // Payment is pending processing
+  PAYMENT_STATUS_PROCESSING = 2;      // Payment is being processed
+  PAYMENT_STATUS_COMPLETED = 3;       // Payment has been completed successfully
+  PAYMENT_STATUS_FAILED = 4;          // Payment has failed
+  PAYMENT_STATUS_REFUNDED = 5;        // Payment has been refunded
+  PAYMENT_STATUS_PARTIALLY_REFUNDED = 6; // Payment has been partially refunded
+  PAYMENT_STATUS_CANCELLED = 7;       // Payment has been cancelled
+}
+
+// PaymentMethod represents different methods of payment
+enum PaymentMethod {
+  PAYMENT_METHOD_UNSPECIFIED = 0;
+  PAYMENT_METHOD_CREDIT_CARD = 1;     // Credit card payment
+  PAYMENT_METHOD_BANK_TRANSFER = 2;   // Bank transfer payment
+  PAYMENT_METHOD_DIGITAL_WALLET = 3;  // Digital wallet payment (e.g., PayPal)
+  PAYMENT_METHOD_CHECK = 4;           // Check payment
+  PAYMENT_METHOD_CASH = 5;            // Cash payment
+  PAYMENT_METHOD_CRYPTO = 6;          // Cryptocurrency payment
+  PAYMENT_METHOD_CREDIT = 7;          // Payment using account credit
+}
+
+// BillingCycle represents different billing cycle periods
+enum BillingCycle {
+  BILLING_CYCLE_UNSPECIFIED = 0;
+  BILLING_CYCLE_DAILY = 1;            // Daily billing
+  BILLING_CYCLE_WEEKLY = 2;           // Weekly billing
+  BILLING_CYCLE_BIWEEKLY = 3;         // Bi-weekly billing
+  BILLING_CYCLE_MONTHLY = 4;          // Monthly billing
+  BILLING_CYCLE_QUARTERLY = 5;        // Quarterly billing
+  BILLING_CYCLE_SEMIANNUAL = 6;       // Semi-annual billing
+  BILLING_CYCLE_ANNUAL = 7;           // Annual billing
+  BILLING_CYCLE_CUSTOM = 8;           // Custom billing cycle
+}
+
+// DiscountType represents different types of discounts
+enum DiscountType {
+  DISCOUNT_TYPE_UNSPECIFIED = 0;
+  DISCOUNT_TYPE_PERCENTAGE = 1;       // Percentage-based discount
+  DISCOUNT_TYPE_FIXED_AMOUNT = 2;     // Fixed amount discount
+  DISCOUNT_TYPE_FREE_ITEM = 3;        // Free item discount
+  DISCOUNT_TYPE_VOLUME = 4;           // Volume-based discount
+  DISCOUNT_TYPE_LOYALTY = 5;          // Loyalty program discount
+}
+
+// TaxType represents different types of taxes
+enum TaxType {
+  TAX_TYPE_UNSPECIFIED = 0;
+  TAX_TYPE_SALES_TAX = 1;             // Sales tax
+  TAX_TYPE_VAT = 2;                   // Value Added Tax
+  TAX_TYPE_GST = 3;                   // Goods and Services Tax
+  TAX_TYPE_EXCISE = 4;                // Excise tax
+  TAX_TYPE_CUSTOMS = 5;               // Customs duty
+  TAX_TYPE_WITHHOLDING = 6;           // Withholding tax
+}

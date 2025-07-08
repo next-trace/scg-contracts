@@ -1,0 +1,37 @@
+syntax = "proto3";
+package proto.scg.compliance.v1;
+import "google/protobuf/timestamp.proto";
+import "proto/scg/shared/v1/events.proto";
+option go_package = "github.com/next-trace/scg-contracts/gen/go/proto/scg/compliance/v1;compliancev1";
+
+message ComplianceCheckStarted {
+  proto.scg.shared.v1.EventEnvelope meta = 1 [json_name = "meta"];
+  string compliance_uuid = 2 [json_name = "compliance_uuid"];
+  string entity_uuid = 3 [json_name = "entity_uuid"];
+  string entity_type = 4; // "unit", "consignment", etc.
+  string check_type = 5; // e.g., "LkSG", "ESG", etc.
+}
+message ComplianceCheckPassed {
+  proto.scg.shared.v1.EventEnvelope meta = 1 [json_name = "meta"];
+  string compliance_uuid = 2 [json_name = "compliance_uuid"];
+  string entity_uuid = 3 [json_name = "entity_uuid"];
+  string checker = 4 [json_name = "checker"];
+  google.protobuf.Timestamp passed_at = 5 [json_name = "passed_at"];
+}
+message ComplianceCheckFailed {
+  proto.scg.shared.v1.EventEnvelope meta = 1 [json_name = "meta"];
+  string compliance_uuid = 2 [json_name = "compliance_uuid"];
+  string entity_uuid = 3 [json_name = "entity_uuid"];
+  string checker = 4 [json_name = "checker"];
+  string reason = 5 [json_name = "reason"];
+  google.protobuf.Timestamp failed_at = 6 [json_name = "failed_at"];
+}
+message RiskAlertRaised {
+  proto.scg.shared.v1.EventEnvelope meta = 1 [json_name = "meta"];
+  string compliance_alert_uuid = 2 [json_name = "compliance_alert_uuid"];
+  string entity_uuid = 3 [json_name = "entity_uuid"];
+  string alert_type = 4 [json_name = "alert_type"];
+  string severity = 5 [json_name = "severity"];
+  string description = 6 [json_name = "description"];
+  google.protobuf.Timestamp raised_at = 7 [json_name = "raised_at"];
+}

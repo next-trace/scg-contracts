@@ -1,0 +1,121 @@
+syntax = "proto3";
+
+package proto.scg.user.v1;
+
+import "proto/scg/shared/v1/events.proto";
+
+option go_package = "github.com/next-trace/scg-contracts/gen/go/proto/scg/user/v1;userv1";
+
+message UserInvited {
+  proto.scg.shared.v1.EventEnvelope meta = 1 [json_name = "meta"];
+  string uuid = 2 [json_name = "uuid"];
+  string org_uuid = 3 [json_name = "org_uuid"];
+  string invited_by = 4 [json_name = "invited_by"];
+  string invite_token = 5 [json_name = "invite_token"];
+}
+
+message UserRegistered {
+  proto.scg.shared.v1.EventEnvelope meta = 1 [json_name = "meta"];
+  string uuid = 2 [json_name = "uuid"];
+  string org_uuid = 3 [json_name = "org_uuid"];
+  string registration_method = 4 [json_name = "registration_method"];
+}
+
+message UserEmailConfirmed {
+  proto.scg.shared.v1.EventEnvelope meta = 1 [json_name = "meta"];
+  string uuid = 2 [json_name = "uuid"];
+  string org_uuid = 3 [json_name = "org_uuid"];
+}
+
+message UserVerified {
+  proto.scg.shared.v1.EventEnvelope meta = 1 [json_name = "meta"];
+  string uuid = 2 [json_name = "uuid"];
+  string org_uuid = 3 [json_name = "org_uuid"];
+  string verified_by = 4 [json_name = "verified_by"];
+}
+
+message UserPendingApproval {
+  proto.scg.shared.v1.EventEnvelope meta = 1 [json_name = "meta"];
+  string uuid = 2 [json_name = "uuid"];
+  string org_uuid = 3 [json_name = "org_uuid"];
+  string approver = 4 [json_name = "approver"];
+}
+
+message UserApproved {
+  proto.scg.shared.v1.EventEnvelope meta = 1 [json_name = "meta"];
+  string uuid = 2 [json_name = "uuid"];
+  string org_uuid = 3 [json_name = "org_uuid"];
+  string approved_by = 4 [json_name = "approved_by"];
+}
+
+message UserActivated {
+  proto.scg.shared.v1.EventEnvelope meta = 1 [json_name = "meta"];
+  string uuid = 2 [json_name = "uuid"];
+  string org_uuid = 3 [json_name = "org_uuid"];
+  string activated_by = 4 [json_name = "activated_by"];
+}
+
+message UserSuspended {
+  proto.scg.shared.v1.EventEnvelope meta = 1 [json_name = "meta"];
+  string uuid = 2 [json_name = "uuid"];
+  string org_uuid = 3 [json_name = "org_uuid"];
+  string reason = 4 [json_name = "reason"];
+}
+
+message UserLocked {
+  proto.scg.shared.v1.EventEnvelope meta = 1 [json_name = "meta"];
+  string uuid = 2 [json_name = "uuid"];
+  string org_uuid = 3 [json_name = "org_uuid"];
+  string reason = 4 [json_name = "reason"];
+}
+
+message UserDisabled {
+  proto.scg.shared.v1.EventEnvelope meta = 1 [json_name = "meta"];
+  string uuid = 2 [json_name = "uuid"];
+  string org_uuid = 3 [json_name = "org_uuid"];
+  string disabled_by = 4 [json_name = "disabled_by"];
+}
+
+message UserArchived {
+  scg.shared.v1.EventEnvelope meta = 1 [json_name = "meta"];
+  string uuid = 2 [json_name = "uuid"];
+  string org_uuid = 3 [json_name = "org_uuid"];
+  string reason = 4 [json_name = "reason"];
+}
+
+message UserRoleAssigned {
+  scg.shared.v1.EventEnvelope meta = 1 [json_name = "meta"];
+  string uuid = 2 [json_name = "uuid"];
+  string org_uuid = 3 [json_name = "org_uuid"];
+  string role = 4 [json_name = "role"];
+  string assigned_by = 5 [json_name = "assigned_by"];
+}
+
+message UserRoleChanged {
+  scg.shared.v1.EventEnvelope meta = 1 [json_name = "meta"];
+  string uuid = 2 [json_name = "uuid"];
+  string org_uuid = 3 [json_name = "org_uuid"];
+  string old_role = 4 [json_name = "old_role"];
+  string new_role = 5 [json_name = "new_role"];
+  string changed_by = 6 [json_name = "changed_by"];
+}
+
+// --- ORG EVENTS ---
+message OrganizationCreated {
+  scg.shared.v1.EventEnvelope meta = 1 [json_name = "meta"];
+  string org_uuid = 2 [json_name = "org_uuid"];
+  string name = 3 [json_name = "name"];
+  string type = 4 [json_name = "type"];
+}
+
+message OrganizationSuspended {
+  scg.shared.v1.EventEnvelope meta = 1 [json_name = "meta"];
+  string org_uuid = 2 [json_name = "org_uuid"];
+  string reason = 3 [json_name = "reason"];
+}
+
+message OrganizationReactivated {
+  scg.shared.v1.EventEnvelope meta = 1 [json_name = "meta"];
+  string org_uuid = 2 [json_name = "org_uuid"];
+  string reactivated_by = 3 [json_name = "reactivated_by"];
+}

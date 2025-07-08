@@ -1,0 +1,55 @@
+syntax = "proto3";
+package proto.scg.inventory.v1;
+import "google/protobuf/timestamp.proto";
+import "proto/scg/inventory/v1/enums.proto";
+option go_package = "github.com/next-trace/scg-contracts/gen/go/proto/scg/inventory/v1;inventoryv1";
+
+message InventoryItem {
+  string item_uuid = 1 [json_name = "item_uuid"];
+  string unit_uuid = 2 [json_name = "unit_uuid"];
+  string sku = 3 [json_name = "sku"];
+  string name = 4 [json_name = "name"];
+  string description = 5 [json_name = "description"];
+  int32 quantity = 6 [json_name = "quantity"];
+  string location_uuid = 7 [json_name = "location_uuid"];
+  proto.scg.inventory.v1.InventoryItemStatus status = 8 [json_name = "status"];
+  map<string, string> attributes = 9 [json_name = "attributes"];
+  google.protobuf.Timestamp created_at = 10 [json_name = "created_at"];
+  google.protobuf.Timestamp updated_at = 11 [json_name = "updated_at"];
+}
+
+message InventoryTransaction {
+  string transaction_uuid = 1 [json_name = "transaction_uuid"];
+  string item_uuid = 2 [json_name = "item_uuid"];
+  proto.scg.inventory.v1.InventoryTransactionType transaction_type = 3 [json_name = "transaction_type"];
+  int32 quantity = 4 [json_name = "quantity"];
+  string source_location_uuid = 5 [json_name = "source_location_uuid"];
+  string destination_location_uuid = 6 [json_name = "destination_location_uuid"];
+  string reference_uuid = 7 [json_name = "reference_uuid"]; // Could be order_uuid, consignment_uuid, etc.
+  string reference_type = 8 [json_name = "reference_type"]; // "order", "consignment", etc.
+  string performed_by_uuid = 9 [json_name = "performed_by_uuid"];
+  google.protobuf.Timestamp transaction_time = 10 [json_name = "transaction_time"];
+  map<string, string> metadata = 11 [json_name = "metadata"];
+}
+
+message InventoryAdjustment {
+  string adjustment_uuid = 1 [json_name = "adjustment_uuid"];
+  string item_uuid = 2 [json_name = "item_uuid"];
+  int32 quantity_change = 3 [json_name = "quantity_change"]; // Positive for increase, negative for decrease
+  proto.scg.inventory.v1.InventoryAdjustmentReason reason = 4 [json_name = "reason"];
+  string notes = 5 [json_name = "notes"];
+  string performed_by_uuid = 6 [json_name = "performed_by_uuid"];
+  google.protobuf.Timestamp adjustment_time = 7 [json_name = "adjustment_time"];
+}
+
+message InventoryReservation {
+  string reservation_uuid = 1 [json_name = "reservation_uuid"];
+  string item_uuid = 2 [json_name = "item_uuid"];
+  int32 quantity = 3 [json_name = "quantity"];
+  string reserved_for_uuid = 4 [json_name = "reserved_for_uuid"]; // Could be order_uuid, consignment_uuid, etc.
+  string reserved_for_type = 5 [json_name = "reserved_for_type"]; // "order", "consignment", etc.
+  proto.scg.inventory.v1.InventoryReservationStatus status = 6 [json_name = "status"];
+  google.protobuf.Timestamp expires_at = 7 [json_name = "expires_at"];
+  google.protobuf.Timestamp created_at = 8 [json_name = "created_at"];
+  google.protobuf.Timestamp updated_at = 9 [json_name = "updated_at"];
+}

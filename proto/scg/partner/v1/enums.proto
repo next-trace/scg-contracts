@@ -1,0 +1,30 @@
+syntax = "proto3";
+
+package proto.scg.partner.v1;
+
+option go_package = "github.com/next-trace/scg-contracts/gen/go/proto/scg/partner/v1;partnerv1";
+
+enum OrgType {
+  ORG_TYPE_UNSPECIFIED = 0;
+  ORG_TYPE_SUPPLIER = 1;
+  ORG_TYPE_BUYER = 2;
+  ORG_TYPE_CARRIER = 3;
+  ORG_TYPE_AUDITOR = 4;
+  ORG_TYPE_WAREHOUSE = 5;
+  ORG_TYPE_CUSTOMS_BROKER = 6;
+  ORG_TYPE_PORT_OPERATOR = 7;
+  ORG_TYPE_INSPECTION_AGENCY = 8;
+  ORG_TYPE_TECHNOLOGY_PROVIDER = 9;
+  ORG_TYPE_FINANCIER = 10;
+  ORG_TYPE_RETAILER = 11;
+  ORG_TYPE_MANUFACTURER = 12;
+  ORG_TYPE_REGULATOR = 13;
+}
+
+enum PartnerStatus {
+  PARTNER_STATUS_UNSPECIFIED = 0;
+  PARTNER_STATUS_ACTIVE = 1;
+  PARTNER_STATUS_SUSPENDED = 2;
+  PARTNER_STATUS_BLACKLISTED = 3;
+  PARTNER_STATUS_OBSOLETE = 4;
+}

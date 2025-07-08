@@ -1,0 +1,166 @@
+syntax = "proto3";
+package proto.scg.risk.v1;
+import "google/protobuf/timestamp.proto";
+import "proto/scg/risk/v1/enums.proto";
+option go_package = "github.com/next-trace/scg-contracts/gen/go/proto/scg/risk/v1;riskv1";
+
+// Risk represents a supply chain risk
+message Risk {
+  string uuid = 1 [json_name = "uuid"];
+  string name = 2 [json_name = "name"];
+  string description = 3 [json_name = "description"];
+  proto.scg.risk.v1.RiskCategory category = 4 [json_name = "category"];
+  proto.scg.risk.v1.RiskSeverity severity = 5 [json_name = "severity"];
+  proto.scg.risk.v1.RiskProbability probability = 6 [json_name = "probability"];
+  proto.scg.risk.v1.RiskStatus status = 7 [json_name = "status"];
+  repeated proto.scg.risk.v1.RiskImpactType impact_types = 8 [json_name = "impact_types"];
+  
+  // The entity this risk is associated with (could be a partner, consignment, unit, etc.)
+  string entity_type = 9 [json_name = "entity_type"];  // "partner", "consignment", "unit", etc.
+  string entity_uuid = 10 [json_name = "entity_uuid"];
+  
+  // Risk scoring
+  double risk_score = 11 [json_name = "risk_score"];  // Calculated risk score (severity * probability)
+  proto.scg.risk.v1.RiskAssessmentMethod assessment_method = 12 [json_name = "assessment_method"];
+  
+  // Ownership and tracking
+  string owner_uuid = 13 [json_name = "owner_uuid"];  // User responsible for managing this risk
+  google.protobuf.Timestamp identified_at = 14 [json_name = "identified_at"];
+  google.protobuf.Timestamp last_assessed_at = 15 [json_name = "last_assessed_at"];
+  google.protobuf.Timestamp next_review_date = 16 [json_name = "next_review_date"];
+  google.protobuf.Timestamp created_at = 17 [json_name = "created_at"];
+  google.protobuf.Timestamp updated_at = 18 [json_name = "updated_at"];
+}
+
+// RiskMitigationPlan represents a plan to mitigate a risk
+message RiskMitigationPlan {
+  string uuid = 1 [json_name = "uuid"];
+  string risk_uuid = 2 [json_name = "risk_uuid"];
+  string name = 3 [json_name = "name"];
+  string description = 4 [json_name = "description"];
+  proto.scg.risk.v1.MitigationStatus status = 5 [json_name = "status"];
+  
+  // Timeline
+  google.protobuf.Timestamp start_date = 6 [json_name = "start_date"];
+  google.protobuf.Timestamp target_completion_date = 7 [json_name = "target_completion_date"];
+  google.protobuf.Timestamp actual_completion_date = 8 [json_name = "actual_completion_date"];
+  
+  // Ownership and tracking
+  string owner_uuid = 9 [json_name = "owner_uuid"];
+  repeated string stakeholder_uuids = 10 [json_name = "stakeholder_uuids"];
+  double estimated_cost = 11 [json_name = "estimated_cost"];
+  string cost_currency = 12 [json_name = "cost_currency"];
+  int32 completion_percentage = 13 [json_name = "completion_percentage"];
+  repeated RiskMitigationAction actions = 14 [json_name = "actions"];
+  google.protobuf.Timestamp created_at = 15 [json_name = "created_at"];
+  google.protobuf.Timestamp updated_at = 16 [json_name = "updated_at"];
+}
+
+// RiskMitigationAction represents a specific action within a risk mitigation plan
+message RiskMitigationAction {
+  string uuid = 1 [json_name = "uuid"];
+  string mitigation_plan_uuid = 2 [json_name = "mitigation_plan_uuid"];
+  string description = 3 [json_name = "description"];
+  string status = 4 [json_name = "status"];  // "pending", "in_progress", "completed", "blocked"
+  string owner_uuid = 5 [json_name = "owner_uuid"];
+  google.protobuf.Timestamp due_date = 6 [json_name = "due_date"];
+  google.protobuf.Timestamp completed_at = 7 [json_name = "completed_at"];
+  string notes = 8 [json_name = "notes"];
+  google.protobuf.Timestamp created_at = 9 [json_name = "created_at"];
+  google.protobuf.Timestamp updated_at = 10 [json_name = "updated_at"];
+}
+
+// RiskIncident represents a materialized risk that has become an incident
+message RiskIncident {
+  string uuid = 1 [json_name = "uuid"];
+  string risk_uuid = 2 [json_name = "risk_uuid"];  // Reference to the original risk
+  string title = 3 [json_name = "title"];
+  string description = 4 [json_name = "description"];
+  proto.scg.risk.v1.RiskSeverity actual_severity = 5 [json_name = "actual_severity"];
+  repeated proto.scg.risk.v1.RiskImpactType actual_impact_types = 6 [json_name = "actual_impact_types"];
+  
+  // Impact details
+  string impact_description = 7 [json_name = "impact_description"];
+  double financial_impact = 8 [json_name = "financial_impact"];
+  string financial_impact_currency = 9 [json_name = "financial_impact_currency"];
+  
+  // Timeline
+  google.protobuf.Timestamp occurred_at = 10 [json_name = "occurred_at"];
+  google.protobuf.Timestamp detected_at = 11 [json_name = "detected_at"];
+  google.protobuf.Timestamp resolved_at = 12 [json_name = "resolved_at"];
+  
+  // Status and tracking
+  string status = 13 [json_name = "status"];  // "active", "investigating", "mitigating", "resolved", "closed"
+  string owner_uuid = 14 [json_name = "owner_uuid"];
+  repeated string affected_entity_uuids = 15 [json_name = "affected_entity_uuids"];
+  string resolution_summary = 16 [json_name = "resolution_summary"];
+  string lessons_learned = 17 [json_name = "lessons_learned"];
+  google.protobuf.Timestamp created_at = 18 [json_name = "created_at"];
+  google.protobuf.Timestamp updated_at = 19 [json_name = "updated_at"];
+}
+
+// RiskAssessment represents a formal assessment of risks
+message RiskAssessment {
+  string uuid = 1 [json_name = "uuid"];
+  string name = 2 [json_name = "name"];
+  string description = 3 [json_name = "description"];
+  proto.scg.risk.v1.RiskAssessmentMethod method = 4 [json_name = "method"];
+  
+  // Scope
+  string scope_type = 5 [json_name = "scope_type"];  // "partner", "region", "product_line", "global"
+  string scope_uuid = 6 [json_name = "scope_uuid"];  // UUID of the entity being assessed, if applicable
+  
+  // Timeline
+  google.protobuf.Timestamp assessment_date = 7 [json_name = "assessment_date"];
+  google.protobuf.Timestamp next_assessment_date = 8 [json_name = "next_assessment_date"];
+  
+  // Results
+  repeated string identified_risk_uuids = 9 [json_name = "identified_risk_uuids"];
+  string summary = 10 [json_name = "summary"];
+  string recommendations = 11 [json_name = "recommendations"];
+  
+  // Ownership and tracking
+  string conducted_by = 12 [json_name = "conducted_by"];  // User UUID
+  string approved_by = 13 [json_name = "approved_by"];   // User UUID
+  google.protobuf.Timestamp created_at = 14 [json_name = "created_at"];
+  google.protobuf.Timestamp updated_at = 15 [json_name = "updated_at"];
+}
+
+// RiskMonitoringRule represents a rule for monitoring risks
+message RiskMonitoringRule {
+  string uuid = 1 [json_name = "uuid"];
+  string name = 2 [json_name = "name"];
+  string description = 3 [json_name = "description"];
+  
+  // Rule criteria
+  proto.scg.risk.v1.RiskCategory category = 4 [json_name = "category"];
+  proto.scg.risk.v1.RiskSeverity min_severity = 5 [json_name = "min_severity"];
+  proto.scg.risk.v1.RiskProbability min_probability = 6 [json_name = "min_probability"];
+  double min_risk_score = 7 [json_name = "min_risk_score"];
+  
+  // Monitoring parameters
+  int32 monitoring_frequency_days = 8 [json_name = "monitoring_frequency_days"];  // How often to check
+  bool active = 9 [json_name = "active"];
+  
+  // Actions
+  bool auto_escalate = 10 [json_name = "auto_escalate"];
+  repeated string notification_recipient_uuids = 11 [json_name = "notification_recipient_uuids"];
+  
+  google.protobuf.Timestamp created_at = 12 [json_name = "created_at"];
+  google.protobuf.Timestamp updated_at = 13 [json_name = "updated_at"];
+}
+
+// RiskKPI represents a Key Performance Indicator for risk management
+message RiskKPI {
+  string uuid = 1 [json_name = "uuid"];
+  string name = 2 [json_name = "name"];
+  string description = 3 [json_name = "description"];
+  string metric_type = 4 [json_name = "metric_type"];  // "count", "percentage", "score", etc.
+  double target_value = 5 [json_name = "target_value"];
+  double current_value = 6 [json_name = "current_value"];
+  double previous_value = 7 [json_name = "previous_value"];
+  google.protobuf.Timestamp measurement_date = 8 [json_name = "measurement_date"];
+  string status = 9 [json_name = "status"];  // "on_target", "at_risk", "off_target"
+  google.protobuf.Timestamp created_at = 10 [json_name = "created_at"];
+  google.protobuf.Timestamp updated_at = 11 [json_name = "updated_at"];
+}

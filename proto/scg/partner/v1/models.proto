@@ -1,0 +1,21 @@
+syntax = "proto3";
+
+package proto.scg.partner.v1;
+
+import "google/protobuf/timestamp.proto";
+import "proto/scg/partner/v1/enums.proto";
+import "proto/scg/shared/v1/types.proto";
+option go_package = "github.com/next-trace/scg-contracts/gen/go/proto/scg/partner/v1;partnerv1";
+
+message Partner {
+  string uuid = 1 [json_name = "uuid"];
+  string legal_name = 2 [json_name = "legal_name"];
+  OrgType org_type = 3 [json_name = "org_type"];
+  proto.scg.shared.v1.Address primary_address = 4 [json_name = "primary_address"];
+  string tax_id = 5 [json_name = "tax_id"];
+  string contact_email = 6 [json_name = "contact_email"];
+  string phone = 7 [json_name = "phone"];
+  string website = 8 [json_name = "website"];
+  proto.scg.partner.v1.PartnerStatus status = 9 [json_name = "status"];
+  google.protobuf.Timestamp onboarded_at = 10 [json_name = "onboarded_at"];
+}

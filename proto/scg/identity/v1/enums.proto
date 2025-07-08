@@ -1,0 +1,96 @@
+syntax = "proto3";
+package proto.scg.identity.v1;
+option go_package = "github.com/next-trace/scg-contracts/gen/go/proto/scg/identity/v1;identityv1";
+
+// AuthenticationMethod represents different methods of authentication
+enum AuthenticationMethod {
+  AUTHENTICATION_METHOD_UNSPECIFIED = 0;
+  AUTHENTICATION_METHOD_PASSWORD = 1;       // Standard password authentication
+  AUTHENTICATION_METHOD_SSO = 2;            // Single Sign-On
+  AUTHENTICATION_METHOD_OAUTH = 3;          // OAuth-based authentication
+  AUTHENTICATION_METHOD_CERTIFICATE = 4;    // Certificate-based authentication
+  AUTHENTICATION_METHOD_TOTP = 5;           // Time-based One-Time Password
+  AUTHENTICATION_METHOD_SMS = 6;            // SMS-based authentication
+  AUTHENTICATION_METHOD_HARDWARE_TOKEN = 7; // Hardware token authentication
+}
+
+// IdentityStatus represents the status of an identity
+enum IdentityStatus {
+  IDENTITY_STATUS_UNSPECIFIED = 0;
+  IDENTITY_STATUS_ACTIVE = 1;           // Identity is active
+  IDENTITY_STATUS_INACTIVE = 2;         // Identity is inactive
+  IDENTITY_STATUS_LOCKED = 3;           // Identity is locked due to security concerns
+  IDENTITY_STATUS_SUSPENDED = 4;        // Identity is temporarily suspended
+  IDENTITY_STATUS_PENDING_ACTIVATION = 5; // Identity is pending activation
+  IDENTITY_STATUS_DELETED = 6;          // Identity has been deleted
+}
+
+// PermissionType represents different types of permissions
+enum PermissionType {
+  PERMISSION_TYPE_UNSPECIFIED = 0;
+  PERMISSION_TYPE_READ = 1;             // Read-only access
+  PERMISSION_TYPE_WRITE = 2;            // Write access
+  PERMISSION_TYPE_DELETE = 3;           // Delete access
+  PERMISSION_TYPE_ADMIN = 4;            // Administrative access
+  PERMISSION_TYPE_EXECUTE = 5;          // Execute/run access
+}
+
+// ResourceType represents different types of resources that can be accessed
+enum ResourceType {
+  RESOURCE_TYPE_UNSPECIFIED = 0;
+  RESOURCE_TYPE_PARTNER = 1;            // Partner resources
+  RESOURCE_TYPE_CONSIGNMENT = 2;        // Consignment resources
+  RESOURCE_TYPE_UNIT = 3;               // Unit resources
+  RESOURCE_TYPE_WAREHOUSE = 4;          // Warehouse resources
+  RESOURCE_TYPE_INVENTORY = 5;          // Inventory resources
+  RESOURCE_TYPE_USER = 6;               // User resources
+  RESOURCE_TYPE_ORGANIZATION = 7;       // Organization resources
+  RESOURCE_TYPE_REPORT = 8;             // Report resources
+  RESOURCE_TYPE_DASHBOARD = 9;          // Dashboard resources
+  RESOURCE_TYPE_SYSTEM_SETTINGS = 10;   // System settings
+  RESOURCE_TYPE_AUDIT_LOG = 11;         // Audit logs
+}
+
+// AuthorizationScope represents the scope of authorization
+enum AuthorizationScope {
+  AUTHORIZATION_SCOPE_UNSPECIFIED = 0;
+  AUTHORIZATION_SCOPE_GLOBAL = 1;       // Global scope (all resources)
+  AUTHORIZATION_SCOPE_ORGANIZATION = 2; // Organization scope
+  AUTHORIZATION_SCOPE_PARTNER = 3;      // Partner scope
+  AUTHORIZATION_SCOPE_SELF = 4;         // Self scope (only own resources)
+}
+
+// MfaType represents different types of Multi-Factor Authentication
+enum MfaType {
+  MFA_TYPE_UNSPECIFIED = 0;
+  MFA_TYPE_NONE = 1;                    // No MFA
+  MFA_TYPE_TOTP = 2;                    // Time-based One-Time Password
+  MFA_TYPE_SMS = 3;                     // SMS-based verification
+  MFA_TYPE_EMAIL = 4;                   // Email-based verification
+  MFA_TYPE_HARDWARE_TOKEN = 5;          // Hardware token
+  MFA_TYPE_PUSH_NOTIFICATION = 6;       // Push notification to mobile device
+}
+
+// SessionStatus represents the status of a user session
+enum SessionStatus {
+  SESSION_STATUS_UNSPECIFIED = 0;
+  SESSION_STATUS_ACTIVE = 1;            // Session is active
+  SESSION_STATUS_EXPIRED = 2;           // Session has expired
+  SESSION_STATUS_TERMINATED = 3;        // Session was terminated by the user
+  SESSION_STATUS_REVOKED = 4;           // Session was revoked by an administrator
+}
+
+// AuditEventType represents different types of audit events
+enum AuditEventType {
+  AUDIT_EVENT_TYPE_UNSPECIFIED = 0;
+  AUDIT_EVENT_TYPE_LOGIN = 1;           // User login
+  AUDIT_EVENT_TYPE_LOGOUT = 2;          // User logout
+  AUDIT_EVENT_TYPE_PASSWORD_CHANGE = 3; // Password change
+  AUDIT_EVENT_TYPE_PROFILE_UPDATE = 4;  // Profile update
+  AUDIT_EVENT_TYPE_PERMISSION_CHANGE = 5; // Permission change
+  AUDIT_EVENT_TYPE_ROLE_ASSIGNMENT = 6; // Role assignment
+  AUDIT_EVENT_TYPE_RESOURCE_ACCESS = 7; // Resource access
+  AUDIT_EVENT_TYPE_RESOURCE_MODIFICATION = 8; // Resource modification
+  AUDIT_EVENT_TYPE_SYSTEM_CONFIGURATION = 9;  // System configuration change
+  AUDIT_EVENT_TYPE_MFA_CHANGE = 10;     // MFA configuration change
+}

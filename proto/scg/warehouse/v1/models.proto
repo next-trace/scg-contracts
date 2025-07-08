@@ -1,0 +1,69 @@
+syntax = "proto3";
+package proto.scg.warehouse.v1;
+import "google/protobuf/timestamp.proto";
+import "proto/scg/shared/v1/types.proto";
+import "proto/scg/warehouse/v1/enums.proto";
+option go_package = "github.com/next-trace/scg-contracts/gen/go/proto/scg/warehouse/v1;warehousev1";
+
+message Warehouse {
+  string warehouse_uuid = 1 [json_name = "warehouse_uuid"];
+  string name = 2 [json_name = "name"];
+  string code = 3 [json_name = "code"];
+  proto.scg.shared.v1.Address address = 4 [json_name = "address"];
+  string partner_uuid = 5 [json_name = "partner_uuid"]; // Owner/operator of the warehouse
+  WarehouseType type = 6 [json_name = "type"];
+  WarehouseStatus status = 7 [json_name = "status"];
+  map<string, string> attributes = 8 [json_name = "attributes"];
+  google.protobuf.Timestamp created_at = 9 [json_name = "created_at"];
+  google.protobuf.Timestamp updated_at = 10 [json_name = "updated_at"];
+}
+
+message WarehouseZone {
+  string zone_uuid = 1 [json_name = "zone_uuid"];
+  string warehouse_uuid = 2 [json_name = "warehouse_uuid"];
+  string name = 3 [json_name = "name"];
+  string code = 4 [json_name = "code"];
+  ZoneType type = 5 [json_name = "type"];
+  map<string, string> attributes = 6 [json_name = "attributes"];
+}
+
+message WarehouseLocation {
+  string location_uuid = 1 [json_name = "location_uuid"];
+  string warehouse_uuid = 2 [json_name = "warehouse_uuid"];
+  string zone_uuid = 3 [json_name = "zone_uuid"];
+  string name = 4 [json_name = "name"];
+  string code = 5 [json_name = "code"]; // Barcode or other identifier
+  LocationType type = 6 [json_name = "type"];
+  LocationStatus status = 7 [json_name = "status"];
+  int32 capacity = 8 [json_name = "capacity"]; // Maximum number of items or units
+  map<string, string> attributes = 9 [json_name = "attributes"];
+}
+
+message WarehouseOperation {
+  string operation_uuid = 1 [json_name = "operation_uuid"];
+  string warehouse_uuid = 2 [json_name = "warehouse_uuid"];
+  OperationType type = 3 [json_name = "type"];
+  OperationStatus status = 4 [json_name = "status"];
+  string reference_uuid = 5 [json_name = "reference_uuid"]; // Could be consignment_uuid, order_uuid, etc.
+  string reference_type = 6 [json_name = "reference_type"]; // "consignment", "order", etc.
+  string performed_by_uuid = 7 [json_name = "performed_by_uuid"];
+  google.protobuf.Timestamp scheduled_time = 8 [json_name = "scheduled_time"];
+  google.protobuf.Timestamp start_time = 9 [json_name = "start_time"];
+  google.protobuf.Timestamp completion_time = 10 [json_name = "completion_time"];
+  map<string, string> metadata = 11 [json_name = "metadata"];
+}
+
+message WarehouseTask {
+  string task_uuid = 1 [json_name = "task_uuid"];
+  string operation_uuid = 2 [json_name = "operation_uuid"];
+  string warehouse_uuid = 3 [json_name = "warehouse_uuid"];
+  TaskType type = 4 [json_name = "type"];
+  TaskStatus status = 5 [json_name = "status"];
+  string assigned_to_uuid = 6 [json_name = "assigned_to_uuid"];
+  string source_location_uuid = 7 [json_name = "source_location_uuid"];
+  string destination_location_uuid = 8 [json_name = "destination_location_uuid"];
+  string item_uuid = 9 [json_name = "item_uuid"];
+  int32 quantity = 10 [json_name = "quantity"];
+  google.protobuf.Timestamp due_time = 11 [json_name = "due_time"];
+  google.protobuf.Timestamp completion_time = 12 [json_name = "completion_time"];
+}

@@ -1,0 +1,140 @@
+syntax = "proto3";
+package proto.scg.logistics.v1;
+import "google/protobuf/timestamp.proto";
+import "proto/scg/logistics/v1/enums.proto";
+import "proto/scg/shared/v1/types.proto";
+option go_package = "github.com/next-trace/scg-contracts/gen/go/proto/scg/logistics/v1;logisticsv1";
+
+// Carrier represents a logistics service provider
+message Carrier {
+  string uuid = 1 [json_name = "uuid"];
+  string name = 2 [json_name = "name"];
+  CarrierType type = 3 [json_name = "type"];
+  string tax_id = 4 [json_name = "tax_id"];
+  proto.scg.shared.v1.Address headquarters_address = 5 [json_name = "headquarters_address"];
+  string contact_email = 6 [json_name = "contact_email"];
+  string contact_phone = 7 [json_name = "contact_phone"];
+  bool active = 8 [json_name = "active"];
+  google.protobuf.Timestamp created_at = 9 [json_name = "created_at"];
+  google.protobuf.Timestamp updated_at = 10 [json_name = "updated_at"];
+}
+
+// Vehicle represents a transportation vehicle
+message Vehicle {
+  string uuid = 1 [json_name = "uuid"];
+  string carrier_uuid = 2 [json_name = "carrier_uuid"];
+  string registration_number = 3 [json_name = "registration_number"];
+  VehicleType type = 4 [json_name = "type"];
+  double max_weight_kg = 5 [json_name = "max_weight_kg"];
+  double max_volume_m3 = 6 [json_name = "max_volume_m3"];
+  bool temperature_controlled = 7 [json_name = "temperature_controlled"];
+  double min_temperature_c = 8 [json_name = "min_temperature_c"];  // Only relevant if temperature_controlled is true
+  double max_temperature_c = 9 [json_name = "max_temperature_c"];  // Only relevant if temperature_controlled is true
+  bool active = 10 [json_name = "active"];
+  google.protobuf.Timestamp created_at = 11 [json_name = "created_at"];
+  google.protobuf.Timestamp updated_at = 12 [json_name = "updated_at"];
+}
+
+// Driver represents a vehicle driver
+message Driver {
+  string uuid = 1 [json_name = "uuid"];
+  string carrier_uuid = 2 [json_name = "carrier_uuid"];
+  string full_name = 3 [json_name = "full_name"];
+  string license_number = 4 [json_name = "license_number"];
+  repeated string license_categories = 5 [json_name = "license_categories"];  // e.g., "B", "C", "CE"
+  google.protobuf.Timestamp license_expiry = 6 [json_name = "license_expiry"];
+  string contact_phone = 7 [json_name = "contact_phone"];
+  bool active = 8 [json_name = "active"];
+  google.protobuf.Timestamp created_at = 9 [json_name = "created_at"];
+  google.protobuf.Timestamp updated_at = 10 [json_name = "updated_at"];
+}
+
+// Route represents a logistics route between locations
+message Route {
+  string uuid = 1 [json_name = "uuid"];
+  string name = 2 [json_name = "name"];
+  string origin_location_uuid = 3 [json_name = "origin_location_uuid"];
+  string destination_location_uuid = 4 [json_name = "destination_location_uuid"];
+  repeated string waypoint_location_uuids = 5 [json_name = "waypoint_location_uuids"];  // Optional waypoints
+  TransportMode transport_mode = 6 [json_name = "transport_mode"];
+  double distance_km = 7 [json_name = "distance_km"];
+  int32 estimated_transit_time_minutes = 8 [json_name = "estimated_transit_time_minutes"];
+  RouteStatus status = 9 [json_name = "status"];
+  google.protobuf.Timestamp created_at = 10 [json_name = "created_at"];
+  google.protobuf.Timestamp updated_at = 11 [json_name = "updated_at"];
+}
+
+// Location represents a logistics location (warehouse, port, airport, etc.)
+message Location {
+  string uuid = 1 [json_name = "uuid"];
+  string name = 2 [json_name = "name"];
+  string location_code = 3 [json_name = "location_code"];  // Internal or standardized code
+  string location_type = 4 [json_name = "location_type"];  // "warehouse", "port", "airport", "distribution_center", etc.
+  proto.scg.shared.v1.Address address = 5 [json_name = "address"];
+  double latitude = 6 [json_name = "latitude"];
+  double longitude = 7 [json_name = "longitude"];
+  string timezone = 8 [json_name = "timezone"];
+  map<string, string> operating_hours = 9 [json_name = "operating_hours"];  // e.g., "monday": "08:00-18:00"
+  bool active = 10 [json_name = "active"];
+  google.protobuf.Timestamp created_at = 11 [json_name = "created_at"];
+  google.protobuf.Timestamp updated_at = 12 [json_name = "updated_at"];
+}
+
+// Shipment represents a logistics shipment
+message Shipment {
+  string uuid = 1 [json_name = "uuid"];
+  string consignment_uuid = 2 [json_name = "consignment_uuid"];  // Reference to the consignment
+  string carrier_uuid = 3 [json_name = "carrier_uuid"];
+  string route_uuid = 4 [json_name = "route_uuid"];
+  string vehicle_uuid = 5 [json_name = "vehicle_uuid"];
+  string driver_uuid = 6 [json_name = "driver_uuid"];
+  ShipmentStatus status = 7 [json_name = "status"];
+  google.protobuf.Timestamp scheduled_pickup_time = 8 [json_name = "scheduled_pickup_time"];
+  google.protobuf.Timestamp actual_pickup_time = 9 [json_name = "actual_pickup_time"];
+  google.protobuf.Timestamp estimated_delivery_time = 10 [json_name = "estimated_delivery_time"];
+  google.protobuf.Timestamp actual_delivery_time = 11 [json_name = "actual_delivery_time"];
+  string tracking_number = 12 [json_name = "tracking_number"];
+  string tracking_url = 13 [json_name = "tracking_url"];
+  repeated CustomsClearance customs_clearances = 14 [json_name = "customs_clearances"];  // For international shipments
+  repeated ShipmentEvent events = 15 [json_name = "events"];  // History of shipment events
+  google.protobuf.Timestamp created_at = 16 [json_name = "created_at"];
+  google.protobuf.Timestamp updated_at = 17 [json_name = "updated_at"];
+}
+
+// CustomsClearance represents customs clearance information for international shipments
+message CustomsClearance {
+  string uuid = 1 [json_name = "uuid"];
+  string shipment_uuid = 2 [json_name = "shipment_uuid"];
+  string country_code = 3 [json_name = "country_code"];
+  string customs_office = 4 [json_name = "customs_office"];
+  string declaration_number = 5 [json_name = "declaration_number"];
+  CustomsClearanceStatus status = 6 [json_name = "status"];
+  google.protobuf.Timestamp submission_time = 7 [json_name = "submission_time"];
+  google.protobuf.Timestamp clearance_time = 8 [json_name = "clearance_time"];
+  repeated string document_uuids = 9 [json_name = "document_uuids"];  // References to customs documents
+  string notes = 10 [json_name = "notes"];
+}
+
+// ShipmentEvent represents an event in the shipment lifecycle
+message ShipmentEvent {
+  string uuid = 1 [json_name = "uuid"];
+  string shipment_uuid = 2 [json_name = "shipment_uuid"];
+  string event_type = 3 [json_name = "event_type"];  // "pickup", "checkpoint", "delay", "delivery", etc.
+  string location_uuid = 4 [json_name = "location_uuid"];
+  google.protobuf.Timestamp timestamp = 5 [json_name = "timestamp"];
+  string notes = 6 [json_name = "notes"];
+  string reported_by = 7 [json_name = "reported_by"];  // UUID of the user or system that reported the event
+}
+
+// TransportationPlan represents a plan for transporting consignments
+message TransportationPlan {
+  string uuid = 1 [json_name = "uuid"];
+  string name = 2 [json_name = "name"];
+  repeated string shipment_uuids = 3 [json_name = "shipment_uuids"];
+  google.protobuf.Timestamp start_date = 4 [json_name = "start_date"];
+  google.protobuf.Timestamp end_date = 5 [json_name = "end_date"];
+  string status = 6 [json_name = "status"];  // "draft", "approved", "in_progress", "completed", "cancelled"
+  string created_by = 7 [json_name = "created_by"];
+  google.protobuf.Timestamp created_at = 8 [json_name = "created_at"];
+  google.protobuf.Timestamp updated_at = 9 [json_name = "updated_at"];
+}

@@ -1,0 +1,78 @@
+syntax = "proto3";
+package proto.scg.risk.v1;
+option go_package = "github.com/next-trace/scg-contracts/gen/go/proto/scg/risk/v1;riskv1";
+
+// RiskCategory represents different categories of supply chain risks
+enum RiskCategory {
+  RISK_CATEGORY_UNSPECIFIED = 0;
+  RISK_CATEGORY_SUPPLIER = 1;       // Risks related to suppliers (financial stability, compliance, etc.)
+  RISK_CATEGORY_LOGISTICS = 2;      // Risks related to transportation and logistics
+  RISK_CATEGORY_QUALITY = 3;        // Risks related to product quality
+  RISK_CATEGORY_COMPLIANCE = 4;     // Risks related to regulatory compliance
+  RISK_CATEGORY_FINANCIAL = 5;      // Financial risks (currency, payment, etc.)
+  RISK_CATEGORY_GEOPOLITICAL = 6;   // Geopolitical risks (trade wars, sanctions, etc.)
+  RISK_CATEGORY_ENVIRONMENTAL = 7;  // Environmental risks (natural disasters, climate change, etc.)
+  RISK_CATEGORY_CYBER = 8;          // Cybersecurity risks
+  RISK_CATEGORY_FRAUD = 9;          // Fraud risks
+  RISK_CATEGORY_OPERATIONAL = 10;   // Operational risks (process failures, etc.)
+}
+
+// RiskSeverity represents the severity level of a risk
+enum RiskSeverity {
+  RISK_SEVERITY_UNSPECIFIED = 0;
+  RISK_SEVERITY_LOW = 1;       // Low severity, minimal impact
+  RISK_SEVERITY_MEDIUM = 2;    // Medium severity, moderate impact
+  RISK_SEVERITY_HIGH = 3;      // High severity, significant impact
+  RISK_SEVERITY_CRITICAL = 4;  // Critical severity, severe impact
+}
+
+// RiskProbability represents the likelihood of a risk occurring
+enum RiskProbability {
+  RISK_PROBABILITY_UNSPECIFIED = 0;
+  RISK_PROBABILITY_RARE = 1;       // Unlikely to occur
+  RISK_PROBABILITY_UNLIKELY = 2;   // May occur occasionally
+  RISK_PROBABILITY_POSSIBLE = 3;   // Might occur at some point
+  RISK_PROBABILITY_LIKELY = 4;     // Will probably occur
+  RISK_PROBABILITY_ALMOST_CERTAIN = 5;  // Expected to occur
+}
+
+// RiskStatus represents the status of a risk
+enum RiskStatus {
+  RISK_STATUS_UNSPECIFIED = 0;
+  RISK_STATUS_IDENTIFIED = 1;     // Risk has been identified
+  RISK_STATUS_ASSESSED = 2;       // Risk has been assessed
+  RISK_STATUS_MITIGATED = 3;      // Risk has been mitigated
+  RISK_STATUS_ACCEPTED = 4;       // Risk has been accepted
+  RISK_STATUS_TRANSFERRED = 5;    // Risk has been transferred (e.g., insurance)
+  RISK_STATUS_RESOLVED = 6;       // Risk has been resolved
+  RISK_STATUS_MATERIALIZED = 7;   // Risk has materialized into an incident
+}
+
+// MitigationStatus represents the status of a risk mitigation plan
+enum MitigationStatus {
+  MITIGATION_STATUS_UNSPECIFIED = 0;
+  MITIGATION_STATUS_PLANNED = 1;     // Mitigation plan has been created
+  MITIGATION_STATUS_IN_PROGRESS = 2; // Mitigation is in progress
+  MITIGATION_STATUS_COMPLETED = 3;   // Mitigation has been completed
+  MITIGATION_STATUS_FAILED = 4;      // Mitigation has failed
+  MITIGATION_STATUS_CANCELLED = 5;   // Mitigation has been cancelled
+}
+
+// RiskImpactType represents the type of impact a risk may have
+enum RiskImpactType {
+  RISK_IMPACT_TYPE_UNSPECIFIED = 0;
+  RISK_IMPACT_TYPE_FINANCIAL = 1;     // Financial impact
+  RISK_IMPACT_TYPE_OPERATIONAL = 2;   // Operational impact
+  RISK_IMPACT_TYPE_REPUTATIONAL = 3;  // Reputational impact
+  RISK_IMPACT_TYPE_COMPLIANCE = 4;    // Compliance impact
+  RISK_IMPACT_TYPE_SAFETY = 5;        // Safety impact
+  RISK_IMPACT_TYPE_ENVIRONMENTAL = 6; // Environmental impact
+}
+
+// RiskAssessmentMethod represents different methods for assessing risks
+enum RiskAssessmentMethod {
+  RISK_ASSESSMENT_METHOD_UNSPECIFIED = 0;
+  RISK_ASSESSMENT_METHOD_QUALITATIVE = 1;   // Qualitative assessment
+  RISK_ASSESSMENT_METHOD_QUANTITATIVE = 2;  // Quantitative assessment
+  RISK_ASSESSMENT_METHOD_SEMI_QUANTITATIVE = 3; // Semi-quantitative assessment
+}

@@ -1,0 +1,178 @@
+syntax = "proto3";
+package proto.scg.identity.v1;
+import "google/protobuf/timestamp.proto";
+import "proto/scg/identity/v1/enums.proto";
+option go_package = "github.com/next-trace/scg-contracts/gen/go/proto/scg/identity/v1;identityv1";
+
+// Identity represents a digital identity in the system
+message Identity {
+  string uuid = 1 [json_name = "uuid"];
+  string username = 2 [json_name = "username"];
+  string email = 3 [json_name = "email"];
+  string full_name = 4 [json_name = "full_name"];
+  proto.scg.identity.v1.IdentityStatus status = 5 [json_name = "status"];
+  bool email_verified = 6 [json_name = "email_verified"];
+  bool phone_verified = 7 [json_name = "phone_verified"];
+  string phone_number = 8 [json_name = "phone_number"];
+  string org_uuid = 9 [json_name = "org_uuid"];  // Organization this identity belongs to
+  repeated string role_uuids = 10 [json_name = "role_uuids"];  // Roles assigned to this identity
+  proto.scg.identity.v1.MfaType mfa_type = 11 [json_name = "mfa_type"];  // Type of MFA enabled
+  bool mfa_enabled = 12 [json_name = "mfa_enabled"];
+  google.protobuf.Timestamp last_login_at = 13 [json_name = "last_login_at"];
+  google.protobuf.Timestamp password_changed_at = 14 [json_name = "password_changed_at"];
+  google.protobuf.Timestamp created_at = 15 [json_name = "created_at"];
+  google.protobuf.Timestamp updated_at = 16 [json_name = "updated_at"];
+  google.protobuf.Timestamp deleted_at = 17 [json_name = "deleted_at"];
+}
+
+// Credential represents authentication credentials
+message Credential {
+  string uuid = 1 [json_name = "uuid"];
+  string identity_uuid = 2 [json_name = "identity_uuid"];
+  proto.scg.identity.v1.AuthenticationMethod auth_method = 3 [json_name = "auth_method"];
+  string credential_identifier = 4 [json_name = "credential_identifier"];  // Username, email, certificate ID, etc.
+  // Note: Actual credential values (passwords, keys, etc.) are not stored in this model
+  bool is_primary = 5 [json_name = "is_primary"];
+  google.protobuf.Timestamp expires_at = 6 [json_name = "expires_at"];
+  google.protobuf.Timestamp last_used_at = 7 [json_name = "last_used_at"];
+  google.protobuf.Timestamp created_at = 8 [json_name = "created_at"];
+  google.protobuf.Timestamp updated_at = 9 [json_name = "updated_at"];
+}
+
+// Role represents a collection of permissions
+message Role {
+  string uuid = 1 [json_name = "uuid"];
+  string name = 2 [json_name = "name"];
+  string description = 3 [json_name = "description"];
+  string org_uuid = 4 [json_name = "org_uuid"];  // Organization this role belongs to, or empty for system roles
+  bool is_system_role = 5 [json_name = "is_system_role"];  // Whether this is a system-defined role
+  repeated Permission permissions = 6 [json_name = "permissions"];
+  google.protobuf.Timestamp created_at = 7 [json_name = "created_at"];
+  google.protobuf.Timestamp updated_at = 8 [json_name = "updated_at"];
+}
+
+// Permission represents a specific permission to access a resource
+message Permission {
+  string uuid = 1 [json_name = "uuid"];
+  string name = 2 [json_name = "name"];
+  string description = 3 [json_name = "description"];
+  proto.scg.identity.v1.ResourceType resource_type = 4 [json_name = "resource_type"];
+  proto.scg.identity.v1.PermissionType permission_type = 5 [json_name = "permission_type"];
+  proto.scg.identity.v1.AuthorizationScope scope = 6 [json_name = "scope"];
+  string resource_pattern = 7 [json_name = "resource_pattern"];  // Pattern for matching specific resources, e.g., "consignment/*"
+  google.protobuf.Timestamp created_at = 8 [json_name = "created_at"];
+  google.protobuf.Timestamp updated_at = 9 [json_name = "updated_at"];
+}
+
+// Session represents a user session
+message Session {
+  string uuid = 1 [json_name = "uuid"];
+  string identity_uuid = 2 [json_name = "identity_uuid"];
+  string user_agent = 3 [json_name = "user_agent"];
+  string ip_address = 4 [json_name = "ip_address"];
+  proto.scg.identity.v1.SessionStatus status = 5 [json_name = "status"];
+  google.protobuf.Timestamp created_at = 6 [json_name = "created_at"];
+  google.protobuf.Timestamp expires_at = 7 [json_name = "expires_at"];
+  google.protobuf.Timestamp last_activity_at = 8 [json_name = "last_activity_at"];
+  google.protobuf.Timestamp terminated_at = 9 [json_name = "terminated_at"];
+}
+
+// AuditLog represents an entry in the audit log
+message AuditLog {
+  string uuid = 1 [json_name = "uuid"];
+  string identity_uuid = 2 [json_name = "identity_uuid"];
+  string session_uuid = 3 [json_name = "session_uuid"];
+  proto.scg.identity.v1.AuditEventType event_type = 4 [json_name = "event_type"];
+  string resource_type = 5 [json_name = "resource_type"];
+  string resource_uuid = 6 [json_name = "resource_uuid"];
+  string action = 7 [json_name = "action"];
+  string status = 8 [json_name = "status"];  // "success", "failure", etc.
+  string ip_address = 9 [json_name = "ip_address"];
+  string user_agent = 10 [json_name = "user_agent"];
+  map<string, string> details = 11 [json_name = "details"];  // Additional details about the event
+  google.protobuf.Timestamp timestamp = 12 [json_name = "timestamp"];
+}
+
+// IdentityProvider represents an external identity provider for SSO
+message IdentityProvider {
+  string uuid = 1 [json_name = "uuid"];
+  string name = 2 [json_name = "name"];
+  string provider_type = 3 [json_name = "provider_type"];  // "oauth", "saml", "oidc", etc.
+  string client_id = 4 [json_name = "client_id"];
+  // Note: Client secrets are not stored in this model
+  string issuer_url = 5 [json_name = "issuer_url"];
+  string authorization_endpoint = 6 [json_name = "authorization_endpoint"];
+  string token_endpoint = 7 [json_name = "token_endpoint"];
+  string jwks_uri = 8 [json_name = "jwks_uri"];
+  string userinfo_endpoint = 9 [json_name = "userinfo_endpoint"];
+  repeated string scopes = 10 [json_name = "scopes"];
+  map<string, string> attribute_mapping = 11 [json_name = "attribute_mapping"];  // Maps provider attributes to system attributes
+  bool enabled = 12 [json_name = "enabled"];
+  google.protobuf.Timestamp created_at = 13 [json_name = "created_at"];
+  google.protobuf.Timestamp updated_at = 14 [json_name = "updated_at"];
+}
+
+// MfaDevice represents a multi-factor authentication device
+message MfaDevice {
+  string uuid = 1 [json_name = "uuid"];
+  string identity_uuid = 2 [json_name = "identity_uuid"];
+  proto.scg.identity.v1.MfaType type = 3 [json_name = "type"];
+  string device_name = 4 [json_name = "device_name"];
+  string device_identifier = 5 [json_name = "device_identifier"];  // Phone number, email, device ID, etc.
+  bool is_primary = 6 [json_name = "is_primary"];
+  bool verified = 7 [json_name = "verified"];
+  google.protobuf.Timestamp last_used_at = 8 [json_name = "last_used_at"];
+  google.protobuf.Timestamp created_at = 9 [json_name = "created_at"];
+  google.protobuf.Timestamp updated_at = 10 [json_name = "updated_at"];
+}
+
+// AccessPolicy represents a policy for controlling access to resources
+message AccessPolicy {
+  string uuid = 1 [json_name = "uuid"];
+  string name = 2 [json_name = "name"];
+  string description = 3 [json_name = "description"];
+  proto.scg.identity.v1.ResourceType resource_type = 4 [json_name = "resource_type"];
+  string resource_pattern = 5 [json_name = "resource_pattern"];
+  repeated string allowed_role_uuids = 6 [json_name = "allowed_role_uuids"];
+  repeated string denied_role_uuids = 7 [json_name = "denied_role_uuids"];
+  repeated string allowed_identity_uuids = 8 [json_name = "allowed_identity_uuids"];
+  repeated string denied_identity_uuids = 9 [json_name = "denied_identity_uuids"];
+  repeated Condition conditions = 10 [json_name = "conditions"];
+  int32 priority = 11 [json_name = "priority"];  // Higher priority policies are evaluated first
+  bool enabled = 12 [json_name = "enabled"];
+  google.protobuf.Timestamp created_at = 13 [json_name = "created_at"];
+  google.protobuf.Timestamp updated_at = 14 [json_name = "updated_at"];
+}
+
+// Condition represents a condition for an access policy
+message Condition {
+  string attribute = 1 [json_name = "attribute"];  // "time", "ip_address", "user_agent", etc.
+  string operator = 2 [json_name = "operator"];   // "equals", "contains", "greater_than", etc.
+  string value = 3 [json_name = "value"];
+}
+
+// ApiKey represents an API key for programmatic access
+message ApiKey {
+  string uuid = 1 [json_name = "uuid"];
+  string identity_uuid = 2 [json_name = "identity_uuid"];
+  string name = 3 [json_name = "name"];
+  string key_prefix = 4 [json_name = "key_prefix"];  // First few characters of the key for identification
+  // Note: Full API key is not stored in this model
+  repeated string scope_uuids = 5 [json_name = "scope_uuids"];  // Scopes this API key has access to
+  bool enabled = 6 [json_name = "enabled"];
+  google.protobuf.Timestamp expires_at = 7 [json_name = "expires_at"];
+  google.protobuf.Timestamp last_used_at = 8 [json_name = "last_used_at"];
+  google.protobuf.Timestamp created_at = 9 [json_name = "created_at"];
+  google.protobuf.Timestamp updated_at = 10 [json_name = "updated_at"];
+}
+
+// ApiScope represents a scope for API access
+message ApiScope {
+  string uuid = 1 [json_name = "uuid"];
+  string name = 2 [json_name = "name"];
+  string description = 3 [json_name = "description"];
+  proto.scg.identity.v1.ResourceType resource_type = 4 [json_name = "resource_type"];
+  proto.scg.identity.v1.PermissionType permission_type = 5 [json_name = "permission_type"];
+  google.protobuf.Timestamp created_at = 6 [json_name = "created_at"];
+  google.protobuf.Timestamp updated_at = 7 [json_name = "updated_at"];
+}

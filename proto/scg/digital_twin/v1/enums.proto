@@ -1,0 +1,10 @@
+syntax = "proto3";
+package proto.scg.digital_twin.v1;
+option go_package = "github.com/next-trace/scg-contracts/gen/go/proto/scg/digital_twin/v1;digitaltwinv1";
+
+enum DigitalTwinModelType {
+  DIGITAL_TWIN_MODEL_TYPE_UNSPECIFIED = 0;
+  DIGITAL_TWIN_MODEL_TYPE_UNIT = 1;          // Physical unit (case, batch, SKU)
+  DIGITAL_TWIN_MODEL_TYPE_CONSIGNMENT = 2;   // Whole consignment
+  DIGITAL_TWIN_MODEL_TYPE_ENVIRONMENT = 3;   // E.g. warehouse, cold chain, etc.
+}

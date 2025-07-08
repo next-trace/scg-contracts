@@ -1,0 +1,79 @@
+syntax = "proto3";
+package proto.scg.consignment.v1;
+import "google/protobuf/timestamp.proto";
+import "proto/scg/shared/v1/events.proto";
+option go_package = "github.com/next-trace/scg-contracts/gen/go/proto/scg/consignment/v1;consignmentv1";
+
+message ConsignmentCreated {
+  proto.scg.shared.v1.EventEnvelope meta = 1 [json_name = "meta"];
+  string consignment_uuid = 2 [json_name = "consignment_uuid"];
+  string name = 3 [json_name = "name"];
+  repeated string unit_uuids = 4 [json_name = "unit_uuids"];
+  string consignor_partner_uuid = 5 [json_name = "consignor_partner_uuid"];
+  string consignee_partner_uuid = 6 [json_name = "consignee_partner_uuid"];
+  google.protobuf.Timestamp created_at = 7 [json_name = "created_at"];
+}
+message ConsignmentPrepared {
+  proto.scg.shared.v1.EventEnvelope meta = 1 [json_name = "meta"];
+  string consignment_uuid = 2 [json_name = "consignment_uuid"];
+  google.protobuf.Timestamp prepared_at = 3 [json_name = "prepared_at"];
+}
+message ConsignmentFinalized {
+  proto.scg.shared.v1.EventEnvelope meta = 1 [json_name = "meta"];
+  string consignment_uuid = 2 [json_name = "consignment_uuid"];
+}
+message ConsignmentShipped {
+  proto.scg.shared.v1.EventEnvelope meta = 1 [json_name = "meta"];
+  string consignment_uuid = 2 [json_name = "consignment_uuid"];
+}
+
+message ConsignmentArrivedAtCheckpoint {
+  proto.scg.shared.v1.EventEnvelope meta = 1 [json_name = "meta"];
+  string consignment_uuid = 2 [json_name = "consignment_uuid"];
+  string location_name = 3 [json_name = "location_name"];
+}
+
+message ConsignmentDispatched {
+  proto.scg.shared.v1.EventEnvelope meta = 1 [json_name = "meta"];
+  string consignment_uuid = 2 [json_name = "consignment_uuid"];
+  google.protobuf.Timestamp dispatched_at = 3 [json_name = "dispatched_at"];
+}
+
+message ConsignmentReceived {
+  proto.scg.shared.v1.EventEnvelope meta = 1 [json_name = "meta"];
+  string consignment_uuid = 2 [json_name = "consignment_uuid"];
+  google.protobuf.Timestamp received_at = 3 [json_name = "received_at"];
+}
+
+message ConsignmentDelayed {
+  proto.scg.shared.v1.EventEnvelope meta = 1 [json_name = "meta"];
+  string consignment_uuid = 2 [json_name = "consignment_uuid"];
+  string reason = 3 [json_name = "reason"];
+  google.protobuf.Timestamp delayed_at = 4 [json_name = "delayed_at"];
+}
+message ConsignmentPartiallyReceived {
+  proto.scg.shared.v1.EventEnvelope meta = 1 [json_name = "meta"];
+  string consignment_uuid = 2 [json_name = "consignment_uuid"];
+  repeated string received_unit_uuids = 3 [json_name = "received_unit_uuids"];
+  repeated string missing_unit_uuids = 4 [json_name = "missing_unit_uuids"];
+  google.protobuf.Timestamp received_at = 5 [json_name = "received_at"];
+}
+
+message ConsignmentClosed {
+  proto.scg.shared.v1.EventEnvelope meta = 1 [json_name = "meta"];
+  string consignment_uuid = 2 [json_name = "consignment_uuid"];
+  google.protobuf.Timestamp closed_at = 3 [json_name = "closed_at"];
+}
+
+message ConsignmentInTransit {
+  proto.scg.shared.v1.EventEnvelope meta = 1 [json_name = "meta"];
+  string consignment_uuid = 2 [json_name = "consignment_uuid"];
+  string current_location = 3 [json_name = "current_location"];
+  google.protobuf.Timestamp updated_at = 4 [json_name = "updated_at"];
+}
+message ConsignmentArrived {
+  proto.scg.shared.v1.EventEnvelope meta = 1 [json_name = "meta"];
+  string consignment_uuid = 2 [json_name = "consignment_uuid"];
+  string partner_uuid = 3 [json_name = "partner_uuid"];
+  google.protobuf.Timestamp arrived_at = 4 [json_name = "arrived_at"];
+}

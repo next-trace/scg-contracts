@@ -1,0 +1,72 @@
+syntax = "proto3";
+package proto.scg.inventory.v1;
+import "google/protobuf/timestamp.proto";
+import "proto/scg/shared/v1/events.proto";
+option go_package = "github.com/next-trace/scg-contracts/gen/go/proto/scg/inventory/v1;inventoryv1";
+
+message InventoryItemCreated {
+  proto.scg.shared.v1.EventEnvelope meta = 1 [json_name = "meta"];
+  string item_uuid = 2 [json_name = "item_uuid"];
+  string sku = 3 [json_name = "sku"];
+  string name = 4 [json_name = "name"];
+  int32 initial_quantity = 5 [json_name = "initial_quantity"];
+  string location_uuid = 6 [json_name = "location_uuid"];
+  google.protobuf.Timestamp created_at = 7 [json_name = "created_at"];
+}
+
+message InventoryItemUpdated {
+  proto.scg.shared.v1.EventEnvelope meta = 1 [json_name = "meta"];
+  string item_uuid = 2 [json_name = "item_uuid"];
+  map<string, string> updated_fields = 3 [json_name = "updated_fields"];
+  google.protobuf.Timestamp updated_at = 4 [json_name = "updated_at"];
+}
+
+message InventoryItemMoved {
+  proto.scg.shared.v1.EventEnvelope meta = 1 [json_name = "meta"];
+  string item_uuid = 2 [json_name = "item_uuid"];
+  string source_location_uuid = 3 [json_name = "source_location_uuid"];
+  string destination_location_uuid = 4 [json_name = "destination_location_uuid"];
+  int32 quantity = 5 [json_name = "quantity"];
+  string performed_by_uuid = 6 [json_name = "performed_by_uuid"];
+  google.protobuf.Timestamp moved_at = 7 [json_name = "moved_at"];
+}
+
+message InventoryLevelChanged {
+  proto.scg.shared.v1.EventEnvelope meta = 1 [json_name = "meta"];
+  string item_uuid = 2 [json_name = "item_uuid"];
+  int32 previous_quantity = 3 [json_name = "previous_quantity"];
+  int32 new_quantity = 4 [json_name = "new_quantity"];
+  string reason = 5 [json_name = "reason"];
+  string reference_uuid = 6 [json_name = "reference_uuid"];
+  string reference_type = 7 [json_name = "reference_type"];
+  google.protobuf.Timestamp changed_at = 8 [json_name = "changed_at"];
+}
+
+message InventoryItemReserved {
+  proto.scg.shared.v1.EventEnvelope meta = 1 [json_name = "meta"];
+  string reservation_uuid = 2 [json_name = "reservation_uuid"];
+  string item_uuid = 3 [json_name = "item_uuid"];
+  int32 quantity = 4 [json_name = "quantity"];
+  string reserved_for_uuid = 5 [json_name = "reserved_for_uuid"];
+  string reserved_for_type = 6 [json_name = "reserved_for_type"];
+  google.protobuf.Timestamp expires_at = 7 [json_name = "expires_at"];
+  google.protobuf.Timestamp reserved_at = 8 [json_name = "reserved_at"];
+}
+
+message InventoryItemAllocated {
+  proto.scg.shared.v1.EventEnvelope meta = 1 [json_name = "meta"];
+  string item_uuid = 2 [json_name = "item_uuid"];
+  int32 quantity = 3 [json_name = "quantity"];
+  string allocated_to_uuid = 4 [json_name = "allocated_to_uuid"];
+  string allocated_to_type = 5 [json_name = "allocated_to_type"];
+  google.protobuf.Timestamp allocated_at = 6 [json_name = "allocated_at"];
+}
+
+message InventoryItemReleased {
+  proto.scg.shared.v1.EventEnvelope meta = 1 [json_name = "meta"];
+  string reservation_uuid = 2 [json_name = "reservation_uuid"];
+  string item_uuid = 3 [json_name = "item_uuid"];
+  int32 quantity = 4 [json_name = "quantity"];
+  string reason = 5 [json_name = "reason"];
+  google.protobuf.Timestamp released_at = 6 [json_name = "released_at"];
+}

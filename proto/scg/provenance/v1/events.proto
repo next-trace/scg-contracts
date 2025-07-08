@@ -1,0 +1,12 @@
+syntax = "proto3";
+package proto.scg.provenance.v1;
+import "proto/scg/event_log/v1/events.proto";
+option go_package = "github.com/next-trace/scg-contracts/gen/go/proto/scg/provenance/v1;provenancev1";
+
+// ProvenanceRecord represents the complete history of a unit
+message ProvenanceRecord {
+  // Unique identifier of the unit
+  string unit_uuid = 1 [json_name = "unit_uuid"];
+  // Collection of all events related to this unit
+  repeated proto.scg.event_log.v1.EventLogEntry event_logs = 2 [json_name = "event_logs"];
+}

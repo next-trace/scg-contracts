@@ -1,0 +1,9 @@
+syntax = "proto3";
+package proto.scg.shared.v1;
+option go_package = "github.com/next-trace/scg-contracts/gen/go/proto/scg/shared/v1;sharedv1";
+
+enum CurrencyCode {
+  CURRENCY_CODE_UNSPECIFIED = 0;
+  CURRENCY_CODE_EUR = 1;
+  CURRENCY_CODE_USD = 2;
+}

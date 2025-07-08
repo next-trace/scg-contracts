@@ -1,0 +1,38 @@
+syntax = "proto3";
+package proto.scg.custody.v1;
+
+import "proto/scg/shared/v1/events.proto";
+import "proto/scg/custody/v1/enums.proto";
+import "google/protobuf/timestamp.proto";
+
+option go_package = "github.com/next-trace/scg-contracts/gen/go/proto/scg/custody/v1;custodyv1";
+
+message CustodyChanged {
+  proto.scg.shared.v1.EventEnvelope meta = 1 [json_name = "meta"];
+  string unit_uuid = 2 [json_name = "unit_uuid"];
+  string from_partner_uuid = 3 [json_name = "from_partner_uuid"];
+  string to_partner_uuid = 4 [json_name = "to_partner_uuid"];
+  proto.scg.custody.v1.CustodyStatus status = 5 [json_name = "status"];
+  google.protobuf.Timestamp changed_at = 6 [json_name = "changed_at"];
+}
+
+
+message CustodyEstablished {
+  proto.scg.shared.v1.EventEnvelope meta = 1 [json_name = "meta"];
+  string unit_uuid = 2 [json_name = "unit_uuid"];
+  string partner_uuid = 3 [json_name = "partner_uuid"];
+  google.protobuf.Timestamp since = 4 [json_name = "since"];
+}
+message CustodyTransferred {
+  proto.scg.shared.v1.EventEnvelope meta = 1 [json_name = "meta"];
+  string unit_uuid = 2 [json_name = "unit_uuid"];
+  string from_partner_uuid = 3 [json_name = "from_partner_uuid"];
+  string to_partner_uuid = 4 [json_name = "to_partner_uuid"];
+  google.protobuf.Timestamp transferred_at = 5 [json_name = "transferred_at"];
+}
+message CustodyDisputed {
+  proto.scg.shared.v1.EventEnvelope meta = 1 [json_name = "meta"];
+  string unit_uuid = 2 [json_name = "unit_uuid"];
+  string partner_uuid = 3 [json_name = "partner_uuid"];
+  string reason = 4 [json_name = "reason"];
+}

@@ -1,0 +1,29 @@
+syntax = "proto3";
+
+package proto.scg.compliance.v1;
+
+import "proto/scg/shared/v1/events.proto";
+import "proto/scg/compliance/v1/enums.proto";
+
+option go_package = "github.com/next-trace/scg-contracts/gen/go/proto/scg/compliance/v1;compliancev1";
+
+message ComplianceCheck {
+  proto.scg.shared.v1.EventEnvelope meta = 1 [json_name = "meta"];
+  string check_uuid = 2 [json_name = "check_uuid"];
+  string entity_type = 3; // "partner", "unit", "consignment", etc.
+  string entity_uuid = 4 [json_name = "entity_uuid"];
+  ComplianceCheckType check_type = 5 [json_name = "check_type"];
+  ComplianceCheckStatus status = 6 [json_name = "status"];
+  string performed_by_uuid = 7 [json_name = "performed_by_uuid"];
+
+}
+
+message ComplianceAlert {
+  proto.scg.shared.v1.EventEnvelope meta = 1 [json_name = "meta"];
+  string alert_uuid = 2 [json_name = "alert_uuid"];
+  string entity_uuid = 3 [json_name = "entity_uuid"];
+  ComplianceAlertType alert_type = 4 [json_name = "alert_type"];
+  ComplianceAlertSeverity severity = 5 [json_name = "severity"];
+  string description = 6 [json_name = "description"];
+
+}

@@ -1,0 +1,110 @@
+syntax = "proto3";
+
+package proto.scg.unit.v1;
+
+import "proto/scg/unit/v1/models.proto";
+import "proto/scg/shared/v1/events.proto";
+import "proto/scg/unit/v1/enums.proto";
+import "google/protobuf/timestamp.proto";
+
+option go_package = "github.com/next-trace/scg-contracts/gen/go/proto/scg/unit/v1;unitv1";
+
+message UnitCreated {
+  proto.scg.shared.v1.EventEnvelope meta = 1 [json_name = "meta"];
+  Unit unit = 2 [json_name = "unit"];
+}
+
+message UnitLocationUpdated {
+  proto.scg.shared.v1.EventEnvelope meta = 1 [json_name = "meta"];
+  string unit_uuid = 2 [json_name = "unit_uuid"];
+  string previous_location = 3 [json_name = "previous_location"];
+  string new_location = 4 [json_name = "new_location"];
+}
+
+message UnitTransferred {
+  proto.scg.shared.v1.EventEnvelope meta = 1 [json_name = "meta"];
+  string unit_uuid = 2 [json_name = "unit_uuid"];
+  string from_custodian_partner_uuid = 3 [json_name = "from_custodian_partner_uuid"];
+  string to_custodian_partner_uuid = 4 [json_name = "to_custodian_partner_uuid"];
+  google.protobuf.Timestamp occurred_at = 5 [json_name = "occurred_at"];
+}
+
+message UnitStatusChanged {
+  proto.scg.shared.v1.EventEnvelope meta = 1 [json_name = "meta"];
+  string unit_uuid = 2 [json_name = "unit_uuid"];
+  UnitState old_status = 3 [json_name = "old_status"];
+  UnitState new_status = 4 [json_name = "new_status"];
+}
+
+message UnitAllocatedToConsignment {
+  proto.scg.shared.v1.EventEnvelope meta = 1 [json_name = "meta"];
+  string unit_uuid = 2 [json_name = "unit_uuid"];
+  string consignment_uuid = 3 [json_name = "consignment_uuid"];
+}
+message UnitInspectionInitiated {
+  proto.scg.shared.v1.EventEnvelope meta = 1 [json_name = "meta"];
+  string unit_uuid = 2 [json_name = "unit_uuid"];
+  string inspection_reason = 3 [json_name = "inspection_reason"];
+}
+message UnitInspectionCompleted {
+  proto.scg.shared.v1.EventEnvelope meta = 1 [json_name = "meta"];
+  string unit_uuid = 2 [json_name = "unit_uuid"];
+  bool passed = 3 [json_name = "passed"];
+  string notes = 4 [json_name = "notes"];
+}
+message UnitQuarantined {
+  proto.scg.shared.v1.EventEnvelope meta = 1 [json_name = "meta"];
+  string unit_uuid = 2 [json_name = "unit_uuid"];
+  string reason = 3 [json_name = "reason"];
+}
+message UnitReportedLost {
+  scg.shared.v1.EventEnvelope meta = 1 [json_name = "meta"];
+  string unit_uuid = 2 [json_name = "unit_uuid"];
+  string last_known_location = 3 [json_name = "last_known_location"];
+}
+message UnitReportedDamaged {
+  scg.shared.v1.EventEnvelope meta = 1 [json_name = "meta"];
+  string unit_uuid = 2 [json_name = "unit_uuid"];
+  string damage_description = 3 [json_name = "damage_description"];
+}
+message UnitDecommissioned {
+  scg.shared.v1.EventEnvelope meta = 1 [json_name = "meta"];
+  string unit_uuid = 2 [json_name = "unit_uuid"];
+  string reason = 3 [json_name = "reason"];
+}
+
+
+message UnitDelivered {
+  scg.shared.v1.EventEnvelope meta = 1 [json_name = "meta"];
+  string unit_uuid = 2 [json_name = "unit_uuid"];
+  string delivered_to_partner_uuid = 3 [json_name = "delivered_to_partner_uuid"];
+  google.protobuf.Timestamp delivered_at = 4 [json_name = "delivered_at"];
+}
+
+message UnitDamaged {
+  scg.shared.v1.EventEnvelope meta = 1 [json_name = "meta"];
+  string unit_uuid = 2 [json_name = "unit_uuid"];
+  string description = 3 [json_name = "description"];
+}
+
+message UnitLost {
+  scg.shared.v1.EventEnvelope meta = 1 [json_name = "meta"];
+  string unit_uuid = 2 [json_name = "unit_uuid"];
+  string reported_by = 3 [json_name = "reported_by"];
+  string location = 4 [json_name = "location"];
+}
+
+message UnitDestroyed {
+  scg.shared.v1.EventEnvelope meta = 1 [json_name = "meta"];
+  string unit_uuid = 2 [json_name = "unit_uuid"];
+  string destroyed_by = 3 [json_name = "destroyed_by"];
+  string reason = 4 [json_name = "reason"];
+}
+
+message UnitDigitalTwinUpdated {
+  scg.shared.v1.EventEnvelope meta = 1 [json_name = "meta"];
+  string unit_uuid = 2 [json_name = "unit_uuid"];
+  string digital_twin_uuid = 3 [json_name = "digital_twin_uuid"];
+  string update_type = 4 [json_name = "update_type"]; // e.g. sensor data, state change, etc.
+  string update_details = 5 [json_name = "update_details"];
+}

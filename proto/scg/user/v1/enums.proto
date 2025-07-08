@@ -1,0 +1,27 @@
+syntax = "proto3";
+package proto.scg.user.v1;
+option go_package = "github.com/next-trace/scg-contracts/gen/go/proto/scg/user/v1;userv1";
+
+enum UserStatus {
+  USER_STATUS_UNSPECIFIED = 0;
+  USER_STATUS_INVITED = 1;
+  USER_STATUS_REGISTERED = 2;
+  USER_STATUS_EMAIL_CONFIRMED = 3;
+  USER_STATUS_VERIFIED = 4;
+  USER_STATUS_PENDING_APPROVAL = 5;
+  USER_STATUS_ACTIVE = 6;
+  USER_STATUS_LOCKED = 7;
+  USER_STATUS_SUSPENDED = 8;
+  USER_STATUS_DISABLED = 9;
+  USER_STATUS_ARCHIVED = 10;
+}
+
+
+
+enum SystemRole {
+  SYSTEM_ROLE_UNSPECIFIED = 0;
+  SYSTEM_ROLE_ADMIN = 1;
+  SYSTEM_ROLE_PARTNER_ADMIN = 2;
+  SYSTEM_ROLE_PARTNER_USER = 3;
+  SYSTEM_ROLE_READ_ONLY = 4;
+}
