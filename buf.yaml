@@ -6,7 +6,7 @@ lint:
   use:
     - STANDARD
   except:
-    - DIRECTORY_SAME_PACKAGE
+    - PACKAGE_DIRECTORY_MATCH
   ignore:
     - protoc-vendor
 breaking:

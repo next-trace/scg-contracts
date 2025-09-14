@@ -13,4 +13,11 @@ message EventEnvelope {
   string trace_id = 4 [json_name = "trace_id"];
   google.protobuf.Timestamp occurred_at = 5 [json_name = "occurred_at"];
   int32 schema_version = 6 [json_name = "schema_version"];
+
+  // Additive fields to align with common event meta (C1 rules)
+  string correlation_id = 7 [json_name = "correlation_id"];
+  string causation_id = 8 [json_name = "causation_id"];
+  string source_service = 9 [json_name = "source_service"];
+  string actor_sub = 10 [json_name = "actor_sub"];
+  map<string,string> attributes = 11 [json_name = "attributes"];
 }
