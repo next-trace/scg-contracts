@@ -1,0 +1,18 @@
+syntax = "proto3";
+
+package proto.scg.common.v1;
+
+import "google/protobuf/timestamp.proto";
+
+option go_package = "github.com/next-trace/scg-contracts/gen/go/proto/scg/common/v1;commonv1";
+
+// Standard event metadata envelope for all new events.
+message EventMeta {
+  string event_id = 1 [json_name = "event_id"];                // UUID (v7 preferred)
+  google.protobuf.Timestamp occurred_at = 2 [json_name = "occurred_at"];
+  string correlation_id = 3 [json_name = "correlation_id"];    // UUID
+  string causation_id = 4 [json_name = "causation_id"];        // UUID
+  string source_service = 5 [json_name = "source_service"];    // e.g., identity-service
+  string actor_sub = 6 [json_name = "actor_sub"];              // optional
+  map<string,string> attributes = 7 [json_name = "attributes"]; // non-PII metadata
+}

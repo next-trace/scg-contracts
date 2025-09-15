@@ -77,14 +77,14 @@ message UserDisabled {
 }
 
 message UserArchived {
-  scg.shared.v1.EventEnvelope meta = 1 [json_name = "meta"];
+  proto.scg.shared.v1.EventEnvelope meta = 1 [json_name = "meta"];
   string uuid = 2 [json_name = "uuid"];
   string org_uuid = 3 [json_name = "org_uuid"];
   string reason = 4 [json_name = "reason"];
 }
 
 message UserRoleAssigned {
-  scg.shared.v1.EventEnvelope meta = 1 [json_name = "meta"];
+  proto.scg.shared.v1.EventEnvelope meta = 1 [json_name = "meta"];
   string uuid = 2 [json_name = "uuid"];
   string org_uuid = 3 [json_name = "org_uuid"];
   string role = 4 [json_name = "role"];
@@ -92,7 +92,7 @@ message UserRoleAssigned {
 }
 
 message UserRoleChanged {
-  scg.shared.v1.EventEnvelope meta = 1 [json_name = "meta"];
+  proto.scg.shared.v1.EventEnvelope meta = 1 [json_name = "meta"];
   string uuid = 2 [json_name = "uuid"];
   string org_uuid = 3 [json_name = "org_uuid"];
   string old_role = 4 [json_name = "old_role"];
@@ -102,20 +102,20 @@ message UserRoleChanged {
 
 // --- ORG EVENTS ---
 message OrganizationCreated {
-  scg.shared.v1.EventEnvelope meta = 1 [json_name = "meta"];
+  proto.scg.shared.v1.EventEnvelope meta = 1 [json_name = "meta"];
   string org_uuid = 2 [json_name = "org_uuid"];
   string name = 3 [json_name = "name"];
   string type = 4 [json_name = "type"];
 }
 
 message OrganizationSuspended {
-  scg.shared.v1.EventEnvelope meta = 1 [json_name = "meta"];
+  proto.scg.shared.v1.EventEnvelope meta = 1 [json_name = "meta"];
   string org_uuid = 2 [json_name = "org_uuid"];
   string reason = 3 [json_name = "reason"];
 }
 
 message OrganizationReactivated {
-  scg.shared.v1.EventEnvelope meta = 1 [json_name = "meta"];
+  proto.scg.shared.v1.EventEnvelope meta = 1 [json_name = "meta"];
   string org_uuid = 2 [json_name = "org_uuid"];
   string reactivated_by = 3 [json_name = "reactivated_by"];
 }

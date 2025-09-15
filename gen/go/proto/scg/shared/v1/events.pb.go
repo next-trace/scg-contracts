@@ -30,6 +30,12 @@ type EventEnvelope struct {
 	TraceId       string                 `protobuf:"bytes,4,opt,name=trace_id,proto3" json:"trace_id,omitempty"`
 	OccurredAt    *timestamppb.Timestamp `protobuf:"bytes,5,opt,name=occurred_at,proto3" json:"occurred_at,omitempty"`
 	SchemaVersion int32                  `protobuf:"varint,6,opt,name=schema_version,proto3" json:"schema_version,omitempty"`
+	// Additive fields to align with common event meta (C1 rules)
+	CorrelationId string            `protobuf:"bytes,7,opt,name=correlation_id,proto3" json:"correlation_id,omitempty"`
+	CausationId   string            `protobuf:"bytes,8,opt,name=causation_id,proto3" json:"causation_id,omitempty"`
+	SourceService string            `protobuf:"bytes,9,opt,name=source_service,proto3" json:"source_service,omitempty"`
+	ActorSub      string            `protobuf:"bytes,10,opt,name=actor_sub,proto3" json:"actor_sub,omitempty"`
+	Attributes    map[string]string `protobuf:"bytes,11,rep,name=attributes,proto3" json:"attributes,omitempty" protobuf_key:"bytes,1,opt,name=key" protobuf_val:"bytes,2,opt,name=value"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -106,11 +112,46 @@ func (x *EventEnvelope) GetSchemaVersion() int32 {
 	return 0
 }
 
+func (x *EventEnvelope) GetCorrelationId() string {
+	if x != nil {
+		return x.CorrelationId
+	}
+	return ""
+}
+
+func (x *EventEnvelope) GetCausationId() string {
+	if x != nil {
+		return x.CausationId
+	}
+	return ""
+}
+
+func (x *EventEnvelope) GetSourceService() string {
+	if x != nil {
+		return x.SourceService
+	}
+	return ""
+}
+
+func (x *EventEnvelope) GetActorSub() string {
+	if x != nil {
+		return x.ActorSub
+	}
+	return ""
+}
+
+func (x *EventEnvelope) GetAttributes() map[string]string {
+	if x != nil {
+		return x.Attributes
+	}
+	return nil
+}
+
 var File_proto_scg_shared_v1_events_proto protoreflect.FileDescriptor
 
 const file_proto_scg_shared_v1_events_proto_rawDesc = "" +
 	"\n" +
-	" proto/scg/shared/v1/events.proto\x12\x13proto.scg.shared.v1\x1a\x1fgoogle/protobuf/timestamp.proto\"\xed\x01\n" +
+	" proto/scg/shared/v1/events.proto\x12\x13proto.scg.shared.v1\x1a\x1fgoogle/protobuf/timestamp.proto\"\x92\x04\n" +
 	"\rEventEnvelope\x12\x1a\n" +
 	"\bevent_id\x18\x01 \x01(\tR\bevent_id\x12\x1e\n" +
 	"\n" +
@@ -121,7 +162,18 @@ const file_proto_scg_shared_v1_events_proto_rawDesc = "" +
 	"actor_uuid\x12\x1a\n" +
 	"\btrace_id\x18\x04 \x01(\tR\btrace_id\x12<\n" +
 	"\voccurred_at\x18\x05 \x01(\v2\x1a.google.protobuf.TimestampR\voccurred_at\x12&\n" +
-	"\x0eschema_version\x18\x06 \x01(\x05R\x0eschema_versionB\xde\x01\n" +
+	"\x0eschema_version\x18\x06 \x01(\x05R\x0eschema_version\x12&\n" +
+	"\x0ecorrelation_id\x18\a \x01(\tR\x0ecorrelation_id\x12\"\n" +
+	"\fcausation_id\x18\b \x01(\tR\fcausation_id\x12&\n" +
+	"\x0esource_service\x18\t \x01(\tR\x0esource_service\x12\x1c\n" +
+	"\tactor_sub\x18\n" +
+	" \x01(\tR\tactor_sub\x12R\n" +
+	"\n" +
+	"attributes\x18\v \x03(\v22.proto.scg.shared.v1.EventEnvelope.AttributesEntryR\n" +
+	"attributes\x1a=\n" +
+	"\x0fAttributesEntry\x12\x10\n" +
+	"\x03key\x18\x01 \x01(\tR\x03key\x12\x14\n" +
+	"\x05value\x18\x02 \x01(\tR\x05value:\x028\x01B\xde\x01\n" +
 	"\x17com.proto.scg.shared.v1B\vEventsProtoP\x01ZGgithub.com/next-trace/scg-contracts/gen/go/proto/scg/shared/v1;sharedv1\xa2\x02\x03PSS\xaa\x02\x13Proto.Scg.Shared.V1\xca\x02\x13Proto\\Scg\\Shared\\V1\xe2\x02\x1fProto\\Scg\\Shared\\V1\\GPBMetadata\xea\x02\x16Proto::Scg::Shared::V1b\x06proto3"
 
 var (
@@ -136,18 +188,20 @@ func file_proto_scg_shared_v1_events_proto_rawDescGZIP() []byte {
 	return file_proto_scg_shared_v1_events_proto_rawDescData
 }
 
-var file_proto_scg_shared_v1_events_proto_msgTypes = make([]protoimpl.MessageInfo, 1)
+var file_proto_scg_shared_v1_events_proto_msgTypes = make([]protoimpl.MessageInfo, 2)
 var file_proto_scg_shared_v1_events_proto_goTypes = []any{
 	(*EventEnvelope)(nil),         // 0: proto.scg.shared.v1.EventEnvelope
-	(*timestamppb.Timestamp)(nil), // 1: google.protobuf.Timestamp
+	nil,                           // 1: proto.scg.shared.v1.EventEnvelope.AttributesEntry
+	(*timestamppb.Timestamp)(nil), // 2: google.protobuf.Timestamp
 }
 var file_proto_scg_shared_v1_events_proto_depIdxs = []int32{
-	1, // 0: proto.scg.shared.v1.EventEnvelope.occurred_at:type_name -> google.protobuf.Timestamp
-	1, // [1:1] is the sub-list for method output_type
-	1, // [1:1] is the sub-list for method input_type
-	1, // [1:1] is the sub-list for extension type_name
-	1, // [1:1] is the sub-list for extension extendee
-	0, // [0:1] is the sub-list for field type_name
+	2, // 0: proto.scg.shared.v1.EventEnvelope.occurred_at:type_name -> google.protobuf.Timestamp
+	1, // 1: proto.scg.shared.v1.EventEnvelope.attributes:type_name -> proto.scg.shared.v1.EventEnvelope.AttributesEntry
+	2, // [2:2] is the sub-list for method output_type
+	2, // [2:2] is the sub-list for method input_type
+	2, // [2:2] is the sub-list for extension type_name
+	2, // [2:2] is the sub-list for extension extendee
+	0, // [0:2] is the sub-list for field type_name
 }
 
 func init() { file_proto_scg_shared_v1_events_proto_init() }
@@ -161,7 +215,7 @@ func file_proto_scg_shared_v1_events_proto_init() {
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
 			RawDescriptor: unsafe.Slice(unsafe.StringData(file_proto_scg_shared_v1_events_proto_rawDesc), len(file_proto_scg_shared_v1_events_proto_rawDesc)),
 			NumEnums:      0,
-			NumMessages:   1,
+			NumMessages:   2,
 			NumExtensions: 0,
 			NumServices:   0,
 		},
