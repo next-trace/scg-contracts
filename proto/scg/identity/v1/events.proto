@@ -2,7 +2,6 @@ syntax = "proto3";
 package proto.scg.identity.v1;
 import "google/protobuf/timestamp.proto";
 import "proto/scg/shared/v1/events.proto";
-import "proto/scg/common/v1/common.proto";
 option go_package = "github.com/next-trace/scg-contracts/gen/go/proto/scg/identity/v1;identityv1";
 
 // --- IDENTITY EVENTS ---
@@ -332,103 +331,73 @@ message ExternalIdentityUnlinked {
   google.protobuf.Timestamp unlinked_at = 6 [json_name = "unlinked_at"];
 }
 
-// --- CANONICAL IDENTITY LIFECYCLE & ACL DELTA EVENTS ---
-// These are additive canonical events intended for Identity Service consumers.
-// They use explicit common fields per C1 design rules to avoid changing the shared envelope.
+// ============================================================================
+// REQUEST EVENTS (external → identity)
+// These events are emitted by other services
+// to ASK Identity to actually create/invite/assign a user.
+// Identity is still the single source of truth and will emit the canonical events.
+// ============================================================================
+message UserCreateRequested {
+  // business
+  proto.scg.shared.v1.EventEnvelope meta = 1 [json_name = "meta"];
+  string email         = 2 [json_name = "email"];
+  string full_name     = 3 [json_name = "full_name"];
+  string org_uuid      = 4 [json_name = "org_uuid"];
+  string requested_by  = 5 [json_name = "requested_by"];
+  string preferred_role = 6 [json_name = "preferred_role"];
+}
+
+message UserInviteRequested {
+  proto.scg.shared.v1.EventEnvelope meta = 1 [json_name = "meta"];
+  string invitee_email = 2 [json_name = "invitee_email"];
+  string inviter_uuid  = 3 [json_name = "inviter_uuid"];
+  string org_uuid      = 4 [json_name = "org_uuid"];
+  string role          = 5 [json_name = "role"];
+}
+
+message UserRoleAssignRequested {
+  proto.scg.shared.v1.EventEnvelope meta = 1 [json_name = "meta"];
+  string user_uuid   = 2 [json_name = "user_uuid"];
+  string org_uuid    = 3 [json_name = "org_uuid"];
+  string role        = 4 [json_name = "role"];
+  string assigned_by = 5 [json_name = "assigned_by"];
+}
+
+// --- CANONICAL IDENTITY LIFECYCLE & ACL DELTA EVENTS ------------------------
 
 message UserCreated {
-  string event_id = 1 [json_name = "event_id", deprecated = true];                  // UUID v7
-  google.protobuf.Timestamp occurred_at = 2 [json_name = "occurred_at", deprecated = true];
-  string correlation_id = 3 [json_name = "correlation_id", deprecated = true];
-  string causation_id = 4 [json_name = "causation_id", deprecated = true];
-  string source_service = 5 [json_name = "source_service", deprecated = true];
-  string actor_sub = 6 [json_name = "actor_sub", deprecated = true];
-  map<string,string> attributes = 7 [json_name = "attributes", deprecated = true];
-
-  string user_uuid = 8 [json_name = "user_uuid"];
-  string merchant_uuid = 9 [json_name = "merchant_uuid"];       // optional if global user
-  string sub = 10 [json_name = "sub"];                           // optional OIDC subject
-
-  // Transitional common envelope (deprecated in favor of meta)
-  proto.scg.common.v1.EventMeta meta_common = 11 [json_name = "meta_common", deprecated = true];
-  // Standard envelope going forward
-  proto.scg.shared.v1.EventEnvelope meta = 12 [json_name = "meta"];
+  proto.scg.shared.v1.EventEnvelope meta = 1 [json_name = "meta"];
+  string user_uuid     = 2 [json_name = "user_uuid"];
+  string merchant_uuid = 3 [json_name = "merchant_uuid"];
+  string sub           = 4 [json_name = "sub"];
 }
 
 message UserSoftDeleted {
-  string event_id = 1 [json_name = "event_id", deprecated = true];
-  google.protobuf.Timestamp occurred_at = 2 [json_name = "occurred_at", deprecated = true];
-  string correlation_id = 3 [json_name = "correlation_id", deprecated = true];
-  string causation_id = 4 [json_name = "causation_id", deprecated = true];
-  string source_service = 5 [json_name = "source_service", deprecated = true];
-  string actor_sub = 6 [json_name = "actor_sub", deprecated = true];
-  map<string,string> attributes = 7 [json_name = "attributes", deprecated = true];
-
-  string user_uuid = 8 [json_name = "user_uuid"];
-  string merchant_uuid = 9 [json_name = "merchant_uuid"];
-  string reason = 10 [json_name = "reason"];
-
-  // Transitional common envelope (deprecated in favor of meta)
-  proto.scg.common.v1.EventMeta meta_common = 11 [json_name = "meta_common", deprecated = true];
-  // Standard envelope going forward
-  proto.scg.shared.v1.EventEnvelope meta = 12 [json_name = "meta"];
+  proto.scg.shared.v1.EventEnvelope meta = 1 [json_name = "meta"];
+  string user_uuid     = 2 [json_name = "user_uuid"];
+  string merchant_uuid = 3 [json_name = "merchant_uuid"];
+  string reason        = 4 [json_name = "reason"];
 }
 
 message UserDeleted {
-  string event_id = 1 [json_name = "event_id", deprecated = true];
-  google.protobuf.Timestamp occurred_at = 2 [json_name = "occurred_at", deprecated = true];
-  string correlation_id = 3 [json_name = "correlation_id", deprecated = true];
-  string causation_id = 4 [json_name = "causation_id", deprecated = true];
-  string source_service = 5 [json_name = "source_service", deprecated = true];
-  string actor_sub = 6 [json_name = "actor_sub", deprecated = true];
-  map<string,string> attributes = 7 [json_name = "attributes", deprecated = true];
-
-  string user_uuid = 8 [json_name = "user_uuid"];
-  string merchant_uuid = 9 [json_name = "merchant_uuid"];
-  string reason = 10 [json_name = "reason"];
-
-  // Transitional common envelope (deprecated in favor of meta)
-  proto.scg.common.v1.EventMeta meta_common = 11 [json_name = "meta_common", deprecated = true];
-  // Standard envelope going forward
-  proto.scg.shared.v1.EventEnvelope meta = 12 [json_name = "meta"];
+  proto.scg.shared.v1.EventEnvelope meta = 1 [json_name = "meta"];
+  string user_uuid     = 2 [json_name = "user_uuid"];
+  string merchant_uuid = 3 [json_name = "merchant_uuid"];
+  string reason        = 4 [json_name = "reason"];
 }
 
 message UserRoleAssigned {
-  string event_id = 1 [json_name = "event_id", deprecated = true];
-  google.protobuf.Timestamp occurred_at = 2 [json_name = "occurred_at", deprecated = true];
-  string correlation_id = 3 [json_name = "correlation_id", deprecated = true];
-  string causation_id = 4 [json_name = "causation_id", deprecated = true];
-  string source_service = 5 [json_name = "source_service", deprecated = true];
-  string actor_sub = 6 [json_name = "actor_sub", deprecated = true];
-  map<string,string> attributes = 7 [json_name = "attributes", deprecated = true];
-
-  string merchant_uuid = 8 [json_name = "merchant_uuid"];
-  string user_uuid = 9 [json_name = "user_uuid"];
-  string role_uuid = 10 [json_name = "role_uuid"];
-  string role_name = 11 [json_name = "role_name"];
-
-  // Transitional common envelope (deprecated in favor of meta)
-  proto.scg.common.v1.EventMeta meta_common = 12 [json_name = "meta_common", deprecated = true];
-  // Standard envelope going forward
-  proto.scg.shared.v1.EventEnvelope meta = 13 [json_name = "meta"];
+  proto.scg.shared.v1.EventEnvelope meta = 1 [json_name = "meta"];
+  string merchant_uuid = 2 [json_name = "merchant_uuid"];
+  string user_uuid     = 3 [json_name = "user_uuid"];
+  string role_uuid     = 4 [json_name = "role_uuid"];
+  string role_name     = 5 [json_name = "role_name"];
 }
 
 message UserRoleRevoked {
-  string event_id = 1 [json_name = "event_id", deprecated = true];
-  google.protobuf.Timestamp occurred_at = 2 [json_name = "occurred_at", deprecated = true];
-  string correlation_id = 3 [json_name = "correlation_id", deprecated = true];
-  string causation_id = 4 [json_name = "causation_id", deprecated = true];
-  string source_service = 5 [json_name = "source_service", deprecated = true];
-  string actor_sub = 6 [json_name = "actor_sub", deprecated = true];
-  map<string,string> attributes = 7 [json_name = "attributes", deprecated = true];
-
-  string merchant_uuid = 8 [json_name = "merchant_uuid"];
-  string user_uuid = 9 [json_name = "user_uuid"];
-  string role_uuid = 10 [json_name = "role_uuid"];
-  string role_name = 11 [json_name = "role_name"];
-
-  // Transitional common envelope (deprecated in favor of meta)
-  proto.scg.common.v1.EventMeta meta_common = 12 [json_name = "meta_common", deprecated = true];
-  // Standard envelope going forward
-  proto.scg.shared.v1.EventEnvelope meta = 13 [json_name = "meta"];
+  proto.scg.shared.v1.EventEnvelope meta = 1 [json_name = "meta"];
+  string merchant_uuid = 2 [json_name = "merchant_uuid"];
+  string user_uuid     = 3 [json_name = "user_uuid"];
+  string role_uuid     = 4 [json_name = "role_uuid"];
+  string role_name     = 5 [json_name = "role_name"];
 }

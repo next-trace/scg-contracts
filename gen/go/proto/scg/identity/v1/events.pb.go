@@ -7,7 +7,6 @@
 package identityv1
 
 import (
-	v11 "github.com/next-trace/scg-contracts/gen/go/proto/scg/common/v1"
 	v1 "github.com/next-trace/scg-contracts/gen/go/proto/scg/shared/v1"
 	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
 	protoimpl "google.golang.org/protobuf/runtime/protoimpl"
@@ -3028,38 +3027,262 @@ func (x *ExternalIdentityUnlinked) GetUnlinkedAt() *timestamppb.Timestamp {
 	return nil
 }
 
-type UserCreated struct {
+// ============================================================================
+// REQUEST EVENTS (external → identity)
+// These events are emitted by other services
+// to ASK Identity to actually create/invite/assign a user.
+// Identity is still the single source of truth and will emit the canonical events.
+// ============================================================================
+type UserCreateRequested struct {
 	state protoimpl.MessageState `protogen:"open.v1"`
-	// Deprecated: Marked as deprecated in proto/scg/identity/v1/events.proto.
-	EventId string `protobuf:"bytes,1,opt,name=event_id,proto3" json:"event_id,omitempty"` // UUID v7
-	// Deprecated: Marked as deprecated in proto/scg/identity/v1/events.proto.
-	OccurredAt *timestamppb.Timestamp `protobuf:"bytes,2,opt,name=occurred_at,proto3" json:"occurred_at,omitempty"`
-	// Deprecated: Marked as deprecated in proto/scg/identity/v1/events.proto.
-	CorrelationId string `protobuf:"bytes,3,opt,name=correlation_id,proto3" json:"correlation_id,omitempty"`
-	// Deprecated: Marked as deprecated in proto/scg/identity/v1/events.proto.
-	CausationId string `protobuf:"bytes,4,opt,name=causation_id,proto3" json:"causation_id,omitempty"`
-	// Deprecated: Marked as deprecated in proto/scg/identity/v1/events.proto.
-	SourceService string `protobuf:"bytes,5,opt,name=source_service,proto3" json:"source_service,omitempty"`
-	// Deprecated: Marked as deprecated in proto/scg/identity/v1/events.proto.
-	ActorSub string `protobuf:"bytes,6,opt,name=actor_sub,proto3" json:"actor_sub,omitempty"`
-	// Deprecated: Marked as deprecated in proto/scg/identity/v1/events.proto.
-	Attributes   map[string]string `protobuf:"bytes,7,rep,name=attributes,proto3" json:"attributes,omitempty" protobuf_key:"bytes,1,opt,name=key" protobuf_val:"bytes,2,opt,name=value"`
-	UserUuid     string            `protobuf:"bytes,8,opt,name=user_uuid,proto3" json:"user_uuid,omitempty"`
-	MerchantUuid string            `protobuf:"bytes,9,opt,name=merchant_uuid,proto3" json:"merchant_uuid,omitempty"` // optional if global user
-	Sub          string            `protobuf:"bytes,10,opt,name=sub,proto3" json:"sub,omitempty"`                    // optional OIDC subject
-	// Transitional common envelope (deprecated in favor of meta)
-	//
-	// Deprecated: Marked as deprecated in proto/scg/identity/v1/events.proto.
-	MetaCommon *v11.EventMeta `protobuf:"bytes,11,opt,name=meta_common,proto3" json:"meta_common,omitempty"`
-	// Standard envelope going forward
-	Meta          *v1.EventEnvelope `protobuf:"bytes,12,opt,name=meta,proto3" json:"meta,omitempty"`
+	// business
+	Meta          *v1.EventEnvelope `protobuf:"bytes,1,opt,name=meta,proto3" json:"meta,omitempty"`
+	Email         string            `protobuf:"bytes,2,opt,name=email,proto3" json:"email,omitempty"`
+	FullName      string            `protobuf:"bytes,3,opt,name=full_name,proto3" json:"full_name,omitempty"`
+	OrgUuid       string            `protobuf:"bytes,4,opt,name=org_uuid,proto3" json:"org_uuid,omitempty"`
+	RequestedBy   string            `protobuf:"bytes,5,opt,name=requested_by,proto3" json:"requested_by,omitempty"`
+	PreferredRole string            `protobuf:"bytes,6,opt,name=preferred_role,proto3" json:"preferred_role,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *UserCreateRequested) Reset() {
+	*x = UserCreateRequested{}
+	mi := &file_proto_scg_identity_v1_events_proto_msgTypes[37]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *UserCreateRequested) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*UserCreateRequested) ProtoMessage() {}
+
+func (x *UserCreateRequested) ProtoReflect() protoreflect.Message {
+	mi := &file_proto_scg_identity_v1_events_proto_msgTypes[37]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use UserCreateRequested.ProtoReflect.Descriptor instead.
+func (*UserCreateRequested) Descriptor() ([]byte, []int) {
+	return file_proto_scg_identity_v1_events_proto_rawDescGZIP(), []int{37}
+}
+
+func (x *UserCreateRequested) GetMeta() *v1.EventEnvelope {
+	if x != nil {
+		return x.Meta
+	}
+	return nil
+}
+
+func (x *UserCreateRequested) GetEmail() string {
+	if x != nil {
+		return x.Email
+	}
+	return ""
+}
+
+func (x *UserCreateRequested) GetFullName() string {
+	if x != nil {
+		return x.FullName
+	}
+	return ""
+}
+
+func (x *UserCreateRequested) GetOrgUuid() string {
+	if x != nil {
+		return x.OrgUuid
+	}
+	return ""
+}
+
+func (x *UserCreateRequested) GetRequestedBy() string {
+	if x != nil {
+		return x.RequestedBy
+	}
+	return ""
+}
+
+func (x *UserCreateRequested) GetPreferredRole() string {
+	if x != nil {
+		return x.PreferredRole
+	}
+	return ""
+}
+
+type UserInviteRequested struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Meta          *v1.EventEnvelope      `protobuf:"bytes,1,opt,name=meta,proto3" json:"meta,omitempty"`
+	InviteeEmail  string                 `protobuf:"bytes,2,opt,name=invitee_email,proto3" json:"invitee_email,omitempty"`
+	InviterUuid   string                 `protobuf:"bytes,3,opt,name=inviter_uuid,proto3" json:"inviter_uuid,omitempty"`
+	OrgUuid       string                 `protobuf:"bytes,4,opt,name=org_uuid,proto3" json:"org_uuid,omitempty"`
+	Role          string                 `protobuf:"bytes,5,opt,name=role,proto3" json:"role,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *UserInviteRequested) Reset() {
+	*x = UserInviteRequested{}
+	mi := &file_proto_scg_identity_v1_events_proto_msgTypes[38]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *UserInviteRequested) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*UserInviteRequested) ProtoMessage() {}
+
+func (x *UserInviteRequested) ProtoReflect() protoreflect.Message {
+	mi := &file_proto_scg_identity_v1_events_proto_msgTypes[38]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use UserInviteRequested.ProtoReflect.Descriptor instead.
+func (*UserInviteRequested) Descriptor() ([]byte, []int) {
+	return file_proto_scg_identity_v1_events_proto_rawDescGZIP(), []int{38}
+}
+
+func (x *UserInviteRequested) GetMeta() *v1.EventEnvelope {
+	if x != nil {
+		return x.Meta
+	}
+	return nil
+}
+
+func (x *UserInviteRequested) GetInviteeEmail() string {
+	if x != nil {
+		return x.InviteeEmail
+	}
+	return ""
+}
+
+func (x *UserInviteRequested) GetInviterUuid() string {
+	if x != nil {
+		return x.InviterUuid
+	}
+	return ""
+}
+
+func (x *UserInviteRequested) GetOrgUuid() string {
+	if x != nil {
+		return x.OrgUuid
+	}
+	return ""
+}
+
+func (x *UserInviteRequested) GetRole() string {
+	if x != nil {
+		return x.Role
+	}
+	return ""
+}
+
+type UserRoleAssignRequested struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Meta          *v1.EventEnvelope      `protobuf:"bytes,1,opt,name=meta,proto3" json:"meta,omitempty"`
+	UserUuid      string                 `protobuf:"bytes,2,opt,name=user_uuid,proto3" json:"user_uuid,omitempty"`
+	OrgUuid       string                 `protobuf:"bytes,3,opt,name=org_uuid,proto3" json:"org_uuid,omitempty"`
+	Role          string                 `protobuf:"bytes,4,opt,name=role,proto3" json:"role,omitempty"`
+	AssignedBy    string                 `protobuf:"bytes,5,opt,name=assigned_by,proto3" json:"assigned_by,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *UserRoleAssignRequested) Reset() {
+	*x = UserRoleAssignRequested{}
+	mi := &file_proto_scg_identity_v1_events_proto_msgTypes[39]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *UserRoleAssignRequested) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*UserRoleAssignRequested) ProtoMessage() {}
+
+func (x *UserRoleAssignRequested) ProtoReflect() protoreflect.Message {
+	mi := &file_proto_scg_identity_v1_events_proto_msgTypes[39]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use UserRoleAssignRequested.ProtoReflect.Descriptor instead.
+func (*UserRoleAssignRequested) Descriptor() ([]byte, []int) {
+	return file_proto_scg_identity_v1_events_proto_rawDescGZIP(), []int{39}
+}
+
+func (x *UserRoleAssignRequested) GetMeta() *v1.EventEnvelope {
+	if x != nil {
+		return x.Meta
+	}
+	return nil
+}
+
+func (x *UserRoleAssignRequested) GetUserUuid() string {
+	if x != nil {
+		return x.UserUuid
+	}
+	return ""
+}
+
+func (x *UserRoleAssignRequested) GetOrgUuid() string {
+	if x != nil {
+		return x.OrgUuid
+	}
+	return ""
+}
+
+func (x *UserRoleAssignRequested) GetRole() string {
+	if x != nil {
+		return x.Role
+	}
+	return ""
+}
+
+func (x *UserRoleAssignRequested) GetAssignedBy() string {
+	if x != nil {
+		return x.AssignedBy
+	}
+	return ""
+}
+
+type UserCreated struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Meta          *v1.EventEnvelope      `protobuf:"bytes,1,opt,name=meta,proto3" json:"meta,omitempty"`
+	UserUuid      string                 `protobuf:"bytes,2,opt,name=user_uuid,proto3" json:"user_uuid,omitempty"`
+	MerchantUuid  string                 `protobuf:"bytes,3,opt,name=merchant_uuid,proto3" json:"merchant_uuid,omitempty"`
+	Sub           string                 `protobuf:"bytes,4,opt,name=sub,proto3" json:"sub,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
 
 func (x *UserCreated) Reset() {
 	*x = UserCreated{}
-	mi := &file_proto_scg_identity_v1_events_proto_msgTypes[37]
+	mi := &file_proto_scg_identity_v1_events_proto_msgTypes[40]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -3071,7 +3294,7 @@ func (x *UserCreated) String() string {
 func (*UserCreated) ProtoMessage() {}
 
 func (x *UserCreated) ProtoReflect() protoreflect.Message {
-	mi := &file_proto_scg_identity_v1_events_proto_msgTypes[37]
+	mi := &file_proto_scg_identity_v1_events_proto_msgTypes[40]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -3084,61 +3307,12 @@ func (x *UserCreated) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use UserCreated.ProtoReflect.Descriptor instead.
 func (*UserCreated) Descriptor() ([]byte, []int) {
-	return file_proto_scg_identity_v1_events_proto_rawDescGZIP(), []int{37}
+	return file_proto_scg_identity_v1_events_proto_rawDescGZIP(), []int{40}
 }
 
-// Deprecated: Marked as deprecated in proto/scg/identity/v1/events.proto.
-func (x *UserCreated) GetEventId() string {
+func (x *UserCreated) GetMeta() *v1.EventEnvelope {
 	if x != nil {
-		return x.EventId
-	}
-	return ""
-}
-
-// Deprecated: Marked as deprecated in proto/scg/identity/v1/events.proto.
-func (x *UserCreated) GetOccurredAt() *timestamppb.Timestamp {
-	if x != nil {
-		return x.OccurredAt
-	}
-	return nil
-}
-
-// Deprecated: Marked as deprecated in proto/scg/identity/v1/events.proto.
-func (x *UserCreated) GetCorrelationId() string {
-	if x != nil {
-		return x.CorrelationId
-	}
-	return ""
-}
-
-// Deprecated: Marked as deprecated in proto/scg/identity/v1/events.proto.
-func (x *UserCreated) GetCausationId() string {
-	if x != nil {
-		return x.CausationId
-	}
-	return ""
-}
-
-// Deprecated: Marked as deprecated in proto/scg/identity/v1/events.proto.
-func (x *UserCreated) GetSourceService() string {
-	if x != nil {
-		return x.SourceService
-	}
-	return ""
-}
-
-// Deprecated: Marked as deprecated in proto/scg/identity/v1/events.proto.
-func (x *UserCreated) GetActorSub() string {
-	if x != nil {
-		return x.ActorSub
-	}
-	return ""
-}
-
-// Deprecated: Marked as deprecated in proto/scg/identity/v1/events.proto.
-func (x *UserCreated) GetAttributes() map[string]string {
-	if x != nil {
-		return x.Attributes
+		return x.Meta
 	}
 	return nil
 }
@@ -3164,53 +3338,19 @@ func (x *UserCreated) GetSub() string {
 	return ""
 }
 
-// Deprecated: Marked as deprecated in proto/scg/identity/v1/events.proto.
-func (x *UserCreated) GetMetaCommon() *v11.EventMeta {
-	if x != nil {
-		return x.MetaCommon
-	}
-	return nil
-}
-
-func (x *UserCreated) GetMeta() *v1.EventEnvelope {
-	if x != nil {
-		return x.Meta
-	}
-	return nil
-}
-
 type UserSoftDeleted struct {
-	state protoimpl.MessageState `protogen:"open.v1"`
-	// Deprecated: Marked as deprecated in proto/scg/identity/v1/events.proto.
-	EventId string `protobuf:"bytes,1,opt,name=event_id,proto3" json:"event_id,omitempty"`
-	// Deprecated: Marked as deprecated in proto/scg/identity/v1/events.proto.
-	OccurredAt *timestamppb.Timestamp `protobuf:"bytes,2,opt,name=occurred_at,proto3" json:"occurred_at,omitempty"`
-	// Deprecated: Marked as deprecated in proto/scg/identity/v1/events.proto.
-	CorrelationId string `protobuf:"bytes,3,opt,name=correlation_id,proto3" json:"correlation_id,omitempty"`
-	// Deprecated: Marked as deprecated in proto/scg/identity/v1/events.proto.
-	CausationId string `protobuf:"bytes,4,opt,name=causation_id,proto3" json:"causation_id,omitempty"`
-	// Deprecated: Marked as deprecated in proto/scg/identity/v1/events.proto.
-	SourceService string `protobuf:"bytes,5,opt,name=source_service,proto3" json:"source_service,omitempty"`
-	// Deprecated: Marked as deprecated in proto/scg/identity/v1/events.proto.
-	ActorSub string `protobuf:"bytes,6,opt,name=actor_sub,proto3" json:"actor_sub,omitempty"`
-	// Deprecated: Marked as deprecated in proto/scg/identity/v1/events.proto.
-	Attributes   map[string]string `protobuf:"bytes,7,rep,name=attributes,proto3" json:"attributes,omitempty" protobuf_key:"bytes,1,opt,name=key" protobuf_val:"bytes,2,opt,name=value"`
-	UserUuid     string            `protobuf:"bytes,8,opt,name=user_uuid,proto3" json:"user_uuid,omitempty"`
-	MerchantUuid string            `protobuf:"bytes,9,opt,name=merchant_uuid,proto3" json:"merchant_uuid,omitempty"`
-	Reason       string            `protobuf:"bytes,10,opt,name=reason,proto3" json:"reason,omitempty"`
-	// Transitional common envelope (deprecated in favor of meta)
-	//
-	// Deprecated: Marked as deprecated in proto/scg/identity/v1/events.proto.
-	MetaCommon *v11.EventMeta `protobuf:"bytes,11,opt,name=meta_common,proto3" json:"meta_common,omitempty"`
-	// Standard envelope going forward
-	Meta          *v1.EventEnvelope `protobuf:"bytes,12,opt,name=meta,proto3" json:"meta,omitempty"`
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Meta          *v1.EventEnvelope      `protobuf:"bytes,1,opt,name=meta,proto3" json:"meta,omitempty"`
+	UserUuid      string                 `protobuf:"bytes,2,opt,name=user_uuid,proto3" json:"user_uuid,omitempty"`
+	MerchantUuid  string                 `protobuf:"bytes,3,opt,name=merchant_uuid,proto3" json:"merchant_uuid,omitempty"`
+	Reason        string                 `protobuf:"bytes,4,opt,name=reason,proto3" json:"reason,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
 
 func (x *UserSoftDeleted) Reset() {
 	*x = UserSoftDeleted{}
-	mi := &file_proto_scg_identity_v1_events_proto_msgTypes[38]
+	mi := &file_proto_scg_identity_v1_events_proto_msgTypes[41]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -3222,7 +3362,7 @@ func (x *UserSoftDeleted) String() string {
 func (*UserSoftDeleted) ProtoMessage() {}
 
 func (x *UserSoftDeleted) ProtoReflect() protoreflect.Message {
-	mi := &file_proto_scg_identity_v1_events_proto_msgTypes[38]
+	mi := &file_proto_scg_identity_v1_events_proto_msgTypes[41]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -3235,61 +3375,12 @@ func (x *UserSoftDeleted) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use UserSoftDeleted.ProtoReflect.Descriptor instead.
 func (*UserSoftDeleted) Descriptor() ([]byte, []int) {
-	return file_proto_scg_identity_v1_events_proto_rawDescGZIP(), []int{38}
+	return file_proto_scg_identity_v1_events_proto_rawDescGZIP(), []int{41}
 }
 
-// Deprecated: Marked as deprecated in proto/scg/identity/v1/events.proto.
-func (x *UserSoftDeleted) GetEventId() string {
+func (x *UserSoftDeleted) GetMeta() *v1.EventEnvelope {
 	if x != nil {
-		return x.EventId
-	}
-	return ""
-}
-
-// Deprecated: Marked as deprecated in proto/scg/identity/v1/events.proto.
-func (x *UserSoftDeleted) GetOccurredAt() *timestamppb.Timestamp {
-	if x != nil {
-		return x.OccurredAt
-	}
-	return nil
-}
-
-// Deprecated: Marked as deprecated in proto/scg/identity/v1/events.proto.
-func (x *UserSoftDeleted) GetCorrelationId() string {
-	if x != nil {
-		return x.CorrelationId
-	}
-	return ""
-}
-
-// Deprecated: Marked as deprecated in proto/scg/identity/v1/events.proto.
-func (x *UserSoftDeleted) GetCausationId() string {
-	if x != nil {
-		return x.CausationId
-	}
-	return ""
-}
-
-// Deprecated: Marked as deprecated in proto/scg/identity/v1/events.proto.
-func (x *UserSoftDeleted) GetSourceService() string {
-	if x != nil {
-		return x.SourceService
-	}
-	return ""
-}
-
-// Deprecated: Marked as deprecated in proto/scg/identity/v1/events.proto.
-func (x *UserSoftDeleted) GetActorSub() string {
-	if x != nil {
-		return x.ActorSub
-	}
-	return ""
-}
-
-// Deprecated: Marked as deprecated in proto/scg/identity/v1/events.proto.
-func (x *UserSoftDeleted) GetAttributes() map[string]string {
-	if x != nil {
-		return x.Attributes
+		return x.Meta
 	}
 	return nil
 }
@@ -3315,53 +3406,19 @@ func (x *UserSoftDeleted) GetReason() string {
 	return ""
 }
 
-// Deprecated: Marked as deprecated in proto/scg/identity/v1/events.proto.
-func (x *UserSoftDeleted) GetMetaCommon() *v11.EventMeta {
-	if x != nil {
-		return x.MetaCommon
-	}
-	return nil
-}
-
-func (x *UserSoftDeleted) GetMeta() *v1.EventEnvelope {
-	if x != nil {
-		return x.Meta
-	}
-	return nil
-}
-
 type UserDeleted struct {
-	state protoimpl.MessageState `protogen:"open.v1"`
-	// Deprecated: Marked as deprecated in proto/scg/identity/v1/events.proto.
-	EventId string `protobuf:"bytes,1,opt,name=event_id,proto3" json:"event_id,omitempty"`
-	// Deprecated: Marked as deprecated in proto/scg/identity/v1/events.proto.
-	OccurredAt *timestamppb.Timestamp `protobuf:"bytes,2,opt,name=occurred_at,proto3" json:"occurred_at,omitempty"`
-	// Deprecated: Marked as deprecated in proto/scg/identity/v1/events.proto.
-	CorrelationId string `protobuf:"bytes,3,opt,name=correlation_id,proto3" json:"correlation_id,omitempty"`
-	// Deprecated: Marked as deprecated in proto/scg/identity/v1/events.proto.
-	CausationId string `protobuf:"bytes,4,opt,name=causation_id,proto3" json:"causation_id,omitempty"`
-	// Deprecated: Marked as deprecated in proto/scg/identity/v1/events.proto.
-	SourceService string `protobuf:"bytes,5,opt,name=source_service,proto3" json:"source_service,omitempty"`
-	// Deprecated: Marked as deprecated in proto/scg/identity/v1/events.proto.
-	ActorSub string `protobuf:"bytes,6,opt,name=actor_sub,proto3" json:"actor_sub,omitempty"`
-	// Deprecated: Marked as deprecated in proto/scg/identity/v1/events.proto.
-	Attributes   map[string]string `protobuf:"bytes,7,rep,name=attributes,proto3" json:"attributes,omitempty" protobuf_key:"bytes,1,opt,name=key" protobuf_val:"bytes,2,opt,name=value"`
-	UserUuid     string            `protobuf:"bytes,8,opt,name=user_uuid,proto3" json:"user_uuid,omitempty"`
-	MerchantUuid string            `protobuf:"bytes,9,opt,name=merchant_uuid,proto3" json:"merchant_uuid,omitempty"`
-	Reason       string            `protobuf:"bytes,10,opt,name=reason,proto3" json:"reason,omitempty"`
-	// Transitional common envelope (deprecated in favor of meta)
-	//
-	// Deprecated: Marked as deprecated in proto/scg/identity/v1/events.proto.
-	MetaCommon *v11.EventMeta `protobuf:"bytes,11,opt,name=meta_common,proto3" json:"meta_common,omitempty"`
-	// Standard envelope going forward
-	Meta          *v1.EventEnvelope `protobuf:"bytes,12,opt,name=meta,proto3" json:"meta,omitempty"`
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Meta          *v1.EventEnvelope      `protobuf:"bytes,1,opt,name=meta,proto3" json:"meta,omitempty"`
+	UserUuid      string                 `protobuf:"bytes,2,opt,name=user_uuid,proto3" json:"user_uuid,omitempty"`
+	MerchantUuid  string                 `protobuf:"bytes,3,opt,name=merchant_uuid,proto3" json:"merchant_uuid,omitempty"`
+	Reason        string                 `protobuf:"bytes,4,opt,name=reason,proto3" json:"reason,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
 
 func (x *UserDeleted) Reset() {
 	*x = UserDeleted{}
-	mi := &file_proto_scg_identity_v1_events_proto_msgTypes[39]
+	mi := &file_proto_scg_identity_v1_events_proto_msgTypes[42]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -3373,7 +3430,7 @@ func (x *UserDeleted) String() string {
 func (*UserDeleted) ProtoMessage() {}
 
 func (x *UserDeleted) ProtoReflect() protoreflect.Message {
-	mi := &file_proto_scg_identity_v1_events_proto_msgTypes[39]
+	mi := &file_proto_scg_identity_v1_events_proto_msgTypes[42]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -3386,61 +3443,12 @@ func (x *UserDeleted) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use UserDeleted.ProtoReflect.Descriptor instead.
 func (*UserDeleted) Descriptor() ([]byte, []int) {
-	return file_proto_scg_identity_v1_events_proto_rawDescGZIP(), []int{39}
+	return file_proto_scg_identity_v1_events_proto_rawDescGZIP(), []int{42}
 }
 
-// Deprecated: Marked as deprecated in proto/scg/identity/v1/events.proto.
-func (x *UserDeleted) GetEventId() string {
+func (x *UserDeleted) GetMeta() *v1.EventEnvelope {
 	if x != nil {
-		return x.EventId
-	}
-	return ""
-}
-
-// Deprecated: Marked as deprecated in proto/scg/identity/v1/events.proto.
-func (x *UserDeleted) GetOccurredAt() *timestamppb.Timestamp {
-	if x != nil {
-		return x.OccurredAt
-	}
-	return nil
-}
-
-// Deprecated: Marked as deprecated in proto/scg/identity/v1/events.proto.
-func (x *UserDeleted) GetCorrelationId() string {
-	if x != nil {
-		return x.CorrelationId
-	}
-	return ""
-}
-
-// Deprecated: Marked as deprecated in proto/scg/identity/v1/events.proto.
-func (x *UserDeleted) GetCausationId() string {
-	if x != nil {
-		return x.CausationId
-	}
-	return ""
-}
-
-// Deprecated: Marked as deprecated in proto/scg/identity/v1/events.proto.
-func (x *UserDeleted) GetSourceService() string {
-	if x != nil {
-		return x.SourceService
-	}
-	return ""
-}
-
-// Deprecated: Marked as deprecated in proto/scg/identity/v1/events.proto.
-func (x *UserDeleted) GetActorSub() string {
-	if x != nil {
-		return x.ActorSub
-	}
-	return ""
-}
-
-// Deprecated: Marked as deprecated in proto/scg/identity/v1/events.proto.
-func (x *UserDeleted) GetAttributes() map[string]string {
-	if x != nil {
-		return x.Attributes
+		return x.Meta
 	}
 	return nil
 }
@@ -3466,54 +3474,20 @@ func (x *UserDeleted) GetReason() string {
 	return ""
 }
 
-// Deprecated: Marked as deprecated in proto/scg/identity/v1/events.proto.
-func (x *UserDeleted) GetMetaCommon() *v11.EventMeta {
-	if x != nil {
-		return x.MetaCommon
-	}
-	return nil
-}
-
-func (x *UserDeleted) GetMeta() *v1.EventEnvelope {
-	if x != nil {
-		return x.Meta
-	}
-	return nil
-}
-
 type UserRoleAssigned struct {
-	state protoimpl.MessageState `protogen:"open.v1"`
-	// Deprecated: Marked as deprecated in proto/scg/identity/v1/events.proto.
-	EventId string `protobuf:"bytes,1,opt,name=event_id,proto3" json:"event_id,omitempty"`
-	// Deprecated: Marked as deprecated in proto/scg/identity/v1/events.proto.
-	OccurredAt *timestamppb.Timestamp `protobuf:"bytes,2,opt,name=occurred_at,proto3" json:"occurred_at,omitempty"`
-	// Deprecated: Marked as deprecated in proto/scg/identity/v1/events.proto.
-	CorrelationId string `protobuf:"bytes,3,opt,name=correlation_id,proto3" json:"correlation_id,omitempty"`
-	// Deprecated: Marked as deprecated in proto/scg/identity/v1/events.proto.
-	CausationId string `protobuf:"bytes,4,opt,name=causation_id,proto3" json:"causation_id,omitempty"`
-	// Deprecated: Marked as deprecated in proto/scg/identity/v1/events.proto.
-	SourceService string `protobuf:"bytes,5,opt,name=source_service,proto3" json:"source_service,omitempty"`
-	// Deprecated: Marked as deprecated in proto/scg/identity/v1/events.proto.
-	ActorSub string `protobuf:"bytes,6,opt,name=actor_sub,proto3" json:"actor_sub,omitempty"`
-	// Deprecated: Marked as deprecated in proto/scg/identity/v1/events.proto.
-	Attributes   map[string]string `protobuf:"bytes,7,rep,name=attributes,proto3" json:"attributes,omitempty" protobuf_key:"bytes,1,opt,name=key" protobuf_val:"bytes,2,opt,name=value"`
-	MerchantUuid string            `protobuf:"bytes,8,opt,name=merchant_uuid,proto3" json:"merchant_uuid,omitempty"`
-	UserUuid     string            `protobuf:"bytes,9,opt,name=user_uuid,proto3" json:"user_uuid,omitempty"`
-	RoleUuid     string            `protobuf:"bytes,10,opt,name=role_uuid,proto3" json:"role_uuid,omitempty"`
-	RoleName     string            `protobuf:"bytes,11,opt,name=role_name,proto3" json:"role_name,omitempty"`
-	// Transitional common envelope (deprecated in favor of meta)
-	//
-	// Deprecated: Marked as deprecated in proto/scg/identity/v1/events.proto.
-	MetaCommon *v11.EventMeta `protobuf:"bytes,12,opt,name=meta_common,proto3" json:"meta_common,omitempty"`
-	// Standard envelope going forward
-	Meta          *v1.EventEnvelope `protobuf:"bytes,13,opt,name=meta,proto3" json:"meta,omitempty"`
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Meta          *v1.EventEnvelope      `protobuf:"bytes,1,opt,name=meta,proto3" json:"meta,omitempty"`
+	MerchantUuid  string                 `protobuf:"bytes,2,opt,name=merchant_uuid,proto3" json:"merchant_uuid,omitempty"`
+	UserUuid      string                 `protobuf:"bytes,3,opt,name=user_uuid,proto3" json:"user_uuid,omitempty"`
+	RoleUuid      string                 `protobuf:"bytes,4,opt,name=role_uuid,proto3" json:"role_uuid,omitempty"`
+	RoleName      string                 `protobuf:"bytes,5,opt,name=role_name,proto3" json:"role_name,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
 
 func (x *UserRoleAssigned) Reset() {
 	*x = UserRoleAssigned{}
-	mi := &file_proto_scg_identity_v1_events_proto_msgTypes[40]
+	mi := &file_proto_scg_identity_v1_events_proto_msgTypes[43]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -3525,7 +3499,7 @@ func (x *UserRoleAssigned) String() string {
 func (*UserRoleAssigned) ProtoMessage() {}
 
 func (x *UserRoleAssigned) ProtoReflect() protoreflect.Message {
-	mi := &file_proto_scg_identity_v1_events_proto_msgTypes[40]
+	mi := &file_proto_scg_identity_v1_events_proto_msgTypes[43]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -3538,61 +3512,12 @@ func (x *UserRoleAssigned) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use UserRoleAssigned.ProtoReflect.Descriptor instead.
 func (*UserRoleAssigned) Descriptor() ([]byte, []int) {
-	return file_proto_scg_identity_v1_events_proto_rawDescGZIP(), []int{40}
+	return file_proto_scg_identity_v1_events_proto_rawDescGZIP(), []int{43}
 }
 
-// Deprecated: Marked as deprecated in proto/scg/identity/v1/events.proto.
-func (x *UserRoleAssigned) GetEventId() string {
+func (x *UserRoleAssigned) GetMeta() *v1.EventEnvelope {
 	if x != nil {
-		return x.EventId
-	}
-	return ""
-}
-
-// Deprecated: Marked as deprecated in proto/scg/identity/v1/events.proto.
-func (x *UserRoleAssigned) GetOccurredAt() *timestamppb.Timestamp {
-	if x != nil {
-		return x.OccurredAt
-	}
-	return nil
-}
-
-// Deprecated: Marked as deprecated in proto/scg/identity/v1/events.proto.
-func (x *UserRoleAssigned) GetCorrelationId() string {
-	if x != nil {
-		return x.CorrelationId
-	}
-	return ""
-}
-
-// Deprecated: Marked as deprecated in proto/scg/identity/v1/events.proto.
-func (x *UserRoleAssigned) GetCausationId() string {
-	if x != nil {
-		return x.CausationId
-	}
-	return ""
-}
-
-// Deprecated: Marked as deprecated in proto/scg/identity/v1/events.proto.
-func (x *UserRoleAssigned) GetSourceService() string {
-	if x != nil {
-		return x.SourceService
-	}
-	return ""
-}
-
-// Deprecated: Marked as deprecated in proto/scg/identity/v1/events.proto.
-func (x *UserRoleAssigned) GetActorSub() string {
-	if x != nil {
-		return x.ActorSub
-	}
-	return ""
-}
-
-// Deprecated: Marked as deprecated in proto/scg/identity/v1/events.proto.
-func (x *UserRoleAssigned) GetAttributes() map[string]string {
-	if x != nil {
-		return x.Attributes
+		return x.Meta
 	}
 	return nil
 }
@@ -3625,54 +3550,20 @@ func (x *UserRoleAssigned) GetRoleName() string {
 	return ""
 }
 
-// Deprecated: Marked as deprecated in proto/scg/identity/v1/events.proto.
-func (x *UserRoleAssigned) GetMetaCommon() *v11.EventMeta {
-	if x != nil {
-		return x.MetaCommon
-	}
-	return nil
-}
-
-func (x *UserRoleAssigned) GetMeta() *v1.EventEnvelope {
-	if x != nil {
-		return x.Meta
-	}
-	return nil
-}
-
 type UserRoleRevoked struct {
-	state protoimpl.MessageState `protogen:"open.v1"`
-	// Deprecated: Marked as deprecated in proto/scg/identity/v1/events.proto.
-	EventId string `protobuf:"bytes,1,opt,name=event_id,proto3" json:"event_id,omitempty"`
-	// Deprecated: Marked as deprecated in proto/scg/identity/v1/events.proto.
-	OccurredAt *timestamppb.Timestamp `protobuf:"bytes,2,opt,name=occurred_at,proto3" json:"occurred_at,omitempty"`
-	// Deprecated: Marked as deprecated in proto/scg/identity/v1/events.proto.
-	CorrelationId string `protobuf:"bytes,3,opt,name=correlation_id,proto3" json:"correlation_id,omitempty"`
-	// Deprecated: Marked as deprecated in proto/scg/identity/v1/events.proto.
-	CausationId string `protobuf:"bytes,4,opt,name=causation_id,proto3" json:"causation_id,omitempty"`
-	// Deprecated: Marked as deprecated in proto/scg/identity/v1/events.proto.
-	SourceService string `protobuf:"bytes,5,opt,name=source_service,proto3" json:"source_service,omitempty"`
-	// Deprecated: Marked as deprecated in proto/scg/identity/v1/events.proto.
-	ActorSub string `protobuf:"bytes,6,opt,name=actor_sub,proto3" json:"actor_sub,omitempty"`
-	// Deprecated: Marked as deprecated in proto/scg/identity/v1/events.proto.
-	Attributes   map[string]string `protobuf:"bytes,7,rep,name=attributes,proto3" json:"attributes,omitempty" protobuf_key:"bytes,1,opt,name=key" protobuf_val:"bytes,2,opt,name=value"`
-	MerchantUuid string            `protobuf:"bytes,8,opt,name=merchant_uuid,proto3" json:"merchant_uuid,omitempty"`
-	UserUuid     string            `protobuf:"bytes,9,opt,name=user_uuid,proto3" json:"user_uuid,omitempty"`
-	RoleUuid     string            `protobuf:"bytes,10,opt,name=role_uuid,proto3" json:"role_uuid,omitempty"`
-	RoleName     string            `protobuf:"bytes,11,opt,name=role_name,proto3" json:"role_name,omitempty"`
-	// Transitional common envelope (deprecated in favor of meta)
-	//
-	// Deprecated: Marked as deprecated in proto/scg/identity/v1/events.proto.
-	MetaCommon *v11.EventMeta `protobuf:"bytes,12,opt,name=meta_common,proto3" json:"meta_common,omitempty"`
-	// Standard envelope going forward
-	Meta          *v1.EventEnvelope `protobuf:"bytes,13,opt,name=meta,proto3" json:"meta,omitempty"`
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Meta          *v1.EventEnvelope      `protobuf:"bytes,1,opt,name=meta,proto3" json:"meta,omitempty"`
+	MerchantUuid  string                 `protobuf:"bytes,2,opt,name=merchant_uuid,proto3" json:"merchant_uuid,omitempty"`
+	UserUuid      string                 `protobuf:"bytes,3,opt,name=user_uuid,proto3" json:"user_uuid,omitempty"`
+	RoleUuid      string                 `protobuf:"bytes,4,opt,name=role_uuid,proto3" json:"role_uuid,omitempty"`
+	RoleName      string                 `protobuf:"bytes,5,opt,name=role_name,proto3" json:"role_name,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
 
 func (x *UserRoleRevoked) Reset() {
 	*x = UserRoleRevoked{}
-	mi := &file_proto_scg_identity_v1_events_proto_msgTypes[41]
+	mi := &file_proto_scg_identity_v1_events_proto_msgTypes[44]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -3684,7 +3575,7 @@ func (x *UserRoleRevoked) String() string {
 func (*UserRoleRevoked) ProtoMessage() {}
 
 func (x *UserRoleRevoked) ProtoReflect() protoreflect.Message {
-	mi := &file_proto_scg_identity_v1_events_proto_msgTypes[41]
+	mi := &file_proto_scg_identity_v1_events_proto_msgTypes[44]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -3697,61 +3588,12 @@ func (x *UserRoleRevoked) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use UserRoleRevoked.ProtoReflect.Descriptor instead.
 func (*UserRoleRevoked) Descriptor() ([]byte, []int) {
-	return file_proto_scg_identity_v1_events_proto_rawDescGZIP(), []int{41}
+	return file_proto_scg_identity_v1_events_proto_rawDescGZIP(), []int{44}
 }
 
-// Deprecated: Marked as deprecated in proto/scg/identity/v1/events.proto.
-func (x *UserRoleRevoked) GetEventId() string {
+func (x *UserRoleRevoked) GetMeta() *v1.EventEnvelope {
 	if x != nil {
-		return x.EventId
-	}
-	return ""
-}
-
-// Deprecated: Marked as deprecated in proto/scg/identity/v1/events.proto.
-func (x *UserRoleRevoked) GetOccurredAt() *timestamppb.Timestamp {
-	if x != nil {
-		return x.OccurredAt
-	}
-	return nil
-}
-
-// Deprecated: Marked as deprecated in proto/scg/identity/v1/events.proto.
-func (x *UserRoleRevoked) GetCorrelationId() string {
-	if x != nil {
-		return x.CorrelationId
-	}
-	return ""
-}
-
-// Deprecated: Marked as deprecated in proto/scg/identity/v1/events.proto.
-func (x *UserRoleRevoked) GetCausationId() string {
-	if x != nil {
-		return x.CausationId
-	}
-	return ""
-}
-
-// Deprecated: Marked as deprecated in proto/scg/identity/v1/events.proto.
-func (x *UserRoleRevoked) GetSourceService() string {
-	if x != nil {
-		return x.SourceService
-	}
-	return ""
-}
-
-// Deprecated: Marked as deprecated in proto/scg/identity/v1/events.proto.
-func (x *UserRoleRevoked) GetActorSub() string {
-	if x != nil {
-		return x.ActorSub
-	}
-	return ""
-}
-
-// Deprecated: Marked as deprecated in proto/scg/identity/v1/events.proto.
-func (x *UserRoleRevoked) GetAttributes() map[string]string {
-	if x != nil {
-		return x.Attributes
+		return x.Meta
 	}
 	return nil
 }
@@ -3784,26 +3626,11 @@ func (x *UserRoleRevoked) GetRoleName() string {
 	return ""
 }
 
-// Deprecated: Marked as deprecated in proto/scg/identity/v1/events.proto.
-func (x *UserRoleRevoked) GetMetaCommon() *v11.EventMeta {
-	if x != nil {
-		return x.MetaCommon
-	}
-	return nil
-}
-
-func (x *UserRoleRevoked) GetMeta() *v1.EventEnvelope {
-	if x != nil {
-		return x.Meta
-	}
-	return nil
-}
-
 var File_proto_scg_identity_v1_events_proto protoreflect.FileDescriptor
 
 const file_proto_scg_identity_v1_events_proto_rawDesc = "" +
 	"\n" +
-	"\"proto/scg/identity/v1/events.proto\x12\x15proto.scg.identity.v1\x1a\x1fgoogle/protobuf/timestamp.proto\x1a proto/scg/shared/v1/events.proto\x1a proto/scg/common/v1/common.proto\"\xb7\x02\n" +
+	"\"proto/scg/identity/v1/events.proto\x12\x15proto.scg.identity.v1\x1a\x1fgoogle/protobuf/timestamp.proto\x1a proto/scg/shared/v1/events.proto\"\xb7\x02\n" +
 	"\x0fIdentityCreated\x126\n" +
 	"\x04meta\x18\x01 \x01(\v2\".proto.scg.shared.v1.EventEnvelopeR\x04meta\x12$\n" +
 	"\ridentity_uuid\x18\x02 \x01(\tR\ridentity_uuid\x12\x1a\n" +
@@ -4171,104 +3998,53 @@ const file_proto_scg_identity_v1_events_proto_rawDesc = "" +
 	"\rprovider_uuid\x18\x03 \x01(\tR\rprovider_uuid\x122\n" +
 	"\x14external_identity_id\x18\x04 \x01(\tR\x14external_identity_id\x12 \n" +
 	"\vunlinked_by\x18\x05 \x01(\tR\vunlinked_by\x12<\n" +
-	"\vunlinked_at\x18\x06 \x01(\v2\x1a.google.protobuf.TimestampR\vunlinked_at\"\xfc\x04\n" +
-	"\vUserCreated\x12\x1e\n" +
-	"\bevent_id\x18\x01 \x01(\tB\x02\x18\x01R\bevent_id\x12@\n" +
-	"\voccurred_at\x18\x02 \x01(\v2\x1a.google.protobuf.TimestampB\x02\x18\x01R\voccurred_at\x12*\n" +
-	"\x0ecorrelation_id\x18\x03 \x01(\tB\x02\x18\x01R\x0ecorrelation_id\x12&\n" +
-	"\fcausation_id\x18\x04 \x01(\tB\x02\x18\x01R\fcausation_id\x12*\n" +
-	"\x0esource_service\x18\x05 \x01(\tB\x02\x18\x01R\x0esource_service\x12 \n" +
-	"\tactor_sub\x18\x06 \x01(\tB\x02\x18\x01R\tactor_sub\x12V\n" +
-	"\n" +
-	"attributes\x18\a \x03(\v22.proto.scg.identity.v1.UserCreated.AttributesEntryB\x02\x18\x01R\n" +
-	"attributes\x12\x1c\n" +
-	"\tuser_uuid\x18\b \x01(\tR\tuser_uuid\x12$\n" +
-	"\rmerchant_uuid\x18\t \x01(\tR\rmerchant_uuid\x12\x10\n" +
-	"\x03sub\x18\n" +
-	" \x01(\tR\x03sub\x12D\n" +
-	"\vmeta_common\x18\v \x01(\v2\x1e.proto.scg.common.v1.EventMetaB\x02\x18\x01R\vmeta_common\x126\n" +
-	"\x04meta\x18\f \x01(\v2\".proto.scg.shared.v1.EventEnvelopeR\x04meta\x1a=\n" +
-	"\x0fAttributesEntry\x12\x10\n" +
-	"\x03key\x18\x01 \x01(\tR\x03key\x12\x14\n" +
-	"\x05value\x18\x02 \x01(\tR\x05value:\x028\x01\"\x8a\x05\n" +
-	"\x0fUserSoftDeleted\x12\x1e\n" +
-	"\bevent_id\x18\x01 \x01(\tB\x02\x18\x01R\bevent_id\x12@\n" +
-	"\voccurred_at\x18\x02 \x01(\v2\x1a.google.protobuf.TimestampB\x02\x18\x01R\voccurred_at\x12*\n" +
-	"\x0ecorrelation_id\x18\x03 \x01(\tB\x02\x18\x01R\x0ecorrelation_id\x12&\n" +
-	"\fcausation_id\x18\x04 \x01(\tB\x02\x18\x01R\fcausation_id\x12*\n" +
-	"\x0esource_service\x18\x05 \x01(\tB\x02\x18\x01R\x0esource_service\x12 \n" +
-	"\tactor_sub\x18\x06 \x01(\tB\x02\x18\x01R\tactor_sub\x12Z\n" +
-	"\n" +
-	"attributes\x18\a \x03(\v26.proto.scg.identity.v1.UserSoftDeleted.AttributesEntryB\x02\x18\x01R\n" +
-	"attributes\x12\x1c\n" +
-	"\tuser_uuid\x18\b \x01(\tR\tuser_uuid\x12$\n" +
-	"\rmerchant_uuid\x18\t \x01(\tR\rmerchant_uuid\x12\x16\n" +
-	"\x06reason\x18\n" +
-	" \x01(\tR\x06reason\x12D\n" +
-	"\vmeta_common\x18\v \x01(\v2\x1e.proto.scg.common.v1.EventMetaB\x02\x18\x01R\vmeta_common\x126\n" +
-	"\x04meta\x18\f \x01(\v2\".proto.scg.shared.v1.EventEnvelopeR\x04meta\x1a=\n" +
-	"\x0fAttributesEntry\x12\x10\n" +
-	"\x03key\x18\x01 \x01(\tR\x03key\x12\x14\n" +
-	"\x05value\x18\x02 \x01(\tR\x05value:\x028\x01\"\x82\x05\n" +
-	"\vUserDeleted\x12\x1e\n" +
-	"\bevent_id\x18\x01 \x01(\tB\x02\x18\x01R\bevent_id\x12@\n" +
-	"\voccurred_at\x18\x02 \x01(\v2\x1a.google.protobuf.TimestampB\x02\x18\x01R\voccurred_at\x12*\n" +
-	"\x0ecorrelation_id\x18\x03 \x01(\tB\x02\x18\x01R\x0ecorrelation_id\x12&\n" +
-	"\fcausation_id\x18\x04 \x01(\tB\x02\x18\x01R\fcausation_id\x12*\n" +
-	"\x0esource_service\x18\x05 \x01(\tB\x02\x18\x01R\x0esource_service\x12 \n" +
-	"\tactor_sub\x18\x06 \x01(\tB\x02\x18\x01R\tactor_sub\x12V\n" +
-	"\n" +
-	"attributes\x18\a \x03(\v22.proto.scg.identity.v1.UserDeleted.AttributesEntryB\x02\x18\x01R\n" +
-	"attributes\x12\x1c\n" +
-	"\tuser_uuid\x18\b \x01(\tR\tuser_uuid\x12$\n" +
-	"\rmerchant_uuid\x18\t \x01(\tR\rmerchant_uuid\x12\x16\n" +
-	"\x06reason\x18\n" +
-	" \x01(\tR\x06reason\x12D\n" +
-	"\vmeta_common\x18\v \x01(\v2\x1e.proto.scg.common.v1.EventMetaB\x02\x18\x01R\vmeta_common\x126\n" +
-	"\x04meta\x18\f \x01(\v2\".proto.scg.shared.v1.EventEnvelopeR\x04meta\x1a=\n" +
-	"\x0fAttributesEntry\x12\x10\n" +
-	"\x03key\x18\x01 \x01(\tR\x03key\x12\x14\n" +
-	"\x05value\x18\x02 \x01(\tR\x05value:\x028\x01\"\xb0\x05\n" +
-	"\x10UserRoleAssigned\x12\x1e\n" +
-	"\bevent_id\x18\x01 \x01(\tB\x02\x18\x01R\bevent_id\x12@\n" +
-	"\voccurred_at\x18\x02 \x01(\v2\x1a.google.protobuf.TimestampB\x02\x18\x01R\voccurred_at\x12*\n" +
-	"\x0ecorrelation_id\x18\x03 \x01(\tB\x02\x18\x01R\x0ecorrelation_id\x12&\n" +
-	"\fcausation_id\x18\x04 \x01(\tB\x02\x18\x01R\fcausation_id\x12*\n" +
-	"\x0esource_service\x18\x05 \x01(\tB\x02\x18\x01R\x0esource_service\x12 \n" +
-	"\tactor_sub\x18\x06 \x01(\tB\x02\x18\x01R\tactor_sub\x12[\n" +
-	"\n" +
-	"attributes\x18\a \x03(\v27.proto.scg.identity.v1.UserRoleAssigned.AttributesEntryB\x02\x18\x01R\n" +
-	"attributes\x12$\n" +
-	"\rmerchant_uuid\x18\b \x01(\tR\rmerchant_uuid\x12\x1c\n" +
-	"\tuser_uuid\x18\t \x01(\tR\tuser_uuid\x12\x1c\n" +
-	"\trole_uuid\x18\n" +
-	" \x01(\tR\trole_uuid\x12\x1c\n" +
-	"\trole_name\x18\v \x01(\tR\trole_name\x12D\n" +
-	"\vmeta_common\x18\f \x01(\v2\x1e.proto.scg.common.v1.EventMetaB\x02\x18\x01R\vmeta_common\x126\n" +
-	"\x04meta\x18\r \x01(\v2\".proto.scg.shared.v1.EventEnvelopeR\x04meta\x1a=\n" +
-	"\x0fAttributesEntry\x12\x10\n" +
-	"\x03key\x18\x01 \x01(\tR\x03key\x12\x14\n" +
-	"\x05value\x18\x02 \x01(\tR\x05value:\x028\x01\"\xae\x05\n" +
-	"\x0fUserRoleRevoked\x12\x1e\n" +
-	"\bevent_id\x18\x01 \x01(\tB\x02\x18\x01R\bevent_id\x12@\n" +
-	"\voccurred_at\x18\x02 \x01(\v2\x1a.google.protobuf.TimestampB\x02\x18\x01R\voccurred_at\x12*\n" +
-	"\x0ecorrelation_id\x18\x03 \x01(\tB\x02\x18\x01R\x0ecorrelation_id\x12&\n" +
-	"\fcausation_id\x18\x04 \x01(\tB\x02\x18\x01R\fcausation_id\x12*\n" +
-	"\x0esource_service\x18\x05 \x01(\tB\x02\x18\x01R\x0esource_service\x12 \n" +
-	"\tactor_sub\x18\x06 \x01(\tB\x02\x18\x01R\tactor_sub\x12Z\n" +
-	"\n" +
-	"attributes\x18\a \x03(\v26.proto.scg.identity.v1.UserRoleRevoked.AttributesEntryB\x02\x18\x01R\n" +
-	"attributes\x12$\n" +
-	"\rmerchant_uuid\x18\b \x01(\tR\rmerchant_uuid\x12\x1c\n" +
-	"\tuser_uuid\x18\t \x01(\tR\tuser_uuid\x12\x1c\n" +
-	"\trole_uuid\x18\n" +
-	" \x01(\tR\trole_uuid\x12\x1c\n" +
-	"\trole_name\x18\v \x01(\tR\trole_name\x12D\n" +
-	"\vmeta_common\x18\f \x01(\v2\x1e.proto.scg.common.v1.EventMetaB\x02\x18\x01R\vmeta_common\x126\n" +
-	"\x04meta\x18\r \x01(\v2\".proto.scg.shared.v1.EventEnvelopeR\x04meta\x1a=\n" +
-	"\x0fAttributesEntry\x12\x10\n" +
-	"\x03key\x18\x01 \x01(\tR\x03key\x12\x14\n" +
-	"\x05value\x18\x02 \x01(\tR\x05value:\x028\x01B\xec\x01\n" +
+	"\vunlinked_at\x18\x06 \x01(\v2\x1a.google.protobuf.TimestampR\vunlinked_at\"\xe9\x01\n" +
+	"\x13UserCreateRequested\x126\n" +
+	"\x04meta\x18\x01 \x01(\v2\".proto.scg.shared.v1.EventEnvelopeR\x04meta\x12\x14\n" +
+	"\x05email\x18\x02 \x01(\tR\x05email\x12\x1c\n" +
+	"\tfull_name\x18\x03 \x01(\tR\tfull_name\x12\x1a\n" +
+	"\borg_uuid\x18\x04 \x01(\tR\borg_uuid\x12\"\n" +
+	"\frequested_by\x18\x05 \x01(\tR\frequested_by\x12&\n" +
+	"\x0epreferred_role\x18\x06 \x01(\tR\x0epreferred_role\"\xc7\x01\n" +
+	"\x13UserInviteRequested\x126\n" +
+	"\x04meta\x18\x01 \x01(\v2\".proto.scg.shared.v1.EventEnvelopeR\x04meta\x12$\n" +
+	"\rinvitee_email\x18\x02 \x01(\tR\rinvitee_email\x12\"\n" +
+	"\finviter_uuid\x18\x03 \x01(\tR\finviter_uuid\x12\x1a\n" +
+	"\borg_uuid\x18\x04 \x01(\tR\borg_uuid\x12\x12\n" +
+	"\x04role\x18\x05 \x01(\tR\x04role\"\xc1\x01\n" +
+	"\x17UserRoleAssignRequested\x126\n" +
+	"\x04meta\x18\x01 \x01(\v2\".proto.scg.shared.v1.EventEnvelopeR\x04meta\x12\x1c\n" +
+	"\tuser_uuid\x18\x02 \x01(\tR\tuser_uuid\x12\x1a\n" +
+	"\borg_uuid\x18\x03 \x01(\tR\borg_uuid\x12\x12\n" +
+	"\x04role\x18\x04 \x01(\tR\x04role\x12 \n" +
+	"\vassigned_by\x18\x05 \x01(\tR\vassigned_by\"\x9b\x01\n" +
+	"\vUserCreated\x126\n" +
+	"\x04meta\x18\x01 \x01(\v2\".proto.scg.shared.v1.EventEnvelopeR\x04meta\x12\x1c\n" +
+	"\tuser_uuid\x18\x02 \x01(\tR\tuser_uuid\x12$\n" +
+	"\rmerchant_uuid\x18\x03 \x01(\tR\rmerchant_uuid\x12\x10\n" +
+	"\x03sub\x18\x04 \x01(\tR\x03sub\"\xa5\x01\n" +
+	"\x0fUserSoftDeleted\x126\n" +
+	"\x04meta\x18\x01 \x01(\v2\".proto.scg.shared.v1.EventEnvelopeR\x04meta\x12\x1c\n" +
+	"\tuser_uuid\x18\x02 \x01(\tR\tuser_uuid\x12$\n" +
+	"\rmerchant_uuid\x18\x03 \x01(\tR\rmerchant_uuid\x12\x16\n" +
+	"\x06reason\x18\x04 \x01(\tR\x06reason\"\xa1\x01\n" +
+	"\vUserDeleted\x126\n" +
+	"\x04meta\x18\x01 \x01(\v2\".proto.scg.shared.v1.EventEnvelopeR\x04meta\x12\x1c\n" +
+	"\tuser_uuid\x18\x02 \x01(\tR\tuser_uuid\x12$\n" +
+	"\rmerchant_uuid\x18\x03 \x01(\tR\rmerchant_uuid\x12\x16\n" +
+	"\x06reason\x18\x04 \x01(\tR\x06reason\"\xca\x01\n" +
+	"\x10UserRoleAssigned\x126\n" +
+	"\x04meta\x18\x01 \x01(\v2\".proto.scg.shared.v1.EventEnvelopeR\x04meta\x12$\n" +
+	"\rmerchant_uuid\x18\x02 \x01(\tR\rmerchant_uuid\x12\x1c\n" +
+	"\tuser_uuid\x18\x03 \x01(\tR\tuser_uuid\x12\x1c\n" +
+	"\trole_uuid\x18\x04 \x01(\tR\trole_uuid\x12\x1c\n" +
+	"\trole_name\x18\x05 \x01(\tR\trole_name\"\xc9\x01\n" +
+	"\x0fUserRoleRevoked\x126\n" +
+	"\x04meta\x18\x01 \x01(\v2\".proto.scg.shared.v1.EventEnvelopeR\x04meta\x12$\n" +
+	"\rmerchant_uuid\x18\x02 \x01(\tR\rmerchant_uuid\x12\x1c\n" +
+	"\tuser_uuid\x18\x03 \x01(\tR\tuser_uuid\x12\x1c\n" +
+	"\trole_uuid\x18\x04 \x01(\tR\trole_uuid\x12\x1c\n" +
+	"\trole_name\x18\x05 \x01(\tR\trole_nameB\xec\x01\n" +
 	"\x19com.proto.scg.identity.v1B\vEventsProtoP\x01ZKgithub.com/next-trace/scg-contracts/gen/go/proto/scg/identity/v1;identityv1\xa2\x02\x03PSI\xaa\x02\x15Proto.Scg.Identity.V1\xca\x02\x15Proto\\Scg\\Identity\\V1\xe2\x02!Proto\\Scg\\Identity\\V1\\GPBMetadata\xea\x02\x18Proto::Scg::Identity::V1b\x06proto3"
 
 var (
@@ -4283,7 +4059,7 @@ func file_proto_scg_identity_v1_events_proto_rawDescGZIP() []byte {
 	return file_proto_scg_identity_v1_events_proto_rawDescData
 }
 
-var file_proto_scg_identity_v1_events_proto_msgTypes = make([]protoimpl.MessageInfo, 51)
+var file_proto_scg_identity_v1_events_proto_msgTypes = make([]protoimpl.MessageInfo, 49)
 var file_proto_scg_identity_v1_events_proto_goTypes = []any{
 	(*IdentityCreated)(nil),           // 0: proto.scg.identity.v1.IdentityCreated
 	(*IdentityUpdated)(nil),           // 1: proto.scg.identity.v1.IdentityUpdated
@@ -4322,132 +4098,117 @@ var file_proto_scg_identity_v1_events_proto_goTypes = []any{
 	(*IdentityProviderDisabled)(nil),  // 34: proto.scg.identity.v1.IdentityProviderDisabled
 	(*ExternalIdentityLinked)(nil),    // 35: proto.scg.identity.v1.ExternalIdentityLinked
 	(*ExternalIdentityUnlinked)(nil),  // 36: proto.scg.identity.v1.ExternalIdentityUnlinked
-	(*UserCreated)(nil),               // 37: proto.scg.identity.v1.UserCreated
-	(*UserSoftDeleted)(nil),           // 38: proto.scg.identity.v1.UserSoftDeleted
-	(*UserDeleted)(nil),               // 39: proto.scg.identity.v1.UserDeleted
-	(*UserRoleAssigned)(nil),          // 40: proto.scg.identity.v1.UserRoleAssigned
-	(*UserRoleRevoked)(nil),           // 41: proto.scg.identity.v1.UserRoleRevoked
-	nil,                               // 42: proto.scg.identity.v1.IdentityUpdated.UpdatedFieldsEntry
-	nil,                               // 43: proto.scg.identity.v1.RoleUpdated.UpdatedFieldsEntry
-	nil,                               // 44: proto.scg.identity.v1.AccessPolicyUpdated.UpdatedFieldsEntry
-	nil,                               // 45: proto.scg.identity.v1.IdentityProviderUpdated.UpdatedFieldsEntry
-	nil,                               // 46: proto.scg.identity.v1.UserCreated.AttributesEntry
-	nil,                               // 47: proto.scg.identity.v1.UserSoftDeleted.AttributesEntry
-	nil,                               // 48: proto.scg.identity.v1.UserDeleted.AttributesEntry
-	nil,                               // 49: proto.scg.identity.v1.UserRoleAssigned.AttributesEntry
-	nil,                               // 50: proto.scg.identity.v1.UserRoleRevoked.AttributesEntry
-	(*v1.EventEnvelope)(nil),          // 51: proto.scg.shared.v1.EventEnvelope
-	(*timestamppb.Timestamp)(nil),     // 52: google.protobuf.Timestamp
-	(*v11.EventMeta)(nil),             // 53: proto.scg.common.v1.EventMeta
+	(*UserCreateRequested)(nil),       // 37: proto.scg.identity.v1.UserCreateRequested
+	(*UserInviteRequested)(nil),       // 38: proto.scg.identity.v1.UserInviteRequested
+	(*UserRoleAssignRequested)(nil),   // 39: proto.scg.identity.v1.UserRoleAssignRequested
+	(*UserCreated)(nil),               // 40: proto.scg.identity.v1.UserCreated
+	(*UserSoftDeleted)(nil),           // 41: proto.scg.identity.v1.UserSoftDeleted
+	(*UserDeleted)(nil),               // 42: proto.scg.identity.v1.UserDeleted
+	(*UserRoleAssigned)(nil),          // 43: proto.scg.identity.v1.UserRoleAssigned
+	(*UserRoleRevoked)(nil),           // 44: proto.scg.identity.v1.UserRoleRevoked
+	nil,                               // 45: proto.scg.identity.v1.IdentityUpdated.UpdatedFieldsEntry
+	nil,                               // 46: proto.scg.identity.v1.RoleUpdated.UpdatedFieldsEntry
+	nil,                               // 47: proto.scg.identity.v1.AccessPolicyUpdated.UpdatedFieldsEntry
+	nil,                               // 48: proto.scg.identity.v1.IdentityProviderUpdated.UpdatedFieldsEntry
+	(*v1.EventEnvelope)(nil),          // 49: proto.scg.shared.v1.EventEnvelope
+	(*timestamppb.Timestamp)(nil),     // 50: google.protobuf.Timestamp
 }
 var file_proto_scg_identity_v1_events_proto_depIdxs = []int32{
-	51,  // 0: proto.scg.identity.v1.IdentityCreated.meta:type_name -> proto.scg.shared.v1.EventEnvelope
-	52,  // 1: proto.scg.identity.v1.IdentityCreated.created_at:type_name -> google.protobuf.Timestamp
-	51,  // 2: proto.scg.identity.v1.IdentityUpdated.meta:type_name -> proto.scg.shared.v1.EventEnvelope
-	42,  // 3: proto.scg.identity.v1.IdentityUpdated.updated_fields:type_name -> proto.scg.identity.v1.IdentityUpdated.UpdatedFieldsEntry
-	52,  // 4: proto.scg.identity.v1.IdentityUpdated.updated_at:type_name -> google.protobuf.Timestamp
-	51,  // 5: proto.scg.identity.v1.IdentityStatusChanged.meta:type_name -> proto.scg.shared.v1.EventEnvelope
-	52,  // 6: proto.scg.identity.v1.IdentityStatusChanged.changed_at:type_name -> google.protobuf.Timestamp
-	51,  // 7: proto.scg.identity.v1.IdentityDeleted.meta:type_name -> proto.scg.shared.v1.EventEnvelope
-	52,  // 8: proto.scg.identity.v1.IdentityDeleted.deleted_at:type_name -> google.protobuf.Timestamp
-	51,  // 9: proto.scg.identity.v1.IdentityEmailVerified.meta:type_name -> proto.scg.shared.v1.EventEnvelope
-	52,  // 10: proto.scg.identity.v1.IdentityEmailVerified.verified_at:type_name -> google.protobuf.Timestamp
-	51,  // 11: proto.scg.identity.v1.IdentityPhoneVerified.meta:type_name -> proto.scg.shared.v1.EventEnvelope
-	52,  // 12: proto.scg.identity.v1.IdentityPhoneVerified.verified_at:type_name -> google.protobuf.Timestamp
-	51,  // 13: proto.scg.identity.v1.IdentityAuthenticated.meta:type_name -> proto.scg.shared.v1.EventEnvelope
-	52,  // 14: proto.scg.identity.v1.IdentityAuthenticated.authenticated_at:type_name -> google.protobuf.Timestamp
-	51,  // 15: proto.scg.identity.v1.AuthenticationFailed.meta:type_name -> proto.scg.shared.v1.EventEnvelope
-	52,  // 16: proto.scg.identity.v1.AuthenticationFailed.failed_at:type_name -> google.protobuf.Timestamp
-	51,  // 17: proto.scg.identity.v1.PasswordChanged.meta:type_name -> proto.scg.shared.v1.EventEnvelope
-	52,  // 18: proto.scg.identity.v1.PasswordChanged.changed_at:type_name -> google.protobuf.Timestamp
-	51,  // 19: proto.scg.identity.v1.PasswordResetRequested.meta:type_name -> proto.scg.shared.v1.EventEnvelope
-	52,  // 20: proto.scg.identity.v1.PasswordResetRequested.requested_at:type_name -> google.protobuf.Timestamp
-	51,  // 21: proto.scg.identity.v1.PasswordResetCompleted.meta:type_name -> proto.scg.shared.v1.EventEnvelope
-	52,  // 22: proto.scg.identity.v1.PasswordResetCompleted.completed_at:type_name -> google.protobuf.Timestamp
-	51,  // 23: proto.scg.identity.v1.SessionCreated.meta:type_name -> proto.scg.shared.v1.EventEnvelope
-	52,  // 24: proto.scg.identity.v1.SessionCreated.created_at:type_name -> google.protobuf.Timestamp
-	52,  // 25: proto.scg.identity.v1.SessionCreated.expires_at:type_name -> google.protobuf.Timestamp
-	51,  // 26: proto.scg.identity.v1.SessionRefreshed.meta:type_name -> proto.scg.shared.v1.EventEnvelope
-	52,  // 27: proto.scg.identity.v1.SessionRefreshed.previous_expiry:type_name -> google.protobuf.Timestamp
-	52,  // 28: proto.scg.identity.v1.SessionRefreshed.new_expiry:type_name -> google.protobuf.Timestamp
-	52,  // 29: proto.scg.identity.v1.SessionRefreshed.refreshed_at:type_name -> google.protobuf.Timestamp
-	51,  // 30: proto.scg.identity.v1.SessionTerminated.meta:type_name -> proto.scg.shared.v1.EventEnvelope
-	52,  // 31: proto.scg.identity.v1.SessionTerminated.terminated_at:type_name -> google.protobuf.Timestamp
-	51,  // 32: proto.scg.identity.v1.RoleCreated.meta:type_name -> proto.scg.shared.v1.EventEnvelope
-	52,  // 33: proto.scg.identity.v1.RoleCreated.created_at:type_name -> google.protobuf.Timestamp
-	51,  // 34: proto.scg.identity.v1.RoleUpdated.meta:type_name -> proto.scg.shared.v1.EventEnvelope
-	43,  // 35: proto.scg.identity.v1.RoleUpdated.updated_fields:type_name -> proto.scg.identity.v1.RoleUpdated.UpdatedFieldsEntry
-	52,  // 36: proto.scg.identity.v1.RoleUpdated.updated_at:type_name -> google.protobuf.Timestamp
-	51,  // 37: proto.scg.identity.v1.RoleDeleted.meta:type_name -> proto.scg.shared.v1.EventEnvelope
-	52,  // 38: proto.scg.identity.v1.RoleDeleted.deleted_at:type_name -> google.protobuf.Timestamp
-	51,  // 39: proto.scg.identity.v1.PermissionAddedToRole.meta:type_name -> proto.scg.shared.v1.EventEnvelope
-	52,  // 40: proto.scg.identity.v1.PermissionAddedToRole.added_at:type_name -> google.protobuf.Timestamp
-	51,  // 41: proto.scg.identity.v1.PermissionRemovedFromRole.meta:type_name -> proto.scg.shared.v1.EventEnvelope
-	52,  // 42: proto.scg.identity.v1.PermissionRemovedFromRole.removed_at:type_name -> google.protobuf.Timestamp
-	51,  // 43: proto.scg.identity.v1.RoleAssignedToIdentity.meta:type_name -> proto.scg.shared.v1.EventEnvelope
-	52,  // 44: proto.scg.identity.v1.RoleAssignedToIdentity.assigned_at:type_name -> google.protobuf.Timestamp
-	51,  // 45: proto.scg.identity.v1.RoleRevokedFromIdentity.meta:type_name -> proto.scg.shared.v1.EventEnvelope
-	52,  // 46: proto.scg.identity.v1.RoleRevokedFromIdentity.revoked_at:type_name -> google.protobuf.Timestamp
-	51,  // 47: proto.scg.identity.v1.MfaEnabled.meta:type_name -> proto.scg.shared.v1.EventEnvelope
-	52,  // 48: proto.scg.identity.v1.MfaEnabled.enabled_at:type_name -> google.protobuf.Timestamp
-	51,  // 49: proto.scg.identity.v1.MfaDisabled.meta:type_name -> proto.scg.shared.v1.EventEnvelope
-	52,  // 50: proto.scg.identity.v1.MfaDisabled.disabled_at:type_name -> google.protobuf.Timestamp
-	51,  // 51: proto.scg.identity.v1.MfaDeviceRegistered.meta:type_name -> proto.scg.shared.v1.EventEnvelope
-	52,  // 52: proto.scg.identity.v1.MfaDeviceRegistered.registered_at:type_name -> google.protobuf.Timestamp
-	51,  // 53: proto.scg.identity.v1.MfaDeviceVerified.meta:type_name -> proto.scg.shared.v1.EventEnvelope
-	52,  // 54: proto.scg.identity.v1.MfaDeviceVerified.verified_at:type_name -> google.protobuf.Timestamp
-	51,  // 55: proto.scg.identity.v1.MfaDeviceRemoved.meta:type_name -> proto.scg.shared.v1.EventEnvelope
-	52,  // 56: proto.scg.identity.v1.MfaDeviceRemoved.removed_at:type_name -> google.protobuf.Timestamp
-	51,  // 57: proto.scg.identity.v1.ApiKeyCreated.meta:type_name -> proto.scg.shared.v1.EventEnvelope
-	52,  // 58: proto.scg.identity.v1.ApiKeyCreated.expires_at:type_name -> google.protobuf.Timestamp
-	52,  // 59: proto.scg.identity.v1.ApiKeyCreated.created_at:type_name -> google.protobuf.Timestamp
-	51,  // 60: proto.scg.identity.v1.ApiKeyRevoked.meta:type_name -> proto.scg.shared.v1.EventEnvelope
-	52,  // 61: proto.scg.identity.v1.ApiKeyRevoked.revoked_at:type_name -> google.protobuf.Timestamp
-	51,  // 62: proto.scg.identity.v1.AccessPolicyCreated.meta:type_name -> proto.scg.shared.v1.EventEnvelope
-	52,  // 63: proto.scg.identity.v1.AccessPolicyCreated.created_at:type_name -> google.protobuf.Timestamp
-	51,  // 64: proto.scg.identity.v1.AccessPolicyUpdated.meta:type_name -> proto.scg.shared.v1.EventEnvelope
-	44,  // 65: proto.scg.identity.v1.AccessPolicyUpdated.updated_fields:type_name -> proto.scg.identity.v1.AccessPolicyUpdated.UpdatedFieldsEntry
-	52,  // 66: proto.scg.identity.v1.AccessPolicyUpdated.updated_at:type_name -> google.protobuf.Timestamp
-	51,  // 67: proto.scg.identity.v1.AccessPolicyDeleted.meta:type_name -> proto.scg.shared.v1.EventEnvelope
-	52,  // 68: proto.scg.identity.v1.AccessPolicyDeleted.deleted_at:type_name -> google.protobuf.Timestamp
-	51,  // 69: proto.scg.identity.v1.IdentityProviderCreated.meta:type_name -> proto.scg.shared.v1.EventEnvelope
-	52,  // 70: proto.scg.identity.v1.IdentityProviderCreated.created_at:type_name -> google.protobuf.Timestamp
-	51,  // 71: proto.scg.identity.v1.IdentityProviderUpdated.meta:type_name -> proto.scg.shared.v1.EventEnvelope
-	45,  // 72: proto.scg.identity.v1.IdentityProviderUpdated.updated_fields:type_name -> proto.scg.identity.v1.IdentityProviderUpdated.UpdatedFieldsEntry
-	52,  // 73: proto.scg.identity.v1.IdentityProviderUpdated.updated_at:type_name -> google.protobuf.Timestamp
-	51,  // 74: proto.scg.identity.v1.IdentityProviderEnabled.meta:type_name -> proto.scg.shared.v1.EventEnvelope
-	52,  // 75: proto.scg.identity.v1.IdentityProviderEnabled.enabled_at:type_name -> google.protobuf.Timestamp
-	51,  // 76: proto.scg.identity.v1.IdentityProviderDisabled.meta:type_name -> proto.scg.shared.v1.EventEnvelope
-	52,  // 77: proto.scg.identity.v1.IdentityProviderDisabled.disabled_at:type_name -> google.protobuf.Timestamp
-	51,  // 78: proto.scg.identity.v1.ExternalIdentityLinked.meta:type_name -> proto.scg.shared.v1.EventEnvelope
-	52,  // 79: proto.scg.identity.v1.ExternalIdentityLinked.linked_at:type_name -> google.protobuf.Timestamp
-	51,  // 80: proto.scg.identity.v1.ExternalIdentityUnlinked.meta:type_name -> proto.scg.shared.v1.EventEnvelope
-	52,  // 81: proto.scg.identity.v1.ExternalIdentityUnlinked.unlinked_at:type_name -> google.protobuf.Timestamp
-	52,  // 82: proto.scg.identity.v1.UserCreated.occurred_at:type_name -> google.protobuf.Timestamp
-	46,  // 83: proto.scg.identity.v1.UserCreated.attributes:type_name -> proto.scg.identity.v1.UserCreated.AttributesEntry
-	53,  // 84: proto.scg.identity.v1.UserCreated.meta_common:type_name -> proto.scg.common.v1.EventMeta
-	51,  // 85: proto.scg.identity.v1.UserCreated.meta:type_name -> proto.scg.shared.v1.EventEnvelope
-	52,  // 86: proto.scg.identity.v1.UserSoftDeleted.occurred_at:type_name -> google.protobuf.Timestamp
-	47,  // 87: proto.scg.identity.v1.UserSoftDeleted.attributes:type_name -> proto.scg.identity.v1.UserSoftDeleted.AttributesEntry
-	53,  // 88: proto.scg.identity.v1.UserSoftDeleted.meta_common:type_name -> proto.scg.common.v1.EventMeta
-	51,  // 89: proto.scg.identity.v1.UserSoftDeleted.meta:type_name -> proto.scg.shared.v1.EventEnvelope
-	52,  // 90: proto.scg.identity.v1.UserDeleted.occurred_at:type_name -> google.protobuf.Timestamp
-	48,  // 91: proto.scg.identity.v1.UserDeleted.attributes:type_name -> proto.scg.identity.v1.UserDeleted.AttributesEntry
-	53,  // 92: proto.scg.identity.v1.UserDeleted.meta_common:type_name -> proto.scg.common.v1.EventMeta
-	51,  // 93: proto.scg.identity.v1.UserDeleted.meta:type_name -> proto.scg.shared.v1.EventEnvelope
-	52,  // 94: proto.scg.identity.v1.UserRoleAssigned.occurred_at:type_name -> google.protobuf.Timestamp
-	49,  // 95: proto.scg.identity.v1.UserRoleAssigned.attributes:type_name -> proto.scg.identity.v1.UserRoleAssigned.AttributesEntry
-	53,  // 96: proto.scg.identity.v1.UserRoleAssigned.meta_common:type_name -> proto.scg.common.v1.EventMeta
-	51,  // 97: proto.scg.identity.v1.UserRoleAssigned.meta:type_name -> proto.scg.shared.v1.EventEnvelope
-	52,  // 98: proto.scg.identity.v1.UserRoleRevoked.occurred_at:type_name -> google.protobuf.Timestamp
-	50,  // 99: proto.scg.identity.v1.UserRoleRevoked.attributes:type_name -> proto.scg.identity.v1.UserRoleRevoked.AttributesEntry
-	53,  // 100: proto.scg.identity.v1.UserRoleRevoked.meta_common:type_name -> proto.scg.common.v1.EventMeta
-	51,  // 101: proto.scg.identity.v1.UserRoleRevoked.meta:type_name -> proto.scg.shared.v1.EventEnvelope
-	102, // [102:102] is the sub-list for method output_type
-	102, // [102:102] is the sub-list for method input_type
-	102, // [102:102] is the sub-list for extension type_name
-	102, // [102:102] is the sub-list for extension extendee
-	0,   // [0:102] is the sub-list for field type_name
+	49, // 0: proto.scg.identity.v1.IdentityCreated.meta:type_name -> proto.scg.shared.v1.EventEnvelope
+	50, // 1: proto.scg.identity.v1.IdentityCreated.created_at:type_name -> google.protobuf.Timestamp
+	49, // 2: proto.scg.identity.v1.IdentityUpdated.meta:type_name -> proto.scg.shared.v1.EventEnvelope
+	45, // 3: proto.scg.identity.v1.IdentityUpdated.updated_fields:type_name -> proto.scg.identity.v1.IdentityUpdated.UpdatedFieldsEntry
+	50, // 4: proto.scg.identity.v1.IdentityUpdated.updated_at:type_name -> google.protobuf.Timestamp
+	49, // 5: proto.scg.identity.v1.IdentityStatusChanged.meta:type_name -> proto.scg.shared.v1.EventEnvelope
+	50, // 6: proto.scg.identity.v1.IdentityStatusChanged.changed_at:type_name -> google.protobuf.Timestamp
+	49, // 7: proto.scg.identity.v1.IdentityDeleted.meta:type_name -> proto.scg.shared.v1.EventEnvelope
+	50, // 8: proto.scg.identity.v1.IdentityDeleted.deleted_at:type_name -> google.protobuf.Timestamp
+	49, // 9: proto.scg.identity.v1.IdentityEmailVerified.meta:type_name -> proto.scg.shared.v1.EventEnvelope
+	50, // 10: proto.scg.identity.v1.IdentityEmailVerified.verified_at:type_name -> google.protobuf.Timestamp
+	49, // 11: proto.scg.identity.v1.IdentityPhoneVerified.meta:type_name -> proto.scg.shared.v1.EventEnvelope
+	50, // 12: proto.scg.identity.v1.IdentityPhoneVerified.verified_at:type_name -> google.protobuf.Timestamp
+	49, // 13: proto.scg.identity.v1.IdentityAuthenticated.meta:type_name -> proto.scg.shared.v1.EventEnvelope
+	50, // 14: proto.scg.identity.v1.IdentityAuthenticated.authenticated_at:type_name -> google.protobuf.Timestamp
+	49, // 15: proto.scg.identity.v1.AuthenticationFailed.meta:type_name -> proto.scg.shared.v1.EventEnvelope
+	50, // 16: proto.scg.identity.v1.AuthenticationFailed.failed_at:type_name -> google.protobuf.Timestamp
+	49, // 17: proto.scg.identity.v1.PasswordChanged.meta:type_name -> proto.scg.shared.v1.EventEnvelope
+	50, // 18: proto.scg.identity.v1.PasswordChanged.changed_at:type_name -> google.protobuf.Timestamp
+	49, // 19: proto.scg.identity.v1.PasswordResetRequested.meta:type_name -> proto.scg.shared.v1.EventEnvelope
+	50, // 20: proto.scg.identity.v1.PasswordResetRequested.requested_at:type_name -> google.protobuf.Timestamp
+	49, // 21: proto.scg.identity.v1.PasswordResetCompleted.meta:type_name -> proto.scg.shared.v1.EventEnvelope
+	50, // 22: proto.scg.identity.v1.PasswordResetCompleted.completed_at:type_name -> google.protobuf.Timestamp
+	49, // 23: proto.scg.identity.v1.SessionCreated.meta:type_name -> proto.scg.shared.v1.EventEnvelope
+	50, // 24: proto.scg.identity.v1.SessionCreated.created_at:type_name -> google.protobuf.Timestamp
+	50, // 25: proto.scg.identity.v1.SessionCreated.expires_at:type_name -> google.protobuf.Timestamp
+	49, // 26: proto.scg.identity.v1.SessionRefreshed.meta:type_name -> proto.scg.shared.v1.EventEnvelope
+	50, // 27: proto.scg.identity.v1.SessionRefreshed.previous_expiry:type_name -> google.protobuf.Timestamp
+	50, // 28: proto.scg.identity.v1.SessionRefreshed.new_expiry:type_name -> google.protobuf.Timestamp
+	50, // 29: proto.scg.identity.v1.SessionRefreshed.refreshed_at:type_name -> google.protobuf.Timestamp
+	49, // 30: proto.scg.identity.v1.SessionTerminated.meta:type_name -> proto.scg.shared.v1.EventEnvelope
+	50, // 31: proto.scg.identity.v1.SessionTerminated.terminated_at:type_name -> google.protobuf.Timestamp
+	49, // 32: proto.scg.identity.v1.RoleCreated.meta:type_name -> proto.scg.shared.v1.EventEnvelope
+	50, // 33: proto.scg.identity.v1.RoleCreated.created_at:type_name -> google.protobuf.Timestamp
+	49, // 34: proto.scg.identity.v1.RoleUpdated.meta:type_name -> proto.scg.shared.v1.EventEnvelope
+	46, // 35: proto.scg.identity.v1.RoleUpdated.updated_fields:type_name -> proto.scg.identity.v1.RoleUpdated.UpdatedFieldsEntry
+	50, // 36: proto.scg.identity.v1.RoleUpdated.updated_at:type_name -> google.protobuf.Timestamp
+	49, // 37: proto.scg.identity.v1.RoleDeleted.meta:type_name -> proto.scg.shared.v1.EventEnvelope
+	50, // 38: proto.scg.identity.v1.RoleDeleted.deleted_at:type_name -> google.protobuf.Timestamp
+	49, // 39: proto.scg.identity.v1.PermissionAddedToRole.meta:type_name -> proto.scg.shared.v1.EventEnvelope
+	50, // 40: proto.scg.identity.v1.PermissionAddedToRole.added_at:type_name -> google.protobuf.Timestamp
+	49, // 41: proto.scg.identity.v1.PermissionRemovedFromRole.meta:type_name -> proto.scg.shared.v1.EventEnvelope
+	50, // 42: proto.scg.identity.v1.PermissionRemovedFromRole.removed_at:type_name -> google.protobuf.Timestamp
+	49, // 43: proto.scg.identity.v1.RoleAssignedToIdentity.meta:type_name -> proto.scg.shared.v1.EventEnvelope
+	50, // 44: proto.scg.identity.v1.RoleAssignedToIdentity.assigned_at:type_name -> google.protobuf.Timestamp
+	49, // 45: proto.scg.identity.v1.RoleRevokedFromIdentity.meta:type_name -> proto.scg.shared.v1.EventEnvelope
+	50, // 46: proto.scg.identity.v1.RoleRevokedFromIdentity.revoked_at:type_name -> google.protobuf.Timestamp
+	49, // 47: proto.scg.identity.v1.MfaEnabled.meta:type_name -> proto.scg.shared.v1.EventEnvelope
+	50, // 48: proto.scg.identity.v1.MfaEnabled.enabled_at:type_name -> google.protobuf.Timestamp
+	49, // 49: proto.scg.identity.v1.MfaDisabled.meta:type_name -> proto.scg.shared.v1.EventEnvelope
+	50, // 50: proto.scg.identity.v1.MfaDisabled.disabled_at:type_name -> google.protobuf.Timestamp
+	49, // 51: proto.scg.identity.v1.MfaDeviceRegistered.meta:type_name -> proto.scg.shared.v1.EventEnvelope
+	50, // 52: proto.scg.identity.v1.MfaDeviceRegistered.registered_at:type_name -> google.protobuf.Timestamp
+	49, // 53: proto.scg.identity.v1.MfaDeviceVerified.meta:type_name -> proto.scg.shared.v1.EventEnvelope
+	50, // 54: proto.scg.identity.v1.MfaDeviceVerified.verified_at:type_name -> google.protobuf.Timestamp
+	49, // 55: proto.scg.identity.v1.MfaDeviceRemoved.meta:type_name -> proto.scg.shared.v1.EventEnvelope
+	50, // 56: proto.scg.identity.v1.MfaDeviceRemoved.removed_at:type_name -> google.protobuf.Timestamp
+	49, // 57: proto.scg.identity.v1.ApiKeyCreated.meta:type_name -> proto.scg.shared.v1.EventEnvelope
+	50, // 58: proto.scg.identity.v1.ApiKeyCreated.expires_at:type_name -> google.protobuf.Timestamp
+	50, // 59: proto.scg.identity.v1.ApiKeyCreated.created_at:type_name -> google.protobuf.Timestamp
+	49, // 60: proto.scg.identity.v1.ApiKeyRevoked.meta:type_name -> proto.scg.shared.v1.EventEnvelope
+	50, // 61: proto.scg.identity.v1.ApiKeyRevoked.revoked_at:type_name -> google.protobuf.Timestamp
+	49, // 62: proto.scg.identity.v1.AccessPolicyCreated.meta:type_name -> proto.scg.shared.v1.EventEnvelope
+	50, // 63: proto.scg.identity.v1.AccessPolicyCreated.created_at:type_name -> google.protobuf.Timestamp
+	49, // 64: proto.scg.identity.v1.AccessPolicyUpdated.meta:type_name -> proto.scg.shared.v1.EventEnvelope
+	47, // 65: proto.scg.identity.v1.AccessPolicyUpdated.updated_fields:type_name -> proto.scg.identity.v1.AccessPolicyUpdated.UpdatedFieldsEntry
+	50, // 66: proto.scg.identity.v1.AccessPolicyUpdated.updated_at:type_name -> google.protobuf.Timestamp
+	49, // 67: proto.scg.identity.v1.AccessPolicyDeleted.meta:type_name -> proto.scg.shared.v1.EventEnvelope
+	50, // 68: proto.scg.identity.v1.AccessPolicyDeleted.deleted_at:type_name -> google.protobuf.Timestamp
+	49, // 69: proto.scg.identity.v1.IdentityProviderCreated.meta:type_name -> proto.scg.shared.v1.EventEnvelope
+	50, // 70: proto.scg.identity.v1.IdentityProviderCreated.created_at:type_name -> google.protobuf.Timestamp
+	49, // 71: proto.scg.identity.v1.IdentityProviderUpdated.meta:type_name -> proto.scg.shared.v1.EventEnvelope
+	48, // 72: proto.scg.identity.v1.IdentityProviderUpdated.updated_fields:type_name -> proto.scg.identity.v1.IdentityProviderUpdated.UpdatedFieldsEntry
+	50, // 73: proto.scg.identity.v1.IdentityProviderUpdated.updated_at:type_name -> google.protobuf.Timestamp
+	49, // 74: proto.scg.identity.v1.IdentityProviderEnabled.meta:type_name -> proto.scg.shared.v1.EventEnvelope
+	50, // 75: proto.scg.identity.v1.IdentityProviderEnabled.enabled_at:type_name -> google.protobuf.Timestamp
+	49, // 76: proto.scg.identity.v1.IdentityProviderDisabled.meta:type_name -> proto.scg.shared.v1.EventEnvelope
+	50, // 77: proto.scg.identity.v1.IdentityProviderDisabled.disabled_at:type_name -> google.protobuf.Timestamp
+	49, // 78: proto.scg.identity.v1.ExternalIdentityLinked.meta:type_name -> proto.scg.shared.v1.EventEnvelope
+	50, // 79: proto.scg.identity.v1.ExternalIdentityLinked.linked_at:type_name -> google.protobuf.Timestamp
+	49, // 80: proto.scg.identity.v1.ExternalIdentityUnlinked.meta:type_name -> proto.scg.shared.v1.EventEnvelope
+	50, // 81: proto.scg.identity.v1.ExternalIdentityUnlinked.unlinked_at:type_name -> google.protobuf.Timestamp
+	49, // 82: proto.scg.identity.v1.UserCreateRequested.meta:type_name -> proto.scg.shared.v1.EventEnvelope
+	49, // 83: proto.scg.identity.v1.UserInviteRequested.meta:type_name -> proto.scg.shared.v1.EventEnvelope
+	49, // 84: proto.scg.identity.v1.UserRoleAssignRequested.meta:type_name -> proto.scg.shared.v1.EventEnvelope
+	49, // 85: proto.scg.identity.v1.UserCreated.meta:type_name -> proto.scg.shared.v1.EventEnvelope
+	49, // 86: proto.scg.identity.v1.UserSoftDeleted.meta:type_name -> proto.scg.shared.v1.EventEnvelope
+	49, // 87: proto.scg.identity.v1.UserDeleted.meta:type_name -> proto.scg.shared.v1.EventEnvelope
+	49, // 88: proto.scg.identity.v1.UserRoleAssigned.meta:type_name -> proto.scg.shared.v1.EventEnvelope
+	49, // 89: proto.scg.identity.v1.UserRoleRevoked.meta:type_name -> proto.scg.shared.v1.EventEnvelope
+	90, // [90:90] is the sub-list for method output_type
+	90, // [90:90] is the sub-list for method input_type
+	90, // [90:90] is the sub-list for extension type_name
+	90, // [90:90] is the sub-list for extension extendee
+	0,  // [0:90] is the sub-list for field type_name
 }
 
 func init() { file_proto_scg_identity_v1_events_proto_init() }
@@ -4461,7 +4222,7 @@ func file_proto_scg_identity_v1_events_proto_init() {
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
 			RawDescriptor: unsafe.Slice(unsafe.StringData(file_proto_scg_identity_v1_events_proto_rawDesc), len(file_proto_scg_identity_v1_events_proto_rawDesc)),
 			NumEnums:      0,
-			NumMessages:   51,
+			NumMessages:   49,
 			NumExtensions: 0,
 			NumServices:   0,
 		},
