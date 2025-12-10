@@ -104,6 +104,7 @@ type UserRegistered struct {
 	Uuid               string                 `protobuf:"bytes,2,opt,name=uuid,proto3" json:"uuid,omitempty"`
 	OrgUuid            string                 `protobuf:"bytes,3,opt,name=org_uuid,proto3" json:"org_uuid,omitempty"`
 	RegistrationMethod string                 `protobuf:"bytes,4,opt,name=registration_method,proto3" json:"registration_method,omitempty"`
+	Email              string                 `protobuf:"bytes,5,opt,name=email,proto3" json:"email,omitempty"` // User's email address; also available in meta.attributes["email"]
 	unknownFields      protoimpl.UnknownFields
 	sizeCache          protoimpl.SizeCache
 }
@@ -162,6 +163,13 @@ func (x *UserRegistered) GetOrgUuid() string {
 func (x *UserRegistered) GetRegistrationMethod() string {
 	if x != nil {
 		return x.RegistrationMethod
+	}
+	return ""
+}
+
+func (x *UserRegistered) GetEmail() string {
+	if x != nil {
+		return x.Email
 	}
 	return ""
 }
@@ -1131,12 +1139,13 @@ const file_proto_scg_user_v1_events_proto_rawDesc = "" +
 	"\n" +
 	"invited_by\x18\x04 \x01(\tR\n" +
 	"invited_by\x12\"\n" +
-	"\finvite_token\x18\x05 \x01(\tR\finvite_token\"\xaa\x01\n" +
+	"\finvite_token\x18\x05 \x01(\tR\finvite_token\"\xc0\x01\n" +
 	"\x0eUserRegistered\x126\n" +
 	"\x04meta\x18\x01 \x01(\v2\".proto.scg.shared.v1.EventEnvelopeR\x04meta\x12\x12\n" +
 	"\x04uuid\x18\x02 \x01(\tR\x04uuid\x12\x1a\n" +
 	"\borg_uuid\x18\x03 \x01(\tR\borg_uuid\x120\n" +
-	"\x13registration_method\x18\x04 \x01(\tR\x13registration_method\"|\n" +
+	"\x13registration_method\x18\x04 \x01(\tR\x13registration_method\x12\x14\n" +
+	"\x05email\x18\x05 \x01(\tR\x05email\"|\n" +
 	"\x12UserEmailConfirmed\x126\n" +
 	"\x04meta\x18\x01 \x01(\v2\".proto.scg.shared.v1.EventEnvelopeR\x04meta\x12\x12\n" +
 	"\x04uuid\x18\x02 \x01(\tR\x04uuid\x12\x1a\n" +

@@ -19,6 +19,7 @@ message UserRegistered {
   string uuid = 2 [json_name = "uuid"];
   string org_uuid = 3 [json_name = "org_uuid"];
   string registration_method = 4 [json_name = "registration_method"];
+  string email = 5 [json_name = "email"]; // User's email address; also available in meta.attributes["email"]
 }
 
 message UserEmailConfirmed {

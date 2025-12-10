@@ -29,3 +29,4 @@ go.work.sum
 # IDE config files
 .idea
 .vsc
+.CLAUDE.md
