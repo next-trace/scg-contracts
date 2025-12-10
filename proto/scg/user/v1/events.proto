@@ -12,6 +12,7 @@ message UserInvited {
   string org_uuid = 3 [json_name = "org_uuid"];
   string invited_by = 4 [json_name = "invited_by"];
   string invite_token = 5 [json_name = "invite_token"];
+  string invitee_email = 6 [json_name = "invitee_email"]; // Email address of invitee for sending invitation notification
 }
 
 message UserRegistered {
@@ -54,6 +55,7 @@ message UserActivated {
   string uuid = 2 [json_name = "uuid"];
   string org_uuid = 3 [json_name = "org_uuid"];
   string activated_by = 4 [json_name = "activated_by"];
+  string email = 5 [json_name = "email"]; // User's email for welcome notification (PRIMARY notification trigger)
 }
 
 message UserSuspended {
