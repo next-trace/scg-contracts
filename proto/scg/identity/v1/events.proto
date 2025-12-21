@@ -368,27 +368,27 @@ message UserRoleAssignRequested {
 message UserCreated {
   proto.scg.shared.v1.EventEnvelope meta = 1 [json_name = "meta"];
   string user_uuid     = 2 [json_name = "user_uuid"];
-  string merchant_uuid = 3 [json_name = "merchant_uuid"];
+  string tenant_uuid = 3 [json_name = "tenant_uuid"];
   string sub           = 4 [json_name = "sub"];
 }
 
 message UserSoftDeleted {
   proto.scg.shared.v1.EventEnvelope meta = 1 [json_name = "meta"];
   string user_uuid     = 2 [json_name = "user_uuid"];
-  string merchant_uuid = 3 [json_name = "merchant_uuid"];
+  string tenant_uuid = 3 [json_name = "tenant_uuid"];
   string reason        = 4 [json_name = "reason"];
 }
 
 message UserDeleted {
   proto.scg.shared.v1.EventEnvelope meta = 1 [json_name = "meta"];
   string user_uuid     = 2 [json_name = "user_uuid"];
-  string merchant_uuid = 3 [json_name = "merchant_uuid"];
+  string tenant_uuid = 3 [json_name = "tenant_uuid"];
   string reason        = 4 [json_name = "reason"];
 }
 
 message UserRoleAssigned {
   proto.scg.shared.v1.EventEnvelope meta = 1 [json_name = "meta"];
-  string merchant_uuid = 2 [json_name = "merchant_uuid"];
+  string tenant_uuid = 2 [json_name = "tenant_uuid"];
   string user_uuid     = 3 [json_name = "user_uuid"];
   string role_uuid     = 4 [json_name = "role_uuid"];
   string role_name     = 5 [json_name = "role_name"];
@@ -396,7 +396,7 @@ message UserRoleAssigned {
 
 message UserRoleRevoked {
   proto.scg.shared.v1.EventEnvelope meta = 1 [json_name = "meta"];
-  string merchant_uuid = 2 [json_name = "merchant_uuid"];
+  string tenant_uuid = 2 [json_name = "tenant_uuid"];
   string user_uuid     = 3 [json_name = "user_uuid"];
   string role_uuid     = 4 [json_name = "role_uuid"];
   string role_name     = 5 [json_name = "role_name"];

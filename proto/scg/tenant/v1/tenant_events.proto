@@ -1,16 +1,16 @@
 syntax = "proto3";
 
-package proto.scg.merchant.v1;
+package proto.scg.tenant.v1;
 
 import "google/protobuf/timestamp.proto";
 import "proto/scg/common/v1/common.proto";
 import "proto/scg/shared/v1/events.proto";
 
-option go_package = "github.com/next-trace/scg-contracts/gen/go/proto/scg/merchant/v1;merchantv1";
+option go_package = "github.com/next-trace/scg-contracts/gen/go/proto/scg/tenant/v1;tenantv1";
 
-// Canonical merchant lifecycle events. Additive-only contract.
+// Canonical tenant lifecycle events. Additive-only contract.
 
-message MerchantCreated {
+message TenantCreated {
   // Envelope-like common fields
   string event_id = 1 [json_name = "event_id", deprecated = true];                 // UUID v7
   google.protobuf.Timestamp occurred_at = 2 [json_name = "occurred_at", deprecated = true];
@@ -21,8 +21,8 @@ message MerchantCreated {
   map<string,string> attributes = 7 [json_name = "attributes", deprecated = true];
 
   // Entity keys and primary fields
-  string merchant_uuid = 8 [json_name = "merchant_uuid"];       // UUID
-  string merchant_key = 9 [json_name = "merchant_key"];         // optional stable key
+  string tenant_uuid = 8 [json_name = "tenant_uuid"];       // UUID
+  string tenant_key = 9 [json_name = "tenant_key"];         // optional stable key
   string name = 10 [json_name = "name"];
   string status = 11 [json_name = "status"];
 
@@ -32,7 +32,7 @@ message MerchantCreated {
   proto.scg.shared.v1.EventEnvelope meta = 13 [json_name = "meta"];
 }
 
-message MerchantActivated {
+message TenantActivated {
   string event_id = 1 [json_name = "event_id", deprecated = true];
   google.protobuf.Timestamp occurred_at = 2 [json_name = "occurred_at", deprecated = true];
   string correlation_id = 3 [json_name = "correlation_id", deprecated = true];
@@ -41,7 +41,7 @@ message MerchantActivated {
   string actor_sub = 6 [json_name = "actor_sub", deprecated = true];
   map<string,string> attributes = 7 [json_name = "attributes", deprecated = true];
 
-  string merchant_uuid = 8 [json_name = "merchant_uuid"];
+  string tenant_uuid = 8 [json_name = "tenant_uuid"];
   string status = 9 [json_name = "status"];
   string reason = 10 [json_name = "reason"];
 
@@ -51,7 +51,7 @@ message MerchantActivated {
   proto.scg.shared.v1.EventEnvelope meta = 12 [json_name = "meta"];
 }
 
-message MerchantDeactivated {
+message TenantDeactivated {
   string event_id = 1 [json_name = "event_id", deprecated = true];
   google.protobuf.Timestamp occurred_at = 2 [json_name = "occurred_at", deprecated = true];
   string correlation_id = 3 [json_name = "correlation_id", deprecated = true];
@@ -60,7 +60,7 @@ message MerchantDeactivated {
   string actor_sub = 6 [json_name = "actor_sub", deprecated = true];
   map<string,string> attributes = 7 [json_name = "attributes", deprecated = true];
 
-  string merchant_uuid = 8 [json_name = "merchant_uuid"];
+  string tenant_uuid = 8 [json_name = "tenant_uuid"];
   string status = 9 [json_name = "status"];
   string reason = 10 [json_name = "reason"];
 
@@ -70,7 +70,7 @@ message MerchantDeactivated {
   proto.scg.shared.v1.EventEnvelope meta = 12 [json_name = "meta"];
 }
 
-message MerchantSoftDeleted {
+message TenantSoftDeleted {
   string event_id = 1 [json_name = "event_id", deprecated = true];
   google.protobuf.Timestamp occurred_at = 2 [json_name = "occurred_at", deprecated = true];
   string correlation_id = 3 [json_name = "correlation_id", deprecated = true];
@@ -79,7 +79,7 @@ message MerchantSoftDeleted {
   string actor_sub = 6 [json_name = "actor_sub", deprecated = true];
   map<string,string> attributes = 7 [json_name = "attributes", deprecated = true];
 
-  string merchant_uuid = 8 [json_name = "merchant_uuid"];
+  string tenant_uuid = 8 [json_name = "tenant_uuid"];
   string reason = 9 [json_name = "reason"];
 
   // Transitional common envelope (deprecated in favor of meta)
@@ -88,7 +88,7 @@ message MerchantSoftDeleted {
   proto.scg.shared.v1.EventEnvelope meta = 11 [json_name = "meta"];
 }
 
-message MerchantHardDeleted {
+message TenantHardDeleted {
   string event_id = 1 [json_name = "event_id", deprecated = true];
   google.protobuf.Timestamp occurred_at = 2 [json_name = "occurred_at", deprecated = true];
   string correlation_id = 3 [json_name = "correlation_id", deprecated = true];
@@ -97,7 +97,7 @@ message MerchantHardDeleted {
   string actor_sub = 6 [json_name = "actor_sub", deprecated = true];
   map<string,string> attributes = 7 [json_name = "attributes", deprecated = true];
 
-  string merchant_uuid = 8 [json_name = "merchant_uuid"];
+  string tenant_uuid = 8 [json_name = "tenant_uuid"];
   string reason = 9 [json_name = "reason"];
 
   // Transitional common envelope (deprecated in favor of meta)
@@ -106,7 +106,7 @@ message MerchantHardDeleted {
   proto.scg.shared.v1.EventEnvelope meta = 11 [json_name = "meta"];
 }
 
-message MerchantRestored {
+message TenantRestored {
   string event_id = 1 [json_name = "event_id", deprecated = true];
   google.protobuf.Timestamp occurred_at = 2 [json_name = "occurred_at", deprecated = true];
   string correlation_id = 3 [json_name = "correlation_id", deprecated = true];
@@ -115,7 +115,7 @@ message MerchantRestored {
   string actor_sub = 6 [json_name = "actor_sub", deprecated = true];
   map<string,string> attributes = 7 [json_name = "attributes", deprecated = true];
 
-  string merchant_uuid = 8 [json_name = "merchant_uuid"];
+  string tenant_uuid = 8 [json_name = "tenant_uuid"];
   string status = 9 [json_name = "status"];
 
   // Transitional common envelope (deprecated in favor of meta)
@@ -124,7 +124,7 @@ message MerchantRestored {
   proto.scg.shared.v1.EventEnvelope meta = 11 [json_name = "meta"];
 }
 
-message MerchantUpdated {
+message TenantUpdated {
   string event_id = 1 [json_name = "event_id", deprecated = true];
   google.protobuf.Timestamp occurred_at = 2 [json_name = "occurred_at", deprecated = true];
   string correlation_id = 3 [json_name = "correlation_id", deprecated = true];
@@ -133,7 +133,7 @@ message MerchantUpdated {
   string actor_sub = 6 [json_name = "actor_sub", deprecated = true];
   map<string,string> attributes = 7 [json_name = "attributes", deprecated = true];
 
-  string merchant_uuid = 8 [json_name = "merchant_uuid"];
+  string tenant_uuid = 8 [json_name = "tenant_uuid"];
   map<string,string> updated_fields = 9 [json_name = "updated_fields"];
 
   // Transitional common envelope (deprecated in favor of meta)
