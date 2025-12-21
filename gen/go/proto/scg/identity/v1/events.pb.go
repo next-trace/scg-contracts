@@ -3274,7 +3274,7 @@ type UserCreated struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
 	Meta          *v1.EventEnvelope      `protobuf:"bytes,1,opt,name=meta,proto3" json:"meta,omitempty"`
 	UserUuid      string                 `protobuf:"bytes,2,opt,name=user_uuid,proto3" json:"user_uuid,omitempty"`
-	MerchantUuid  string                 `protobuf:"bytes,3,opt,name=merchant_uuid,proto3" json:"merchant_uuid,omitempty"`
+	TenantUuid    string                 `protobuf:"bytes,3,opt,name=tenant_uuid,proto3" json:"tenant_uuid,omitempty"`
 	Sub           string                 `protobuf:"bytes,4,opt,name=sub,proto3" json:"sub,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
@@ -3324,9 +3324,9 @@ func (x *UserCreated) GetUserUuid() string {
 	return ""
 }
 
-func (x *UserCreated) GetMerchantUuid() string {
+func (x *UserCreated) GetTenantUuid() string {
 	if x != nil {
-		return x.MerchantUuid
+		return x.TenantUuid
 	}
 	return ""
 }
@@ -3342,7 +3342,7 @@ type UserSoftDeleted struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
 	Meta          *v1.EventEnvelope      `protobuf:"bytes,1,opt,name=meta,proto3" json:"meta,omitempty"`
 	UserUuid      string                 `protobuf:"bytes,2,opt,name=user_uuid,proto3" json:"user_uuid,omitempty"`
-	MerchantUuid  string                 `protobuf:"bytes,3,opt,name=merchant_uuid,proto3" json:"merchant_uuid,omitempty"`
+	TenantUuid    string                 `protobuf:"bytes,3,opt,name=tenant_uuid,proto3" json:"tenant_uuid,omitempty"`
 	Reason        string                 `protobuf:"bytes,4,opt,name=reason,proto3" json:"reason,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
@@ -3392,9 +3392,9 @@ func (x *UserSoftDeleted) GetUserUuid() string {
 	return ""
 }
 
-func (x *UserSoftDeleted) GetMerchantUuid() string {
+func (x *UserSoftDeleted) GetTenantUuid() string {
 	if x != nil {
-		return x.MerchantUuid
+		return x.TenantUuid
 	}
 	return ""
 }
@@ -3410,7 +3410,7 @@ type UserDeleted struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
 	Meta          *v1.EventEnvelope      `protobuf:"bytes,1,opt,name=meta,proto3" json:"meta,omitempty"`
 	UserUuid      string                 `protobuf:"bytes,2,opt,name=user_uuid,proto3" json:"user_uuid,omitempty"`
-	MerchantUuid  string                 `protobuf:"bytes,3,opt,name=merchant_uuid,proto3" json:"merchant_uuid,omitempty"`
+	TenantUuid    string                 `protobuf:"bytes,3,opt,name=tenant_uuid,proto3" json:"tenant_uuid,omitempty"`
 	Reason        string                 `protobuf:"bytes,4,opt,name=reason,proto3" json:"reason,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
@@ -3460,9 +3460,9 @@ func (x *UserDeleted) GetUserUuid() string {
 	return ""
 }
 
-func (x *UserDeleted) GetMerchantUuid() string {
+func (x *UserDeleted) GetTenantUuid() string {
 	if x != nil {
-		return x.MerchantUuid
+		return x.TenantUuid
 	}
 	return ""
 }
@@ -3477,7 +3477,7 @@ func (x *UserDeleted) GetReason() string {
 type UserRoleAssigned struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
 	Meta          *v1.EventEnvelope      `protobuf:"bytes,1,opt,name=meta,proto3" json:"meta,omitempty"`
-	MerchantUuid  string                 `protobuf:"bytes,2,opt,name=merchant_uuid,proto3" json:"merchant_uuid,omitempty"`
+	TenantUuid    string                 `protobuf:"bytes,2,opt,name=tenant_uuid,proto3" json:"tenant_uuid,omitempty"`
 	UserUuid      string                 `protobuf:"bytes,3,opt,name=user_uuid,proto3" json:"user_uuid,omitempty"`
 	RoleUuid      string                 `protobuf:"bytes,4,opt,name=role_uuid,proto3" json:"role_uuid,omitempty"`
 	RoleName      string                 `protobuf:"bytes,5,opt,name=role_name,proto3" json:"role_name,omitempty"`
@@ -3522,9 +3522,9 @@ func (x *UserRoleAssigned) GetMeta() *v1.EventEnvelope {
 	return nil
 }
 
-func (x *UserRoleAssigned) GetMerchantUuid() string {
+func (x *UserRoleAssigned) GetTenantUuid() string {
 	if x != nil {
-		return x.MerchantUuid
+		return x.TenantUuid
 	}
 	return ""
 }
@@ -3553,7 +3553,7 @@ func (x *UserRoleAssigned) GetRoleName() string {
 type UserRoleRevoked struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
 	Meta          *v1.EventEnvelope      `protobuf:"bytes,1,opt,name=meta,proto3" json:"meta,omitempty"`
-	MerchantUuid  string                 `protobuf:"bytes,2,opt,name=merchant_uuid,proto3" json:"merchant_uuid,omitempty"`
+	TenantUuid    string                 `protobuf:"bytes,2,opt,name=tenant_uuid,proto3" json:"tenant_uuid,omitempty"`
 	UserUuid      string                 `protobuf:"bytes,3,opt,name=user_uuid,proto3" json:"user_uuid,omitempty"`
 	RoleUuid      string                 `protobuf:"bytes,4,opt,name=role_uuid,proto3" json:"role_uuid,omitempty"`
 	RoleName      string                 `protobuf:"bytes,5,opt,name=role_name,proto3" json:"role_name,omitempty"`
@@ -3598,9 +3598,9 @@ func (x *UserRoleRevoked) GetMeta() *v1.EventEnvelope {
 	return nil
 }
 
-func (x *UserRoleRevoked) GetMerchantUuid() string {
+func (x *UserRoleRevoked) GetTenantUuid() string {
 	if x != nil {
-		return x.MerchantUuid
+		return x.TenantUuid
 	}
 	return ""
 }
@@ -4017,31 +4017,31 @@ const file_proto_scg_identity_v1_events_proto_rawDesc = "" +
 	"\tuser_uuid\x18\x02 \x01(\tR\tuser_uuid\x12\x1a\n" +
 	"\borg_uuid\x18\x03 \x01(\tR\borg_uuid\x12\x12\n" +
 	"\x04role\x18\x04 \x01(\tR\x04role\x12 \n" +
-	"\vassigned_by\x18\x05 \x01(\tR\vassigned_by\"\x9b\x01\n" +
+	"\vassigned_by\x18\x05 \x01(\tR\vassigned_by\"\x97\x01\n" +
 	"\vUserCreated\x126\n" +
 	"\x04meta\x18\x01 \x01(\v2\".proto.scg.shared.v1.EventEnvelopeR\x04meta\x12\x1c\n" +
-	"\tuser_uuid\x18\x02 \x01(\tR\tuser_uuid\x12$\n" +
-	"\rmerchant_uuid\x18\x03 \x01(\tR\rmerchant_uuid\x12\x10\n" +
-	"\x03sub\x18\x04 \x01(\tR\x03sub\"\xa5\x01\n" +
+	"\tuser_uuid\x18\x02 \x01(\tR\tuser_uuid\x12 \n" +
+	"\vtenant_uuid\x18\x03 \x01(\tR\vtenant_uuid\x12\x10\n" +
+	"\x03sub\x18\x04 \x01(\tR\x03sub\"\xa1\x01\n" +
 	"\x0fUserSoftDeleted\x126\n" +
 	"\x04meta\x18\x01 \x01(\v2\".proto.scg.shared.v1.EventEnvelopeR\x04meta\x12\x1c\n" +
-	"\tuser_uuid\x18\x02 \x01(\tR\tuser_uuid\x12$\n" +
-	"\rmerchant_uuid\x18\x03 \x01(\tR\rmerchant_uuid\x12\x16\n" +
-	"\x06reason\x18\x04 \x01(\tR\x06reason\"\xa1\x01\n" +
+	"\tuser_uuid\x18\x02 \x01(\tR\tuser_uuid\x12 \n" +
+	"\vtenant_uuid\x18\x03 \x01(\tR\vtenant_uuid\x12\x16\n" +
+	"\x06reason\x18\x04 \x01(\tR\x06reason\"\x9d\x01\n" +
 	"\vUserDeleted\x126\n" +
 	"\x04meta\x18\x01 \x01(\v2\".proto.scg.shared.v1.EventEnvelopeR\x04meta\x12\x1c\n" +
-	"\tuser_uuid\x18\x02 \x01(\tR\tuser_uuid\x12$\n" +
-	"\rmerchant_uuid\x18\x03 \x01(\tR\rmerchant_uuid\x12\x16\n" +
-	"\x06reason\x18\x04 \x01(\tR\x06reason\"\xca\x01\n" +
+	"\tuser_uuid\x18\x02 \x01(\tR\tuser_uuid\x12 \n" +
+	"\vtenant_uuid\x18\x03 \x01(\tR\vtenant_uuid\x12\x16\n" +
+	"\x06reason\x18\x04 \x01(\tR\x06reason\"\xc6\x01\n" +
 	"\x10UserRoleAssigned\x126\n" +
-	"\x04meta\x18\x01 \x01(\v2\".proto.scg.shared.v1.EventEnvelopeR\x04meta\x12$\n" +
-	"\rmerchant_uuid\x18\x02 \x01(\tR\rmerchant_uuid\x12\x1c\n" +
+	"\x04meta\x18\x01 \x01(\v2\".proto.scg.shared.v1.EventEnvelopeR\x04meta\x12 \n" +
+	"\vtenant_uuid\x18\x02 \x01(\tR\vtenant_uuid\x12\x1c\n" +
 	"\tuser_uuid\x18\x03 \x01(\tR\tuser_uuid\x12\x1c\n" +
 	"\trole_uuid\x18\x04 \x01(\tR\trole_uuid\x12\x1c\n" +
-	"\trole_name\x18\x05 \x01(\tR\trole_name\"\xc9\x01\n" +
+	"\trole_name\x18\x05 \x01(\tR\trole_name\"\xc5\x01\n" +
 	"\x0fUserRoleRevoked\x126\n" +
-	"\x04meta\x18\x01 \x01(\v2\".proto.scg.shared.v1.EventEnvelopeR\x04meta\x12$\n" +
-	"\rmerchant_uuid\x18\x02 \x01(\tR\rmerchant_uuid\x12\x1c\n" +
+	"\x04meta\x18\x01 \x01(\v2\".proto.scg.shared.v1.EventEnvelopeR\x04meta\x12 \n" +
+	"\vtenant_uuid\x18\x02 \x01(\tR\vtenant_uuid\x12\x1c\n" +
 	"\tuser_uuid\x18\x03 \x01(\tR\tuser_uuid\x12\x1c\n" +
 	"\trole_uuid\x18\x04 \x01(\tR\trole_uuid\x12\x1c\n" +
 	"\trole_name\x18\x05 \x01(\tR\trole_nameB\xec\x01\n" +

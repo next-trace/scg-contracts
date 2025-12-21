@@ -72,7 +72,7 @@ The generated Go packages appear under gen/go/proto/scg/... matching option go_p
 ## Canonical import paths and aliasing
 
 - go_package format (canonical): github.com/next-trace/scg-contracts/gen/go/proto/<domain>/v1;{alias}
-  - Examples: identityv1, merchantv1, sharedv1, userv1, partnerv1, inventoryv1, etc.
+  - Examples: identityv1, tenantv1, sharedv1, userv1, partnerv1, inventoryv1, etc.
 - Package policy: we keep package names as proto.scg.<domain>.v1; lint is configured to allow DIRECTORY_SAME_PACKAGE to avoid moving files.
 - Generated Go imports follow the alias after the semicolon; consumers import the aliased package path under gen/go.
 
