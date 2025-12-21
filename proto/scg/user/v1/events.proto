@@ -11,8 +11,9 @@ message UserInvited {
   string uuid = 2 [json_name = "uuid"];
   string org_uuid = 3 [json_name = "org_uuid"];
   string invited_by = 4 [json_name = "invited_by"];
-  string invite_token = 5 [json_name = "invite_token"];
-  string invitee_email = 6 [json_name = "invitee_email"]; // Email address of invitee for sending invitation notification
+  string invite_id = 5 [json_name = "invite_id"]; // Opaque invitation identifier for correlation
+  // Field 6 removed: invitee_email (PII - fetch via internal query if needed)
+  // Field number 5 previously: invite_token (secret - never publish to event bus)
 }
 
 message UserRegistered {
@@ -20,7 +21,7 @@ message UserRegistered {
   string uuid = 2 [json_name = "uuid"];
   string org_uuid = 3 [json_name = "org_uuid"];
   string registration_method = 4 [json_name = "registration_method"];
-  string email = 5 [json_name = "email"]; // User's email address; also available in meta.attributes["email"]
+  // Field 5 removed: email (PII - fetch via internal query if needed)
 }
 
 message UserEmailConfirmed {
@@ -55,7 +56,7 @@ message UserActivated {
   string uuid = 2 [json_name = "uuid"];
   string org_uuid = 3 [json_name = "org_uuid"];
   string activated_by = 4 [json_name = "activated_by"];
-  string email = 5 [json_name = "email"]; // User's email for welcome notification (PRIMARY notification trigger)
+  // Field 5 removed: email (PII - fetch via internal query if needed)
 }
 
 message UserSuspended {

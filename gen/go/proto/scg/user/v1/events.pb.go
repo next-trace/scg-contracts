@@ -28,8 +28,7 @@ type UserInvited struct {
 	Uuid          string                 `protobuf:"bytes,2,opt,name=uuid,proto3" json:"uuid,omitempty"`
 	OrgUuid       string                 `protobuf:"bytes,3,opt,name=org_uuid,proto3" json:"org_uuid,omitempty"`
 	InvitedBy     string                 `protobuf:"bytes,4,opt,name=invited_by,proto3" json:"invited_by,omitempty"`
-	InviteToken   string                 `protobuf:"bytes,5,opt,name=invite_token,proto3" json:"invite_token,omitempty"`
-	InviteeEmail  string                 `protobuf:"bytes,6,opt,name=invitee_email,proto3" json:"invitee_email,omitempty"` // Email address of invitee for sending invitation notification
+	InviteId      string                 `protobuf:"bytes,5,opt,name=invite_id,proto3" json:"invite_id,omitempty"` // Opaque invitation identifier for correlation
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -92,16 +91,9 @@ func (x *UserInvited) GetInvitedBy() string {
 	return ""
 }
 
-func (x *UserInvited) GetInviteToken() string {
+func (x *UserInvited) GetInviteId() string {
 	if x != nil {
-		return x.InviteToken
-	}
-	return ""
-}
-
-func (x *UserInvited) GetInviteeEmail() string {
-	if x != nil {
-		return x.InviteeEmail
+		return x.InviteId
 	}
 	return ""
 }
@@ -111,8 +103,7 @@ type UserRegistered struct {
 	Meta               *v1.EventEnvelope      `protobuf:"bytes,1,opt,name=meta,proto3" json:"meta,omitempty"`
 	Uuid               string                 `protobuf:"bytes,2,opt,name=uuid,proto3" json:"uuid,omitempty"`
 	OrgUuid            string                 `protobuf:"bytes,3,opt,name=org_uuid,proto3" json:"org_uuid,omitempty"`
-	RegistrationMethod string                 `protobuf:"bytes,4,opt,name=registration_method,proto3" json:"registration_method,omitempty"`
-	Email              string                 `protobuf:"bytes,5,opt,name=email,proto3" json:"email,omitempty"` // User's email address; also available in meta.attributes["email"]
+	RegistrationMethod string                 `protobuf:"bytes,4,opt,name=registration_method,proto3" json:"registration_method,omitempty"` // Field 5 removed: email (PII - fetch via internal query if needed)
 	unknownFields      protoimpl.UnknownFields
 	sizeCache          protoimpl.SizeCache
 }
@@ -171,13 +162,6 @@ func (x *UserRegistered) GetOrgUuid() string {
 func (x *UserRegistered) GetRegistrationMethod() string {
 	if x != nil {
 		return x.RegistrationMethod
-	}
-	return ""
-}
-
-func (x *UserRegistered) GetEmail() string {
-	if x != nil {
-		return x.Email
 	}
 	return ""
 }
@@ -451,8 +435,7 @@ type UserActivated struct {
 	Meta          *v1.EventEnvelope      `protobuf:"bytes,1,opt,name=meta,proto3" json:"meta,omitempty"`
 	Uuid          string                 `protobuf:"bytes,2,opt,name=uuid,proto3" json:"uuid,omitempty"`
 	OrgUuid       string                 `protobuf:"bytes,3,opt,name=org_uuid,proto3" json:"org_uuid,omitempty"`
-	ActivatedBy   string                 `protobuf:"bytes,4,opt,name=activated_by,proto3" json:"activated_by,omitempty"`
-	Email         string                 `protobuf:"bytes,5,opt,name=email,proto3" json:"email,omitempty"` // User's email for welcome notification (PRIMARY notification trigger)
+	ActivatedBy   string                 `protobuf:"bytes,4,opt,name=activated_by,proto3" json:"activated_by,omitempty"` // Field 5 removed: email (PII - fetch via internal query if needed)
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -511,13 +494,6 @@ func (x *UserActivated) GetOrgUuid() string {
 func (x *UserActivated) GetActivatedBy() string {
 	if x != nil {
 		return x.ActivatedBy
-	}
-	return ""
-}
-
-func (x *UserActivated) GetEmail() string {
-	if x != nil {
-		return x.Email
 	}
 	return ""
 }
@@ -1147,22 +1123,20 @@ var File_proto_scg_user_v1_events_proto protoreflect.FileDescriptor
 
 const file_proto_scg_user_v1_events_proto_rawDesc = "" +
 	"\n" +
-	"\x1eproto/scg/user/v1/events.proto\x12\x11proto.scg.user.v1\x1a proto/scg/shared/v1/events.proto\"\xdf\x01\n" +
+	"\x1eproto/scg/user/v1/events.proto\x12\x11proto.scg.user.v1\x1a proto/scg/shared/v1/events.proto\"\xb3\x01\n" +
 	"\vUserInvited\x126\n" +
 	"\x04meta\x18\x01 \x01(\v2\".proto.scg.shared.v1.EventEnvelopeR\x04meta\x12\x12\n" +
 	"\x04uuid\x18\x02 \x01(\tR\x04uuid\x12\x1a\n" +
 	"\borg_uuid\x18\x03 \x01(\tR\borg_uuid\x12\x1e\n" +
 	"\n" +
 	"invited_by\x18\x04 \x01(\tR\n" +
-	"invited_by\x12\"\n" +
-	"\finvite_token\x18\x05 \x01(\tR\finvite_token\x12$\n" +
-	"\rinvitee_email\x18\x06 \x01(\tR\rinvitee_email\"\xc0\x01\n" +
+	"invited_by\x12\x1c\n" +
+	"\tinvite_id\x18\x05 \x01(\tR\tinvite_id\"\xaa\x01\n" +
 	"\x0eUserRegistered\x126\n" +
 	"\x04meta\x18\x01 \x01(\v2\".proto.scg.shared.v1.EventEnvelopeR\x04meta\x12\x12\n" +
 	"\x04uuid\x18\x02 \x01(\tR\x04uuid\x12\x1a\n" +
 	"\borg_uuid\x18\x03 \x01(\tR\borg_uuid\x120\n" +
-	"\x13registration_method\x18\x04 \x01(\tR\x13registration_method\x12\x14\n" +
-	"\x05email\x18\x05 \x01(\tR\x05email\"|\n" +
+	"\x13registration_method\x18\x04 \x01(\tR\x13registration_method\"|\n" +
 	"\x12UserEmailConfirmed\x126\n" +
 	"\x04meta\x18\x01 \x01(\v2\".proto.scg.shared.v1.EventEnvelopeR\x04meta\x12\x12\n" +
 	"\x04uuid\x18\x02 \x01(\tR\x04uuid\x12\x1a\n" +
@@ -1181,13 +1155,12 @@ const file_proto_scg_user_v1_events_proto_rawDesc = "" +
 	"\x04meta\x18\x01 \x01(\v2\".proto.scg.shared.v1.EventEnvelopeR\x04meta\x12\x12\n" +
 	"\x04uuid\x18\x02 \x01(\tR\x04uuid\x12\x1a\n" +
 	"\borg_uuid\x18\x03 \x01(\tR\borg_uuid\x12 \n" +
-	"\vapproved_by\x18\x04 \x01(\tR\vapproved_by\"\xb1\x01\n" +
+	"\vapproved_by\x18\x04 \x01(\tR\vapproved_by\"\x9b\x01\n" +
 	"\rUserActivated\x126\n" +
 	"\x04meta\x18\x01 \x01(\v2\".proto.scg.shared.v1.EventEnvelopeR\x04meta\x12\x12\n" +
 	"\x04uuid\x18\x02 \x01(\tR\x04uuid\x12\x1a\n" +
 	"\borg_uuid\x18\x03 \x01(\tR\borg_uuid\x12\"\n" +
-	"\factivated_by\x18\x04 \x01(\tR\factivated_by\x12\x14\n" +
-	"\x05email\x18\x05 \x01(\tR\x05email\"\x8f\x01\n" +
+	"\factivated_by\x18\x04 \x01(\tR\factivated_by\"\x8f\x01\n" +
 	"\rUserSuspended\x126\n" +
 	"\x04meta\x18\x01 \x01(\v2\".proto.scg.shared.v1.EventEnvelopeR\x04meta\x12\x12\n" +
 	"\x04uuid\x18\x02 \x01(\tR\x04uuid\x12\x1a\n" +
