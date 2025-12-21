@@ -80,6 +80,40 @@ Dependency locking for deterministic builds
 - This repository checks in buf.lock to pin transitive dependencies (e.g., googleapis). Run buf dep update only when you intentionally want to bump dependency versions.
 - Generation steps (buf generate) are pinned to specific plugin versions via buf.gen.yaml.
 
+---
+
+## Domain Event Policy
+
+**CRITICAL: PII and Secrets in Domain Events**
+
+Domain events published to the event bus (Kafka) MUST NOT contain:
+- **Secrets**: API tokens, invite tokens, passwords, API keys, etc.
+- **PII (Personally Identifiable Information)**: Email addresses, phone numbers, full names, addresses, etc.
+
+**Rationale**:
+- Domain events are broadcast to multiple consumers and may be retained indefinitely in event stores.
+- Secrets must never be logged or transmitted over event buses.
+- PII should be minimized in event payloads to reduce compliance risk (GDPR, CCPA, etc.).
+
+**Recommended Patterns**:
+- **For notifications**: Services needing to send emails/SMS should:
+  1. Listen to domain events (without PII)
+  2. Fetch user details (email, phone) via internal query/projection
+  3. Publish notification-specific messages (which MAY include `recipient_email`) to a dedicated notification topic
+- **For correlation**: Use opaque identifiers (e.g., `invite_id`, `user_uuid`) instead of PII
+- **For auditing**: Store PII in write models and projections; domain events only carry UUIDs
+
+**Examples**:
+- ❌ `UserInvited` with `invite_token` and `invitee_email`
+- ✅ `UserInvited` with `invite_id` (opaque identifier)
+- ❌ `UserRegistered` with `email`
+- ✅ `UserRegistered` with `uuid` only; consumers fetch email if needed
+- ✅ `SendEmailNotification` message (separate notification topic) with `recipient_email`
+
+This policy applies to all domain events across all bounded contexts. Notification messages and internal queries/projections may include PII as needed.
+
+---
+
 ## Usage Example (Go)
 
 Quickstart (so your IDE can resolve imports)
