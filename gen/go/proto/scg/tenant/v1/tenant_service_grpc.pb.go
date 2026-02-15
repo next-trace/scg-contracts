@@ -60,7 +60,6 @@ type TenantControlPlaneServiceClient interface {
 	ActivatePolicySet(ctx context.Context, in *ActivatePolicySetRequest, opts ...grpc.CallOption) (*ActivatePolicySetResponse, error)
 	UpsertConnectorConfig(ctx context.Context, in *UpsertConnectorConfigRequest, opts ...grpc.CallOption) (*UpsertConnectorConfigResponse, error)
 	DisableConnector(ctx context.Context, in *DisableConnectorRequest, opts ...grpc.CallOption) (*DisableConnectorResponse, error)
-	// Deprecated: Do not use.
 	SetFeatureFlag(ctx context.Context, in *SetFeatureFlagRequest, opts ...grpc.CallOption) (*SetFeatureFlagResponse, error)
 	SetTenantSetting(ctx context.Context, in *SetTenantSettingRequest, opts ...grpc.CallOption) (*SetTenantSettingResponse, error)
 	GetTenant(ctx context.Context, in *GetTenantRequest, opts ...grpc.CallOption) (*GetTenantResponse, error)
@@ -72,7 +71,6 @@ type TenantControlPlaneServiceClient interface {
 	GetPolicySet(ctx context.Context, in *GetPolicySetRequest, opts ...grpc.CallOption) (*GetPolicySetResponse, error)
 	GetConnectorConfig(ctx context.Context, in *GetConnectorConfigRequest, opts ...grpc.CallOption) (*GetConnectorConfigResponse, error)
 	ListConnectors(ctx context.Context, in *ListConnectorsRequest, opts ...grpc.CallOption) (*ListConnectorsResponse, error)
-	// Deprecated: Do not use.
 	GetFeatureFlags(ctx context.Context, in *GetFeatureFlagsRequest, opts ...grpc.CallOption) (*GetFeatureFlagsResponse, error)
 	GetTenantSettings(ctx context.Context, in *GetTenantSettingsRequest, opts ...grpc.CallOption) (*GetTenantSettingsResponse, error)
 	Liveness(ctx context.Context, in *LivenessRequest, opts ...grpc.CallOption) (*LivenessResponse, error)
@@ -187,7 +185,6 @@ func (c *tenantControlPlaneServiceClient) DisableConnector(ctx context.Context, 
 	return out, nil
 }
 
-// Deprecated: Do not use.
 func (c *tenantControlPlaneServiceClient) SetFeatureFlag(ctx context.Context, in *SetFeatureFlagRequest, opts ...grpc.CallOption) (*SetFeatureFlagResponse, error) {
 	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
 	out := new(SetFeatureFlagResponse)
@@ -298,7 +295,6 @@ func (c *tenantControlPlaneServiceClient) ListConnectors(ctx context.Context, in
 	return out, nil
 }
 
-// Deprecated: Do not use.
 func (c *tenantControlPlaneServiceClient) GetFeatureFlags(ctx context.Context, in *GetFeatureFlagsRequest, opts ...grpc.CallOption) (*GetFeatureFlagsResponse, error) {
 	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
 	out := new(GetFeatureFlagsResponse)
@@ -353,7 +349,6 @@ type TenantControlPlaneServiceServer interface {
 	ActivatePolicySet(context.Context, *ActivatePolicySetRequest) (*ActivatePolicySetResponse, error)
 	UpsertConnectorConfig(context.Context, *UpsertConnectorConfigRequest) (*UpsertConnectorConfigResponse, error)
 	DisableConnector(context.Context, *DisableConnectorRequest) (*DisableConnectorResponse, error)
-	// Deprecated: Do not use.
 	SetFeatureFlag(context.Context, *SetFeatureFlagRequest) (*SetFeatureFlagResponse, error)
 	SetTenantSetting(context.Context, *SetTenantSettingRequest) (*SetTenantSettingResponse, error)
 	GetTenant(context.Context, *GetTenantRequest) (*GetTenantResponse, error)
@@ -365,7 +360,6 @@ type TenantControlPlaneServiceServer interface {
 	GetPolicySet(context.Context, *GetPolicySetRequest) (*GetPolicySetResponse, error)
 	GetConnectorConfig(context.Context, *GetConnectorConfigRequest) (*GetConnectorConfigResponse, error)
 	ListConnectors(context.Context, *ListConnectorsRequest) (*ListConnectorsResponse, error)
-	// Deprecated: Do not use.
 	GetFeatureFlags(context.Context, *GetFeatureFlagsRequest) (*GetFeatureFlagsResponse, error)
 	GetTenantSettings(context.Context, *GetTenantSettingsRequest) (*GetTenantSettingsResponse, error)
 	Liveness(context.Context, *LivenessRequest) (*LivenessResponse, error)

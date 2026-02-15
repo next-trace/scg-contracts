@@ -21,9 +21,7 @@ service TenantControlPlaneService {
   rpc UpsertConnectorConfig(UpsertConnectorConfigRequest) returns (UpsertConnectorConfigResponse);
   rpc DisableConnector(DisableConnectorRequest) returns (DisableConnectorResponse);
 
-  rpc SetFeatureFlag(SetFeatureFlagRequest) returns (SetFeatureFlagResponse) {
-    option deprecated = true;
-  }
+  rpc SetFeatureFlag(SetFeatureFlagRequest) returns (SetFeatureFlagResponse);
   rpc SetTenantSetting(SetTenantSettingRequest) returns (SetTenantSettingResponse);
 
   rpc GetTenant(GetTenantRequest) returns (GetTenantResponse);
@@ -37,9 +35,7 @@ service TenantControlPlaneService {
 
   rpc GetConnectorConfig(GetConnectorConfigRequest) returns (GetConnectorConfigResponse);
   rpc ListConnectors(ListConnectorsRequest) returns (ListConnectorsResponse);
-  rpc GetFeatureFlags(GetFeatureFlagsRequest) returns (GetFeatureFlagsResponse) {
-    option deprecated = true;
-  }
+  rpc GetFeatureFlags(GetFeatureFlagsRequest) returns (GetFeatureFlagsResponse);
   rpc GetTenantSettings(GetTenantSettingsRequest) returns (GetTenantSettingsResponse);
 
   rpc Liveness(LivenessRequest) returns (LivenessResponse);
@@ -84,8 +80,6 @@ message ConnectorConfig {
 }
 
 message FeatureFlag {
-  option deprecated = true;
-
   string tenant_id = 1 [json_name = "tenant_id"];
   string flag = 2 [json_name = "flag"];
   bool enabled = 3 [json_name = "enabled"];
@@ -186,15 +180,11 @@ message DisableConnectorResponse {
 }
 
 message SetFeatureFlagRequest {
-  option deprecated = true;
-
   string tenant_id = 1 [json_name = "tenant_id"];
   string flag = 2 [json_name = "flag"];
   bool enabled = 3 [json_name = "enabled"];
 }
 message SetFeatureFlagResponse {
-  option deprecated = true;
-
   FeatureFlag feature_flag = 1 [json_name = "feature_flag"];
 }
 
@@ -282,13 +272,9 @@ message ListConnectorsResponse {
 }
 
 message GetFeatureFlagsRequest {
-  option deprecated = true;
-
   string tenant_id = 1 [json_name = "tenant_id"];
 }
 message GetFeatureFlagsResponse {
-  option deprecated = true;
-
   repeated FeatureFlag feature_flags = 1 [json_name = "feature_flags"];
 }
 

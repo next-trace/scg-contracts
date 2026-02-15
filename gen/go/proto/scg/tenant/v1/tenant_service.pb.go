@@ -366,7 +366,6 @@ func (x *ConnectorConfig) GetUpdatedAt() *timestamppb.Timestamp {
 	return nil
 }
 
-// Deprecated: Marked as deprecated in proto/scg/tenant/v1/tenant_service.proto.
 type FeatureFlag struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
 	TenantId      string                 `protobuf:"bytes,1,opt,name=tenant_id,proto3" json:"tenant_id,omitempty"`
@@ -1511,7 +1510,6 @@ func (x *DisableConnectorResponse) GetConnector() *ConnectorConfig {
 	return nil
 }
 
-// Deprecated: Marked as deprecated in proto/scg/tenant/v1/tenant_service.proto.
 type SetFeatureFlagRequest struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
 	TenantId      string                 `protobuf:"bytes,1,opt,name=tenant_id,proto3" json:"tenant_id,omitempty"`
@@ -1572,7 +1570,6 @@ func (x *SetFeatureFlagRequest) GetEnabled() bool {
 	return false
 }
 
-// Deprecated: Marked as deprecated in proto/scg/tenant/v1/tenant_service.proto.
 type SetFeatureFlagResponse struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
 	FeatureFlag   *FeatureFlag           `protobuf:"bytes,1,opt,name=feature_flag,proto3" json:"feature_flag,omitempty"`
@@ -2601,7 +2598,6 @@ func (x *ListConnectorsResponse) GetConnectors() []*ConnectorConfig {
 	return nil
 }
 
-// Deprecated: Marked as deprecated in proto/scg/tenant/v1/tenant_service.proto.
 type GetFeatureFlagsRequest struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
 	TenantId      string                 `protobuf:"bytes,1,opt,name=tenant_id,proto3" json:"tenant_id,omitempty"`
@@ -2646,7 +2642,6 @@ func (x *GetFeatureFlagsRequest) GetTenantId() string {
 	return ""
 }
 
-// Deprecated: Marked as deprecated in proto/scg/tenant/v1/tenant_service.proto.
 type GetFeatureFlagsResponse struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
 	FeatureFlags  []*FeatureFlag         `protobuf:"bytes,1,rep,name=feature_flags,proto3" json:"feature_flags,omitempty"`
@@ -3058,14 +3053,14 @@ const file_proto_scg_tenant_v1_tenant_service_proto_rawDesc = "" +
 	"created_at\x12:\n" +
 	"\n" +
 	"updated_at\x18\x06 \x01(\v2\x1a.google.protobuf.TimestampR\n" +
-	"updated_at\"\x99\x01\n" +
+	"updated_at\"\x95\x01\n" +
 	"\vFeatureFlag\x12\x1c\n" +
 	"\ttenant_id\x18\x01 \x01(\tR\ttenant_id\x12\x12\n" +
 	"\x04flag\x18\x02 \x01(\tR\x04flag\x12\x18\n" +
 	"\aenabled\x18\x03 \x01(\bR\aenabled\x12:\n" +
 	"\n" +
 	"updated_at\x18\x04 \x01(\v2\x1a.google.protobuf.TimestampR\n" +
-	"updated_at:\x02\x18\x01\"\x95\x01\n" +
+	"updated_at\"\x95\x01\n" +
 	"\rTenantSetting\x12\x1c\n" +
 	"\ttenant_id\x18\x01 \x01(\tR\ttenant_id\x12\x10\n" +
 	"\x03key\x18\x02 \x01(\tR\x03key\x12\x18\n" +
@@ -3130,13 +3125,13 @@ const file_proto_scg_tenant_v1_tenant_service_proto_rawDesc = "" +
 	"\ttenant_id\x18\x01 \x01(\tR\ttenant_id\x12\x1c\n" +
 	"\tconnector\x18\x02 \x01(\tR\tconnector\"^\n" +
 	"\x18DisableConnectorResponse\x12B\n" +
-	"\tconnector\x18\x01 \x01(\v2$.proto.scg.tenant.v1.ConnectorConfigR\tconnector\"g\n" +
+	"\tconnector\x18\x01 \x01(\v2$.proto.scg.tenant.v1.ConnectorConfigR\tconnector\"c\n" +
 	"\x15SetFeatureFlagRequest\x12\x1c\n" +
 	"\ttenant_id\x18\x01 \x01(\tR\ttenant_id\x12\x12\n" +
 	"\x04flag\x18\x02 \x01(\tR\x04flag\x12\x18\n" +
-	"\aenabled\x18\x03 \x01(\bR\aenabled:\x02\x18\x01\"b\n" +
+	"\aenabled\x18\x03 \x01(\bR\aenabled\"^\n" +
 	"\x16SetFeatureFlagResponse\x12D\n" +
-	"\ffeature_flag\x18\x01 \x01(\v2 .proto.scg.tenant.v1.FeatureFlagR\ffeature_flag:\x02\x18\x01\"c\n" +
+	"\ffeature_flag\x18\x01 \x01(\v2 .proto.scg.tenant.v1.FeatureFlagR\ffeature_flag\"c\n" +
 	"\x17SetTenantSettingRequest\x12\x1c\n" +
 	"\ttenant_id\x18\x01 \x01(\tR\ttenant_id\x12\x10\n" +
 	"\x03key\x18\x02 \x01(\tR\x03key\x12\x18\n" +
@@ -3197,11 +3192,11 @@ const file_proto_scg_tenant_v1_tenant_service_proto_rawDesc = "" +
 	"\x16ListConnectorsResponse\x12D\n" +
 	"\n" +
 	"connectors\x18\x01 \x03(\v2$.proto.scg.tenant.v1.ConnectorConfigR\n" +
-	"connectors\":\n" +
+	"connectors\"6\n" +
 	"\x16GetFeatureFlagsRequest\x12\x1c\n" +
-	"\ttenant_id\x18\x01 \x01(\tR\ttenant_id:\x02\x18\x01\"e\n" +
+	"\ttenant_id\x18\x01 \x01(\tR\ttenant_id\"a\n" +
 	"\x17GetFeatureFlagsResponse\x12F\n" +
-	"\rfeature_flags\x18\x01 \x03(\v2 .proto.scg.tenant.v1.FeatureFlagR\rfeature_flags:\x02\x18\x01\"8\n" +
+	"\rfeature_flags\x18\x01 \x03(\v2 .proto.scg.tenant.v1.FeatureFlagR\rfeature_flags\"8\n" +
 	"\x18GetTenantSettingsRequest\x12\x1c\n" +
 	"\ttenant_id\x18\x01 \x01(\tR\ttenant_id\"i\n" +
 	"\x19GetTenantSettingsResponse\x12L\n" +
@@ -3216,7 +3211,7 @@ const file_proto_scg_tenant_v1_tenant_service_proto_rawDesc = "" +
 	"\amessage\x18\x03 \x01(\tR\amessage\"n\n" +
 	"\x11ReadinessResponse\x12\x0e\n" +
 	"\x02ok\x18\x01 \x01(\bR\x02ok\x12I\n" +
-	"\fdependencies\x18\x02 \x03(\v2%.proto.scg.tenant.v1.DependencyStatusR\fdependencies2\xdb\x15\n" +
+	"\fdependencies\x18\x02 \x03(\v2%.proto.scg.tenant.v1.DependencyStatusR\fdependencies2\xd1\x15\n" +
 	"\x19TenantControlPlaneService\x12c\n" +
 	"\fCreateTenant\x12(.proto.scg.tenant.v1.CreateTenantRequest\x1a).proto.scg.tenant.v1.CreateTenantResponse\x12c\n" +
 	"\fUpdateTenant\x12(.proto.scg.tenant.v1.UpdateTenantRequest\x1a).proto.scg.tenant.v1.UpdateTenantResponse\x12o\n" +
@@ -3227,8 +3222,8 @@ const file_proto_scg_tenant_v1_tenant_service_proto_rawDesc = "" +
 	"\x10PublishPolicySet\x12,.proto.scg.tenant.v1.PublishPolicySetRequest\x1a-.proto.scg.tenant.v1.PublishPolicySetResponse\x12r\n" +
 	"\x11ActivatePolicySet\x12-.proto.scg.tenant.v1.ActivatePolicySetRequest\x1a..proto.scg.tenant.v1.ActivatePolicySetResponse\x12~\n" +
 	"\x15UpsertConnectorConfig\x121.proto.scg.tenant.v1.UpsertConnectorConfigRequest\x1a2.proto.scg.tenant.v1.UpsertConnectorConfigResponse\x12o\n" +
-	"\x10DisableConnector\x12,.proto.scg.tenant.v1.DisableConnectorRequest\x1a-.proto.scg.tenant.v1.DisableConnectorResponse\x12n\n" +
-	"\x0eSetFeatureFlag\x12*.proto.scg.tenant.v1.SetFeatureFlagRequest\x1a+.proto.scg.tenant.v1.SetFeatureFlagResponse\"\x03\x88\x02\x01\x12o\n" +
+	"\x10DisableConnector\x12,.proto.scg.tenant.v1.DisableConnectorRequest\x1a-.proto.scg.tenant.v1.DisableConnectorResponse\x12i\n" +
+	"\x0eSetFeatureFlag\x12*.proto.scg.tenant.v1.SetFeatureFlagRequest\x1a+.proto.scg.tenant.v1.SetFeatureFlagResponse\x12o\n" +
 	"\x10SetTenantSetting\x12,.proto.scg.tenant.v1.SetTenantSettingRequest\x1a-.proto.scg.tenant.v1.SetTenantSettingResponse\x12Z\n" +
 	"\tGetTenant\x12%.proto.scg.tenant.v1.GetTenantRequest\x1a&.proto.scg.tenant.v1.GetTenantResponse\x12`\n" +
 	"\vListTenants\x12'.proto.scg.tenant.v1.ListTenantsRequest\x1a(.proto.scg.tenant.v1.ListTenantsResponse\x12l\n" +
@@ -3238,8 +3233,8 @@ const file_proto_scg_tenant_v1_tenant_service_proto_rawDesc = "" +
 	"\x0eListPolicySets\x12*.proto.scg.tenant.v1.ListPolicySetsRequest\x1a+.proto.scg.tenant.v1.ListPolicySetsResponse\x12c\n" +
 	"\fGetPolicySet\x12(.proto.scg.tenant.v1.GetPolicySetRequest\x1a).proto.scg.tenant.v1.GetPolicySetResponse\x12u\n" +
 	"\x12GetConnectorConfig\x12..proto.scg.tenant.v1.GetConnectorConfigRequest\x1a/.proto.scg.tenant.v1.GetConnectorConfigResponse\x12i\n" +
-	"\x0eListConnectors\x12*.proto.scg.tenant.v1.ListConnectorsRequest\x1a+.proto.scg.tenant.v1.ListConnectorsResponse\x12q\n" +
-	"\x0fGetFeatureFlags\x12+.proto.scg.tenant.v1.GetFeatureFlagsRequest\x1a,.proto.scg.tenant.v1.GetFeatureFlagsResponse\"\x03\x88\x02\x01\x12r\n" +
+	"\x0eListConnectors\x12*.proto.scg.tenant.v1.ListConnectorsRequest\x1a+.proto.scg.tenant.v1.ListConnectorsResponse\x12l\n" +
+	"\x0fGetFeatureFlags\x12+.proto.scg.tenant.v1.GetFeatureFlagsRequest\x1a,.proto.scg.tenant.v1.GetFeatureFlagsResponse\x12r\n" +
 	"\x11GetTenantSettings\x12-.proto.scg.tenant.v1.GetTenantSettingsRequest\x1a..proto.scg.tenant.v1.GetTenantSettingsResponse\x12W\n" +
 	"\bLiveness\x12$.proto.scg.tenant.v1.LivenessRequest\x1a%.proto.scg.tenant.v1.LivenessResponse\x12Z\n" +
 	"\tReadiness\x12%.proto.scg.tenant.v1.ReadinessRequest\x1a&.proto.scg.tenant.v1.ReadinessResponseB\xe5\x01\n" +
