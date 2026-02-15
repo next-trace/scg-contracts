@@ -30,6 +30,7 @@ const (
 	TenantControlPlaneService_UpsertConnectorConfig_FullMethodName  = "/proto.scg.tenant.v1.TenantControlPlaneService/UpsertConnectorConfig"
 	TenantControlPlaneService_DisableConnector_FullMethodName       = "/proto.scg.tenant.v1.TenantControlPlaneService/DisableConnector"
 	TenantControlPlaneService_SetFeatureFlag_FullMethodName         = "/proto.scg.tenant.v1.TenantControlPlaneService/SetFeatureFlag"
+	TenantControlPlaneService_SetTenantSetting_FullMethodName       = "/proto.scg.tenant.v1.TenantControlPlaneService/SetTenantSetting"
 	TenantControlPlaneService_GetTenant_FullMethodName              = "/proto.scg.tenant.v1.TenantControlPlaneService/GetTenant"
 	TenantControlPlaneService_ListTenants_FullMethodName            = "/proto.scg.tenant.v1.TenantControlPlaneService/ListTenants"
 	TenantControlPlaneService_GetTenantMember_FullMethodName        = "/proto.scg.tenant.v1.TenantControlPlaneService/GetTenantMember"
@@ -40,6 +41,7 @@ const (
 	TenantControlPlaneService_GetConnectorConfig_FullMethodName     = "/proto.scg.tenant.v1.TenantControlPlaneService/GetConnectorConfig"
 	TenantControlPlaneService_ListConnectors_FullMethodName         = "/proto.scg.tenant.v1.TenantControlPlaneService/ListConnectors"
 	TenantControlPlaneService_GetFeatureFlags_FullMethodName        = "/proto.scg.tenant.v1.TenantControlPlaneService/GetFeatureFlags"
+	TenantControlPlaneService_GetTenantSettings_FullMethodName      = "/proto.scg.tenant.v1.TenantControlPlaneService/GetTenantSettings"
 	TenantControlPlaneService_Liveness_FullMethodName               = "/proto.scg.tenant.v1.TenantControlPlaneService/Liveness"
 	TenantControlPlaneService_Readiness_FullMethodName              = "/proto.scg.tenant.v1.TenantControlPlaneService/Readiness"
 )
@@ -58,7 +60,9 @@ type TenantControlPlaneServiceClient interface {
 	ActivatePolicySet(ctx context.Context, in *ActivatePolicySetRequest, opts ...grpc.CallOption) (*ActivatePolicySetResponse, error)
 	UpsertConnectorConfig(ctx context.Context, in *UpsertConnectorConfigRequest, opts ...grpc.CallOption) (*UpsertConnectorConfigResponse, error)
 	DisableConnector(ctx context.Context, in *DisableConnectorRequest, opts ...grpc.CallOption) (*DisableConnectorResponse, error)
+	// Deprecated: Do not use.
 	SetFeatureFlag(ctx context.Context, in *SetFeatureFlagRequest, opts ...grpc.CallOption) (*SetFeatureFlagResponse, error)
+	SetTenantSetting(ctx context.Context, in *SetTenantSettingRequest, opts ...grpc.CallOption) (*SetTenantSettingResponse, error)
 	GetTenant(ctx context.Context, in *GetTenantRequest, opts ...grpc.CallOption) (*GetTenantResponse, error)
 	ListTenants(ctx context.Context, in *ListTenantsRequest, opts ...grpc.CallOption) (*ListTenantsResponse, error)
 	GetTenantMember(ctx context.Context, in *GetTenantMemberRequest, opts ...grpc.CallOption) (*GetTenantMemberResponse, error)
@@ -68,7 +72,9 @@ type TenantControlPlaneServiceClient interface {
 	GetPolicySet(ctx context.Context, in *GetPolicySetRequest, opts ...grpc.CallOption) (*GetPolicySetResponse, error)
 	GetConnectorConfig(ctx context.Context, in *GetConnectorConfigRequest, opts ...grpc.CallOption) (*GetConnectorConfigResponse, error)
 	ListConnectors(ctx context.Context, in *ListConnectorsRequest, opts ...grpc.CallOption) (*ListConnectorsResponse, error)
+	// Deprecated: Do not use.
 	GetFeatureFlags(ctx context.Context, in *GetFeatureFlagsRequest, opts ...grpc.CallOption) (*GetFeatureFlagsResponse, error)
+	GetTenantSettings(ctx context.Context, in *GetTenantSettingsRequest, opts ...grpc.CallOption) (*GetTenantSettingsResponse, error)
 	Liveness(ctx context.Context, in *LivenessRequest, opts ...grpc.CallOption) (*LivenessResponse, error)
 	Readiness(ctx context.Context, in *ReadinessRequest, opts ...grpc.CallOption) (*ReadinessResponse, error)
 }
@@ -181,10 +187,21 @@ func (c *tenantControlPlaneServiceClient) DisableConnector(ctx context.Context, 
 	return out, nil
 }
 
+// Deprecated: Do not use.
 func (c *tenantControlPlaneServiceClient) SetFeatureFlag(ctx context.Context, in *SetFeatureFlagRequest, opts ...grpc.CallOption) (*SetFeatureFlagResponse, error) {
 	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
 	out := new(SetFeatureFlagResponse)
 	err := c.cc.Invoke(ctx, TenantControlPlaneService_SetFeatureFlag_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *tenantControlPlaneServiceClient) SetTenantSetting(ctx context.Context, in *SetTenantSettingRequest, opts ...grpc.CallOption) (*SetTenantSettingResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(SetTenantSettingResponse)
+	err := c.cc.Invoke(ctx, TenantControlPlaneService_SetTenantSetting_FullMethodName, in, out, cOpts...)
 	if err != nil {
 		return nil, err
 	}
@@ -281,10 +298,21 @@ func (c *tenantControlPlaneServiceClient) ListConnectors(ctx context.Context, in
 	return out, nil
 }
 
+// Deprecated: Do not use.
 func (c *tenantControlPlaneServiceClient) GetFeatureFlags(ctx context.Context, in *GetFeatureFlagsRequest, opts ...grpc.CallOption) (*GetFeatureFlagsResponse, error) {
 	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
 	out := new(GetFeatureFlagsResponse)
 	err := c.cc.Invoke(ctx, TenantControlPlaneService_GetFeatureFlags_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *tenantControlPlaneServiceClient) GetTenantSettings(ctx context.Context, in *GetTenantSettingsRequest, opts ...grpc.CallOption) (*GetTenantSettingsResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(GetTenantSettingsResponse)
+	err := c.cc.Invoke(ctx, TenantControlPlaneService_GetTenantSettings_FullMethodName, in, out, cOpts...)
 	if err != nil {
 		return nil, err
 	}
@@ -325,7 +353,9 @@ type TenantControlPlaneServiceServer interface {
 	ActivatePolicySet(context.Context, *ActivatePolicySetRequest) (*ActivatePolicySetResponse, error)
 	UpsertConnectorConfig(context.Context, *UpsertConnectorConfigRequest) (*UpsertConnectorConfigResponse, error)
 	DisableConnector(context.Context, *DisableConnectorRequest) (*DisableConnectorResponse, error)
+	// Deprecated: Do not use.
 	SetFeatureFlag(context.Context, *SetFeatureFlagRequest) (*SetFeatureFlagResponse, error)
+	SetTenantSetting(context.Context, *SetTenantSettingRequest) (*SetTenantSettingResponse, error)
 	GetTenant(context.Context, *GetTenantRequest) (*GetTenantResponse, error)
 	ListTenants(context.Context, *ListTenantsRequest) (*ListTenantsResponse, error)
 	GetTenantMember(context.Context, *GetTenantMemberRequest) (*GetTenantMemberResponse, error)
@@ -335,7 +365,9 @@ type TenantControlPlaneServiceServer interface {
 	GetPolicySet(context.Context, *GetPolicySetRequest) (*GetPolicySetResponse, error)
 	GetConnectorConfig(context.Context, *GetConnectorConfigRequest) (*GetConnectorConfigResponse, error)
 	ListConnectors(context.Context, *ListConnectorsRequest) (*ListConnectorsResponse, error)
+	// Deprecated: Do not use.
 	GetFeatureFlags(context.Context, *GetFeatureFlagsRequest) (*GetFeatureFlagsResponse, error)
+	GetTenantSettings(context.Context, *GetTenantSettingsRequest) (*GetTenantSettingsResponse, error)
 	Liveness(context.Context, *LivenessRequest) (*LivenessResponse, error)
 	Readiness(context.Context, *ReadinessRequest) (*ReadinessResponse, error)
 	mustEmbedUnimplementedTenantControlPlaneServiceServer()
@@ -381,6 +413,9 @@ func (UnimplementedTenantControlPlaneServiceServer) DisableConnector(context.Con
 func (UnimplementedTenantControlPlaneServiceServer) SetFeatureFlag(context.Context, *SetFeatureFlagRequest) (*SetFeatureFlagResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method SetFeatureFlag not implemented")
 }
+func (UnimplementedTenantControlPlaneServiceServer) SetTenantSetting(context.Context, *SetTenantSettingRequest) (*SetTenantSettingResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method SetTenantSetting not implemented")
+}
 func (UnimplementedTenantControlPlaneServiceServer) GetTenant(context.Context, *GetTenantRequest) (*GetTenantResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetTenant not implemented")
 }
@@ -410,6 +445,9 @@ func (UnimplementedTenantControlPlaneServiceServer) ListConnectors(context.Conte
 }
 func (UnimplementedTenantControlPlaneServiceServer) GetFeatureFlags(context.Context, *GetFeatureFlagsRequest) (*GetFeatureFlagsResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetFeatureFlags not implemented")
+}
+func (UnimplementedTenantControlPlaneServiceServer) GetTenantSettings(context.Context, *GetTenantSettingsRequest) (*GetTenantSettingsResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetTenantSettings not implemented")
 }
 func (UnimplementedTenantControlPlaneServiceServer) Liveness(context.Context, *LivenessRequest) (*LivenessResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method Liveness not implemented")
@@ -637,6 +675,24 @@ func _TenantControlPlaneService_SetFeatureFlag_Handler(srv interface{}, ctx cont
 	return interceptor(ctx, in, info, handler)
 }
 
+func _TenantControlPlaneService_SetTenantSetting_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(SetTenantSettingRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(TenantControlPlaneServiceServer).SetTenantSetting(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: TenantControlPlaneService_SetTenantSetting_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(TenantControlPlaneServiceServer).SetTenantSetting(ctx, req.(*SetTenantSettingRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 func _TenantControlPlaneService_GetTenant_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(GetTenantRequest)
 	if err := dec(in); err != nil {
@@ -817,6 +873,24 @@ func _TenantControlPlaneService_GetFeatureFlags_Handler(srv interface{}, ctx con
 	return interceptor(ctx, in, info, handler)
 }
 
+func _TenantControlPlaneService_GetTenantSettings_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetTenantSettingsRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(TenantControlPlaneServiceServer).GetTenantSettings(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: TenantControlPlaneService_GetTenantSettings_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(TenantControlPlaneServiceServer).GetTenantSettings(ctx, req.(*GetTenantSettingsRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 func _TenantControlPlaneService_Liveness_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(LivenessRequest)
 	if err := dec(in); err != nil {
@@ -905,6 +979,10 @@ var TenantControlPlaneService_ServiceDesc = grpc.ServiceDesc{
 			Handler:    _TenantControlPlaneService_SetFeatureFlag_Handler,
 		},
 		{
+			MethodName: "SetTenantSetting",
+			Handler:    _TenantControlPlaneService_SetTenantSetting_Handler,
+		},
+		{
 			MethodName: "GetTenant",
 			Handler:    _TenantControlPlaneService_GetTenant_Handler,
 		},
@@ -943,6 +1021,10 @@ var TenantControlPlaneService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "GetFeatureFlags",
 			Handler:    _TenantControlPlaneService_GetFeatureFlags_Handler,
+		},
+		{
+			MethodName: "GetTenantSettings",
+			Handler:    _TenantControlPlaneService_GetTenantSettings_Handler,
 		},
 		{
 			MethodName: "Liveness",

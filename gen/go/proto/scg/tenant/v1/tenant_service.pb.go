@@ -366,6 +366,7 @@ func (x *ConnectorConfig) GetUpdatedAt() *timestamppb.Timestamp {
 	return nil
 }
 
+// Deprecated: Marked as deprecated in proto/scg/tenant/v1/tenant_service.proto.
 type FeatureFlag struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
 	TenantId      string                 `protobuf:"bytes,1,opt,name=tenant_id,proto3" json:"tenant_id,omitempty"`
@@ -434,6 +435,74 @@ func (x *FeatureFlag) GetUpdatedAt() *timestamppb.Timestamp {
 	return nil
 }
 
+type TenantSetting struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	TenantId      string                 `protobuf:"bytes,1,opt,name=tenant_id,proto3" json:"tenant_id,omitempty"`
+	Key           string                 `protobuf:"bytes,2,opt,name=key,proto3" json:"key,omitempty"`
+	Enabled       bool                   `protobuf:"varint,3,opt,name=enabled,proto3" json:"enabled,omitempty"`
+	UpdatedAt     *timestamppb.Timestamp `protobuf:"bytes,4,opt,name=updated_at,proto3" json:"updated_at,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *TenantSetting) Reset() {
+	*x = TenantSetting{}
+	mi := &file_proto_scg_tenant_v1_tenant_service_proto_msgTypes[5]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *TenantSetting) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*TenantSetting) ProtoMessage() {}
+
+func (x *TenantSetting) ProtoReflect() protoreflect.Message {
+	mi := &file_proto_scg_tenant_v1_tenant_service_proto_msgTypes[5]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use TenantSetting.ProtoReflect.Descriptor instead.
+func (*TenantSetting) Descriptor() ([]byte, []int) {
+	return file_proto_scg_tenant_v1_tenant_service_proto_rawDescGZIP(), []int{5}
+}
+
+func (x *TenantSetting) GetTenantId() string {
+	if x != nil {
+		return x.TenantId
+	}
+	return ""
+}
+
+func (x *TenantSetting) GetKey() string {
+	if x != nil {
+		return x.Key
+	}
+	return ""
+}
+
+func (x *TenantSetting) GetEnabled() bool {
+	if x != nil {
+		return x.Enabled
+	}
+	return false
+}
+
+func (x *TenantSetting) GetUpdatedAt() *timestamppb.Timestamp {
+	if x != nil {
+		return x.UpdatedAt
+	}
+	return nil
+}
+
 type CreateTenantRequest struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
 	TenantId      string                 `protobuf:"bytes,1,opt,name=tenant_id,proto3" json:"tenant_id,omitempty"`
@@ -445,7 +514,7 @@ type CreateTenantRequest struct {
 
 func (x *CreateTenantRequest) Reset() {
 	*x = CreateTenantRequest{}
-	mi := &file_proto_scg_tenant_v1_tenant_service_proto_msgTypes[5]
+	mi := &file_proto_scg_tenant_v1_tenant_service_proto_msgTypes[6]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -457,7 +526,7 @@ func (x *CreateTenantRequest) String() string {
 func (*CreateTenantRequest) ProtoMessage() {}
 
 func (x *CreateTenantRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_proto_scg_tenant_v1_tenant_service_proto_msgTypes[5]
+	mi := &file_proto_scg_tenant_v1_tenant_service_proto_msgTypes[6]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -470,7 +539,7 @@ func (x *CreateTenantRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use CreateTenantRequest.ProtoReflect.Descriptor instead.
 func (*CreateTenantRequest) Descriptor() ([]byte, []int) {
-	return file_proto_scg_tenant_v1_tenant_service_proto_rawDescGZIP(), []int{5}
+	return file_proto_scg_tenant_v1_tenant_service_proto_rawDescGZIP(), []int{6}
 }
 
 func (x *CreateTenantRequest) GetTenantId() string {
@@ -503,7 +572,7 @@ type CreateTenantResponse struct {
 
 func (x *CreateTenantResponse) Reset() {
 	*x = CreateTenantResponse{}
-	mi := &file_proto_scg_tenant_v1_tenant_service_proto_msgTypes[6]
+	mi := &file_proto_scg_tenant_v1_tenant_service_proto_msgTypes[7]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -515,7 +584,7 @@ func (x *CreateTenantResponse) String() string {
 func (*CreateTenantResponse) ProtoMessage() {}
 
 func (x *CreateTenantResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_proto_scg_tenant_v1_tenant_service_proto_msgTypes[6]
+	mi := &file_proto_scg_tenant_v1_tenant_service_proto_msgTypes[7]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -528,7 +597,7 @@ func (x *CreateTenantResponse) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use CreateTenantResponse.ProtoReflect.Descriptor instead.
 func (*CreateTenantResponse) Descriptor() ([]byte, []int) {
-	return file_proto_scg_tenant_v1_tenant_service_proto_rawDescGZIP(), []int{6}
+	return file_proto_scg_tenant_v1_tenant_service_proto_rawDescGZIP(), []int{7}
 }
 
 func (x *CreateTenantResponse) GetTenant() *Tenant {
@@ -548,7 +617,7 @@ type UpdateTenantRequest struct {
 
 func (x *UpdateTenantRequest) Reset() {
 	*x = UpdateTenantRequest{}
-	mi := &file_proto_scg_tenant_v1_tenant_service_proto_msgTypes[7]
+	mi := &file_proto_scg_tenant_v1_tenant_service_proto_msgTypes[8]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -560,7 +629,7 @@ func (x *UpdateTenantRequest) String() string {
 func (*UpdateTenantRequest) ProtoMessage() {}
 
 func (x *UpdateTenantRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_proto_scg_tenant_v1_tenant_service_proto_msgTypes[7]
+	mi := &file_proto_scg_tenant_v1_tenant_service_proto_msgTypes[8]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -573,7 +642,7 @@ func (x *UpdateTenantRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use UpdateTenantRequest.ProtoReflect.Descriptor instead.
 func (*UpdateTenantRequest) Descriptor() ([]byte, []int) {
-	return file_proto_scg_tenant_v1_tenant_service_proto_rawDescGZIP(), []int{7}
+	return file_proto_scg_tenant_v1_tenant_service_proto_rawDescGZIP(), []int{8}
 }
 
 func (x *UpdateTenantRequest) GetTenantId() string {
@@ -599,7 +668,7 @@ type UpdateTenantResponse struct {
 
 func (x *UpdateTenantResponse) Reset() {
 	*x = UpdateTenantResponse{}
-	mi := &file_proto_scg_tenant_v1_tenant_service_proto_msgTypes[8]
+	mi := &file_proto_scg_tenant_v1_tenant_service_proto_msgTypes[9]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -611,7 +680,7 @@ func (x *UpdateTenantResponse) String() string {
 func (*UpdateTenantResponse) ProtoMessage() {}
 
 func (x *UpdateTenantResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_proto_scg_tenant_v1_tenant_service_proto_msgTypes[8]
+	mi := &file_proto_scg_tenant_v1_tenant_service_proto_msgTypes[9]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -624,7 +693,7 @@ func (x *UpdateTenantResponse) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use UpdateTenantResponse.ProtoReflect.Descriptor instead.
 func (*UpdateTenantResponse) Descriptor() ([]byte, []int) {
-	return file_proto_scg_tenant_v1_tenant_service_proto_rawDescGZIP(), []int{8}
+	return file_proto_scg_tenant_v1_tenant_service_proto_rawDescGZIP(), []int{9}
 }
 
 func (x *UpdateTenantResponse) GetTenant() *Tenant {
@@ -644,7 +713,7 @@ type DeactivateTenantRequest struct {
 
 func (x *DeactivateTenantRequest) Reset() {
 	*x = DeactivateTenantRequest{}
-	mi := &file_proto_scg_tenant_v1_tenant_service_proto_msgTypes[9]
+	mi := &file_proto_scg_tenant_v1_tenant_service_proto_msgTypes[10]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -656,7 +725,7 @@ func (x *DeactivateTenantRequest) String() string {
 func (*DeactivateTenantRequest) ProtoMessage() {}
 
 func (x *DeactivateTenantRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_proto_scg_tenant_v1_tenant_service_proto_msgTypes[9]
+	mi := &file_proto_scg_tenant_v1_tenant_service_proto_msgTypes[10]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -669,7 +738,7 @@ func (x *DeactivateTenantRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use DeactivateTenantRequest.ProtoReflect.Descriptor instead.
 func (*DeactivateTenantRequest) Descriptor() ([]byte, []int) {
-	return file_proto_scg_tenant_v1_tenant_service_proto_rawDescGZIP(), []int{9}
+	return file_proto_scg_tenant_v1_tenant_service_proto_rawDescGZIP(), []int{10}
 }
 
 func (x *DeactivateTenantRequest) GetTenantId() string {
@@ -695,7 +764,7 @@ type DeactivateTenantResponse struct {
 
 func (x *DeactivateTenantResponse) Reset() {
 	*x = DeactivateTenantResponse{}
-	mi := &file_proto_scg_tenant_v1_tenant_service_proto_msgTypes[10]
+	mi := &file_proto_scg_tenant_v1_tenant_service_proto_msgTypes[11]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -707,7 +776,7 @@ func (x *DeactivateTenantResponse) String() string {
 func (*DeactivateTenantResponse) ProtoMessage() {}
 
 func (x *DeactivateTenantResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_proto_scg_tenant_v1_tenant_service_proto_msgTypes[10]
+	mi := &file_proto_scg_tenant_v1_tenant_service_proto_msgTypes[11]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -720,7 +789,7 @@ func (x *DeactivateTenantResponse) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use DeactivateTenantResponse.ProtoReflect.Descriptor instead.
 func (*DeactivateTenantResponse) Descriptor() ([]byte, []int) {
-	return file_proto_scg_tenant_v1_tenant_service_proto_rawDescGZIP(), []int{10}
+	return file_proto_scg_tenant_v1_tenant_service_proto_rawDescGZIP(), []int{11}
 }
 
 func (x *DeactivateTenantResponse) GetTenant() *Tenant {
@@ -741,7 +810,7 @@ type AddTenantMemberRequest struct {
 
 func (x *AddTenantMemberRequest) Reset() {
 	*x = AddTenantMemberRequest{}
-	mi := &file_proto_scg_tenant_v1_tenant_service_proto_msgTypes[11]
+	mi := &file_proto_scg_tenant_v1_tenant_service_proto_msgTypes[12]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -753,7 +822,7 @@ func (x *AddTenantMemberRequest) String() string {
 func (*AddTenantMemberRequest) ProtoMessage() {}
 
 func (x *AddTenantMemberRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_proto_scg_tenant_v1_tenant_service_proto_msgTypes[11]
+	mi := &file_proto_scg_tenant_v1_tenant_service_proto_msgTypes[12]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -766,7 +835,7 @@ func (x *AddTenantMemberRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use AddTenantMemberRequest.ProtoReflect.Descriptor instead.
 func (*AddTenantMemberRequest) Descriptor() ([]byte, []int) {
-	return file_proto_scg_tenant_v1_tenant_service_proto_rawDescGZIP(), []int{11}
+	return file_proto_scg_tenant_v1_tenant_service_proto_rawDescGZIP(), []int{12}
 }
 
 func (x *AddTenantMemberRequest) GetTenantId() string {
@@ -799,7 +868,7 @@ type AddTenantMemberResponse struct {
 
 func (x *AddTenantMemberResponse) Reset() {
 	*x = AddTenantMemberResponse{}
-	mi := &file_proto_scg_tenant_v1_tenant_service_proto_msgTypes[12]
+	mi := &file_proto_scg_tenant_v1_tenant_service_proto_msgTypes[13]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -811,7 +880,7 @@ func (x *AddTenantMemberResponse) String() string {
 func (*AddTenantMemberResponse) ProtoMessage() {}
 
 func (x *AddTenantMemberResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_proto_scg_tenant_v1_tenant_service_proto_msgTypes[12]
+	mi := &file_proto_scg_tenant_v1_tenant_service_proto_msgTypes[13]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -824,7 +893,7 @@ func (x *AddTenantMemberResponse) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use AddTenantMemberResponse.ProtoReflect.Descriptor instead.
 func (*AddTenantMemberResponse) Descriptor() ([]byte, []int) {
-	return file_proto_scg_tenant_v1_tenant_service_proto_rawDescGZIP(), []int{12}
+	return file_proto_scg_tenant_v1_tenant_service_proto_rawDescGZIP(), []int{13}
 }
 
 func (x *AddTenantMemberResponse) GetMember() *TenantMember {
@@ -844,7 +913,7 @@ type RemoveTenantMemberRequest struct {
 
 func (x *RemoveTenantMemberRequest) Reset() {
 	*x = RemoveTenantMemberRequest{}
-	mi := &file_proto_scg_tenant_v1_tenant_service_proto_msgTypes[13]
+	mi := &file_proto_scg_tenant_v1_tenant_service_proto_msgTypes[14]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -856,7 +925,7 @@ func (x *RemoveTenantMemberRequest) String() string {
 func (*RemoveTenantMemberRequest) ProtoMessage() {}
 
 func (x *RemoveTenantMemberRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_proto_scg_tenant_v1_tenant_service_proto_msgTypes[13]
+	mi := &file_proto_scg_tenant_v1_tenant_service_proto_msgTypes[14]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -869,7 +938,7 @@ func (x *RemoveTenantMemberRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use RemoveTenantMemberRequest.ProtoReflect.Descriptor instead.
 func (*RemoveTenantMemberRequest) Descriptor() ([]byte, []int) {
-	return file_proto_scg_tenant_v1_tenant_service_proto_rawDescGZIP(), []int{13}
+	return file_proto_scg_tenant_v1_tenant_service_proto_rawDescGZIP(), []int{14}
 }
 
 func (x *RemoveTenantMemberRequest) GetTenantId() string {
@@ -895,7 +964,7 @@ type RemoveTenantMemberResponse struct {
 
 func (x *RemoveTenantMemberResponse) Reset() {
 	*x = RemoveTenantMemberResponse{}
-	mi := &file_proto_scg_tenant_v1_tenant_service_proto_msgTypes[14]
+	mi := &file_proto_scg_tenant_v1_tenant_service_proto_msgTypes[15]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -907,7 +976,7 @@ func (x *RemoveTenantMemberResponse) String() string {
 func (*RemoveTenantMemberResponse) ProtoMessage() {}
 
 func (x *RemoveTenantMemberResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_proto_scg_tenant_v1_tenant_service_proto_msgTypes[14]
+	mi := &file_proto_scg_tenant_v1_tenant_service_proto_msgTypes[15]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -920,7 +989,7 @@ func (x *RemoveTenantMemberResponse) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use RemoveTenantMemberResponse.ProtoReflect.Descriptor instead.
 func (*RemoveTenantMemberResponse) Descriptor() ([]byte, []int) {
-	return file_proto_scg_tenant_v1_tenant_service_proto_rawDescGZIP(), []int{14}
+	return file_proto_scg_tenant_v1_tenant_service_proto_rawDescGZIP(), []int{15}
 }
 
 func (x *RemoveTenantMemberResponse) GetMember() *TenantMember {
@@ -941,7 +1010,7 @@ type ChangeTenantMemberRoleRequest struct {
 
 func (x *ChangeTenantMemberRoleRequest) Reset() {
 	*x = ChangeTenantMemberRoleRequest{}
-	mi := &file_proto_scg_tenant_v1_tenant_service_proto_msgTypes[15]
+	mi := &file_proto_scg_tenant_v1_tenant_service_proto_msgTypes[16]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -953,7 +1022,7 @@ func (x *ChangeTenantMemberRoleRequest) String() string {
 func (*ChangeTenantMemberRoleRequest) ProtoMessage() {}
 
 func (x *ChangeTenantMemberRoleRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_proto_scg_tenant_v1_tenant_service_proto_msgTypes[15]
+	mi := &file_proto_scg_tenant_v1_tenant_service_proto_msgTypes[16]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -966,7 +1035,7 @@ func (x *ChangeTenantMemberRoleRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use ChangeTenantMemberRoleRequest.ProtoReflect.Descriptor instead.
 func (*ChangeTenantMemberRoleRequest) Descriptor() ([]byte, []int) {
-	return file_proto_scg_tenant_v1_tenant_service_proto_rawDescGZIP(), []int{15}
+	return file_proto_scg_tenant_v1_tenant_service_proto_rawDescGZIP(), []int{16}
 }
 
 func (x *ChangeTenantMemberRoleRequest) GetTenantId() string {
@@ -999,7 +1068,7 @@ type ChangeTenantMemberRoleResponse struct {
 
 func (x *ChangeTenantMemberRoleResponse) Reset() {
 	*x = ChangeTenantMemberRoleResponse{}
-	mi := &file_proto_scg_tenant_v1_tenant_service_proto_msgTypes[16]
+	mi := &file_proto_scg_tenant_v1_tenant_service_proto_msgTypes[17]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -1011,7 +1080,7 @@ func (x *ChangeTenantMemberRoleResponse) String() string {
 func (*ChangeTenantMemberRoleResponse) ProtoMessage() {}
 
 func (x *ChangeTenantMemberRoleResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_proto_scg_tenant_v1_tenant_service_proto_msgTypes[16]
+	mi := &file_proto_scg_tenant_v1_tenant_service_proto_msgTypes[17]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -1024,7 +1093,7 @@ func (x *ChangeTenantMemberRoleResponse) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use ChangeTenantMemberRoleResponse.ProtoReflect.Descriptor instead.
 func (*ChangeTenantMemberRoleResponse) Descriptor() ([]byte, []int) {
-	return file_proto_scg_tenant_v1_tenant_service_proto_rawDescGZIP(), []int{16}
+	return file_proto_scg_tenant_v1_tenant_service_proto_rawDescGZIP(), []int{17}
 }
 
 func (x *ChangeTenantMemberRoleResponse) GetMember() *TenantMember {
@@ -1045,7 +1114,7 @@ type PublishPolicySetRequest struct {
 
 func (x *PublishPolicySetRequest) Reset() {
 	*x = PublishPolicySetRequest{}
-	mi := &file_proto_scg_tenant_v1_tenant_service_proto_msgTypes[17]
+	mi := &file_proto_scg_tenant_v1_tenant_service_proto_msgTypes[18]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -1057,7 +1126,7 @@ func (x *PublishPolicySetRequest) String() string {
 func (*PublishPolicySetRequest) ProtoMessage() {}
 
 func (x *PublishPolicySetRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_proto_scg_tenant_v1_tenant_service_proto_msgTypes[17]
+	mi := &file_proto_scg_tenant_v1_tenant_service_proto_msgTypes[18]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -1070,7 +1139,7 @@ func (x *PublishPolicySetRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use PublishPolicySetRequest.ProtoReflect.Descriptor instead.
 func (*PublishPolicySetRequest) Descriptor() ([]byte, []int) {
-	return file_proto_scg_tenant_v1_tenant_service_proto_rawDescGZIP(), []int{17}
+	return file_proto_scg_tenant_v1_tenant_service_proto_rawDescGZIP(), []int{18}
 }
 
 func (x *PublishPolicySetRequest) GetTenantId() string {
@@ -1103,7 +1172,7 @@ type PublishPolicySetResponse struct {
 
 func (x *PublishPolicySetResponse) Reset() {
 	*x = PublishPolicySetResponse{}
-	mi := &file_proto_scg_tenant_v1_tenant_service_proto_msgTypes[18]
+	mi := &file_proto_scg_tenant_v1_tenant_service_proto_msgTypes[19]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -1115,7 +1184,7 @@ func (x *PublishPolicySetResponse) String() string {
 func (*PublishPolicySetResponse) ProtoMessage() {}
 
 func (x *PublishPolicySetResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_proto_scg_tenant_v1_tenant_service_proto_msgTypes[18]
+	mi := &file_proto_scg_tenant_v1_tenant_service_proto_msgTypes[19]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -1128,7 +1197,7 @@ func (x *PublishPolicySetResponse) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use PublishPolicySetResponse.ProtoReflect.Descriptor instead.
 func (*PublishPolicySetResponse) Descriptor() ([]byte, []int) {
-	return file_proto_scg_tenant_v1_tenant_service_proto_rawDescGZIP(), []int{18}
+	return file_proto_scg_tenant_v1_tenant_service_proto_rawDescGZIP(), []int{19}
 }
 
 func (x *PublishPolicySetResponse) GetBundle() *PolicySet {
@@ -1148,7 +1217,7 @@ type ActivatePolicySetRequest struct {
 
 func (x *ActivatePolicySetRequest) Reset() {
 	*x = ActivatePolicySetRequest{}
-	mi := &file_proto_scg_tenant_v1_tenant_service_proto_msgTypes[19]
+	mi := &file_proto_scg_tenant_v1_tenant_service_proto_msgTypes[20]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -1160,7 +1229,7 @@ func (x *ActivatePolicySetRequest) String() string {
 func (*ActivatePolicySetRequest) ProtoMessage() {}
 
 func (x *ActivatePolicySetRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_proto_scg_tenant_v1_tenant_service_proto_msgTypes[19]
+	mi := &file_proto_scg_tenant_v1_tenant_service_proto_msgTypes[20]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -1173,7 +1242,7 @@ func (x *ActivatePolicySetRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use ActivatePolicySetRequest.ProtoReflect.Descriptor instead.
 func (*ActivatePolicySetRequest) Descriptor() ([]byte, []int) {
-	return file_proto_scg_tenant_v1_tenant_service_proto_rawDescGZIP(), []int{19}
+	return file_proto_scg_tenant_v1_tenant_service_proto_rawDescGZIP(), []int{20}
 }
 
 func (x *ActivatePolicySetRequest) GetTenantId() string {
@@ -1199,7 +1268,7 @@ type ActivatePolicySetResponse struct {
 
 func (x *ActivatePolicySetResponse) Reset() {
 	*x = ActivatePolicySetResponse{}
-	mi := &file_proto_scg_tenant_v1_tenant_service_proto_msgTypes[20]
+	mi := &file_proto_scg_tenant_v1_tenant_service_proto_msgTypes[21]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -1211,7 +1280,7 @@ func (x *ActivatePolicySetResponse) String() string {
 func (*ActivatePolicySetResponse) ProtoMessage() {}
 
 func (x *ActivatePolicySetResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_proto_scg_tenant_v1_tenant_service_proto_msgTypes[20]
+	mi := &file_proto_scg_tenant_v1_tenant_service_proto_msgTypes[21]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -1224,7 +1293,7 @@ func (x *ActivatePolicySetResponse) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use ActivatePolicySetResponse.ProtoReflect.Descriptor instead.
 func (*ActivatePolicySetResponse) Descriptor() ([]byte, []int) {
-	return file_proto_scg_tenant_v1_tenant_service_proto_rawDescGZIP(), []int{20}
+	return file_proto_scg_tenant_v1_tenant_service_proto_rawDescGZIP(), []int{21}
 }
 
 func (x *ActivatePolicySetResponse) GetBundle() *PolicySet {
@@ -1246,7 +1315,7 @@ type UpsertConnectorConfigRequest struct {
 
 func (x *UpsertConnectorConfigRequest) Reset() {
 	*x = UpsertConnectorConfigRequest{}
-	mi := &file_proto_scg_tenant_v1_tenant_service_proto_msgTypes[21]
+	mi := &file_proto_scg_tenant_v1_tenant_service_proto_msgTypes[22]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -1258,7 +1327,7 @@ func (x *UpsertConnectorConfigRequest) String() string {
 func (*UpsertConnectorConfigRequest) ProtoMessage() {}
 
 func (x *UpsertConnectorConfigRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_proto_scg_tenant_v1_tenant_service_proto_msgTypes[21]
+	mi := &file_proto_scg_tenant_v1_tenant_service_proto_msgTypes[22]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -1271,7 +1340,7 @@ func (x *UpsertConnectorConfigRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use UpsertConnectorConfigRequest.ProtoReflect.Descriptor instead.
 func (*UpsertConnectorConfigRequest) Descriptor() ([]byte, []int) {
-	return file_proto_scg_tenant_v1_tenant_service_proto_rawDescGZIP(), []int{21}
+	return file_proto_scg_tenant_v1_tenant_service_proto_rawDescGZIP(), []int{22}
 }
 
 func (x *UpsertConnectorConfigRequest) GetTenantId() string {
@@ -1311,7 +1380,7 @@ type UpsertConnectorConfigResponse struct {
 
 func (x *UpsertConnectorConfigResponse) Reset() {
 	*x = UpsertConnectorConfigResponse{}
-	mi := &file_proto_scg_tenant_v1_tenant_service_proto_msgTypes[22]
+	mi := &file_proto_scg_tenant_v1_tenant_service_proto_msgTypes[23]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -1323,7 +1392,7 @@ func (x *UpsertConnectorConfigResponse) String() string {
 func (*UpsertConnectorConfigResponse) ProtoMessage() {}
 
 func (x *UpsertConnectorConfigResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_proto_scg_tenant_v1_tenant_service_proto_msgTypes[22]
+	mi := &file_proto_scg_tenant_v1_tenant_service_proto_msgTypes[23]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -1336,7 +1405,7 @@ func (x *UpsertConnectorConfigResponse) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use UpsertConnectorConfigResponse.ProtoReflect.Descriptor instead.
 func (*UpsertConnectorConfigResponse) Descriptor() ([]byte, []int) {
-	return file_proto_scg_tenant_v1_tenant_service_proto_rawDescGZIP(), []int{22}
+	return file_proto_scg_tenant_v1_tenant_service_proto_rawDescGZIP(), []int{23}
 }
 
 func (x *UpsertConnectorConfigResponse) GetConnector() *ConnectorConfig {
@@ -1356,7 +1425,7 @@ type DisableConnectorRequest struct {
 
 func (x *DisableConnectorRequest) Reset() {
 	*x = DisableConnectorRequest{}
-	mi := &file_proto_scg_tenant_v1_tenant_service_proto_msgTypes[23]
+	mi := &file_proto_scg_tenant_v1_tenant_service_proto_msgTypes[24]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -1368,7 +1437,7 @@ func (x *DisableConnectorRequest) String() string {
 func (*DisableConnectorRequest) ProtoMessage() {}
 
 func (x *DisableConnectorRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_proto_scg_tenant_v1_tenant_service_proto_msgTypes[23]
+	mi := &file_proto_scg_tenant_v1_tenant_service_proto_msgTypes[24]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -1381,7 +1450,7 @@ func (x *DisableConnectorRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use DisableConnectorRequest.ProtoReflect.Descriptor instead.
 func (*DisableConnectorRequest) Descriptor() ([]byte, []int) {
-	return file_proto_scg_tenant_v1_tenant_service_proto_rawDescGZIP(), []int{23}
+	return file_proto_scg_tenant_v1_tenant_service_proto_rawDescGZIP(), []int{24}
 }
 
 func (x *DisableConnectorRequest) GetTenantId() string {
@@ -1407,7 +1476,7 @@ type DisableConnectorResponse struct {
 
 func (x *DisableConnectorResponse) Reset() {
 	*x = DisableConnectorResponse{}
-	mi := &file_proto_scg_tenant_v1_tenant_service_proto_msgTypes[24]
+	mi := &file_proto_scg_tenant_v1_tenant_service_proto_msgTypes[25]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -1419,7 +1488,7 @@ func (x *DisableConnectorResponse) String() string {
 func (*DisableConnectorResponse) ProtoMessage() {}
 
 func (x *DisableConnectorResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_proto_scg_tenant_v1_tenant_service_proto_msgTypes[24]
+	mi := &file_proto_scg_tenant_v1_tenant_service_proto_msgTypes[25]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -1432,7 +1501,7 @@ func (x *DisableConnectorResponse) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use DisableConnectorResponse.ProtoReflect.Descriptor instead.
 func (*DisableConnectorResponse) Descriptor() ([]byte, []int) {
-	return file_proto_scg_tenant_v1_tenant_service_proto_rawDescGZIP(), []int{24}
+	return file_proto_scg_tenant_v1_tenant_service_proto_rawDescGZIP(), []int{25}
 }
 
 func (x *DisableConnectorResponse) GetConnector() *ConnectorConfig {
@@ -1442,6 +1511,7 @@ func (x *DisableConnectorResponse) GetConnector() *ConnectorConfig {
 	return nil
 }
 
+// Deprecated: Marked as deprecated in proto/scg/tenant/v1/tenant_service.proto.
 type SetFeatureFlagRequest struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
 	TenantId      string                 `protobuf:"bytes,1,opt,name=tenant_id,proto3" json:"tenant_id,omitempty"`
@@ -1453,7 +1523,7 @@ type SetFeatureFlagRequest struct {
 
 func (x *SetFeatureFlagRequest) Reset() {
 	*x = SetFeatureFlagRequest{}
-	mi := &file_proto_scg_tenant_v1_tenant_service_proto_msgTypes[25]
+	mi := &file_proto_scg_tenant_v1_tenant_service_proto_msgTypes[26]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -1465,7 +1535,7 @@ func (x *SetFeatureFlagRequest) String() string {
 func (*SetFeatureFlagRequest) ProtoMessage() {}
 
 func (x *SetFeatureFlagRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_proto_scg_tenant_v1_tenant_service_proto_msgTypes[25]
+	mi := &file_proto_scg_tenant_v1_tenant_service_proto_msgTypes[26]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -1478,7 +1548,7 @@ func (x *SetFeatureFlagRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use SetFeatureFlagRequest.ProtoReflect.Descriptor instead.
 func (*SetFeatureFlagRequest) Descriptor() ([]byte, []int) {
-	return file_proto_scg_tenant_v1_tenant_service_proto_rawDescGZIP(), []int{25}
+	return file_proto_scg_tenant_v1_tenant_service_proto_rawDescGZIP(), []int{26}
 }
 
 func (x *SetFeatureFlagRequest) GetTenantId() string {
@@ -1502,6 +1572,7 @@ func (x *SetFeatureFlagRequest) GetEnabled() bool {
 	return false
 }
 
+// Deprecated: Marked as deprecated in proto/scg/tenant/v1/tenant_service.proto.
 type SetFeatureFlagResponse struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
 	FeatureFlag   *FeatureFlag           `protobuf:"bytes,1,opt,name=feature_flag,proto3" json:"feature_flag,omitempty"`
@@ -1511,7 +1582,7 @@ type SetFeatureFlagResponse struct {
 
 func (x *SetFeatureFlagResponse) Reset() {
 	*x = SetFeatureFlagResponse{}
-	mi := &file_proto_scg_tenant_v1_tenant_service_proto_msgTypes[26]
+	mi := &file_proto_scg_tenant_v1_tenant_service_proto_msgTypes[27]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -1523,7 +1594,7 @@ func (x *SetFeatureFlagResponse) String() string {
 func (*SetFeatureFlagResponse) ProtoMessage() {}
 
 func (x *SetFeatureFlagResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_proto_scg_tenant_v1_tenant_service_proto_msgTypes[26]
+	mi := &file_proto_scg_tenant_v1_tenant_service_proto_msgTypes[27]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -1536,12 +1607,116 @@ func (x *SetFeatureFlagResponse) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use SetFeatureFlagResponse.ProtoReflect.Descriptor instead.
 func (*SetFeatureFlagResponse) Descriptor() ([]byte, []int) {
-	return file_proto_scg_tenant_v1_tenant_service_proto_rawDescGZIP(), []int{26}
+	return file_proto_scg_tenant_v1_tenant_service_proto_rawDescGZIP(), []int{27}
 }
 
 func (x *SetFeatureFlagResponse) GetFeatureFlag() *FeatureFlag {
 	if x != nil {
 		return x.FeatureFlag
+	}
+	return nil
+}
+
+type SetTenantSettingRequest struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	TenantId      string                 `protobuf:"bytes,1,opt,name=tenant_id,proto3" json:"tenant_id,omitempty"`
+	Key           string                 `protobuf:"bytes,2,opt,name=key,proto3" json:"key,omitempty"`
+	Enabled       bool                   `protobuf:"varint,3,opt,name=enabled,proto3" json:"enabled,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *SetTenantSettingRequest) Reset() {
+	*x = SetTenantSettingRequest{}
+	mi := &file_proto_scg_tenant_v1_tenant_service_proto_msgTypes[28]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *SetTenantSettingRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*SetTenantSettingRequest) ProtoMessage() {}
+
+func (x *SetTenantSettingRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_proto_scg_tenant_v1_tenant_service_proto_msgTypes[28]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use SetTenantSettingRequest.ProtoReflect.Descriptor instead.
+func (*SetTenantSettingRequest) Descriptor() ([]byte, []int) {
+	return file_proto_scg_tenant_v1_tenant_service_proto_rawDescGZIP(), []int{28}
+}
+
+func (x *SetTenantSettingRequest) GetTenantId() string {
+	if x != nil {
+		return x.TenantId
+	}
+	return ""
+}
+
+func (x *SetTenantSettingRequest) GetKey() string {
+	if x != nil {
+		return x.Key
+	}
+	return ""
+}
+
+func (x *SetTenantSettingRequest) GetEnabled() bool {
+	if x != nil {
+		return x.Enabled
+	}
+	return false
+}
+
+type SetTenantSettingResponse struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	TenantSetting *TenantSetting         `protobuf:"bytes,1,opt,name=tenant_setting,proto3" json:"tenant_setting,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *SetTenantSettingResponse) Reset() {
+	*x = SetTenantSettingResponse{}
+	mi := &file_proto_scg_tenant_v1_tenant_service_proto_msgTypes[29]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *SetTenantSettingResponse) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*SetTenantSettingResponse) ProtoMessage() {}
+
+func (x *SetTenantSettingResponse) ProtoReflect() protoreflect.Message {
+	mi := &file_proto_scg_tenant_v1_tenant_service_proto_msgTypes[29]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use SetTenantSettingResponse.ProtoReflect.Descriptor instead.
+func (*SetTenantSettingResponse) Descriptor() ([]byte, []int) {
+	return file_proto_scg_tenant_v1_tenant_service_proto_rawDescGZIP(), []int{29}
+}
+
+func (x *SetTenantSettingResponse) GetTenantSetting() *TenantSetting {
+	if x != nil {
+		return x.TenantSetting
 	}
 	return nil
 }
@@ -1555,7 +1730,7 @@ type GetTenantRequest struct {
 
 func (x *GetTenantRequest) Reset() {
 	*x = GetTenantRequest{}
-	mi := &file_proto_scg_tenant_v1_tenant_service_proto_msgTypes[27]
+	mi := &file_proto_scg_tenant_v1_tenant_service_proto_msgTypes[30]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -1567,7 +1742,7 @@ func (x *GetTenantRequest) String() string {
 func (*GetTenantRequest) ProtoMessage() {}
 
 func (x *GetTenantRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_proto_scg_tenant_v1_tenant_service_proto_msgTypes[27]
+	mi := &file_proto_scg_tenant_v1_tenant_service_proto_msgTypes[30]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -1580,7 +1755,7 @@ func (x *GetTenantRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use GetTenantRequest.ProtoReflect.Descriptor instead.
 func (*GetTenantRequest) Descriptor() ([]byte, []int) {
-	return file_proto_scg_tenant_v1_tenant_service_proto_rawDescGZIP(), []int{27}
+	return file_proto_scg_tenant_v1_tenant_service_proto_rawDescGZIP(), []int{30}
 }
 
 func (x *GetTenantRequest) GetTenantId() string {
@@ -1599,7 +1774,7 @@ type GetTenantResponse struct {
 
 func (x *GetTenantResponse) Reset() {
 	*x = GetTenantResponse{}
-	mi := &file_proto_scg_tenant_v1_tenant_service_proto_msgTypes[28]
+	mi := &file_proto_scg_tenant_v1_tenant_service_proto_msgTypes[31]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -1611,7 +1786,7 @@ func (x *GetTenantResponse) String() string {
 func (*GetTenantResponse) ProtoMessage() {}
 
 func (x *GetTenantResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_proto_scg_tenant_v1_tenant_service_proto_msgTypes[28]
+	mi := &file_proto_scg_tenant_v1_tenant_service_proto_msgTypes[31]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -1624,7 +1799,7 @@ func (x *GetTenantResponse) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use GetTenantResponse.ProtoReflect.Descriptor instead.
 func (*GetTenantResponse) Descriptor() ([]byte, []int) {
-	return file_proto_scg_tenant_v1_tenant_service_proto_rawDescGZIP(), []int{28}
+	return file_proto_scg_tenant_v1_tenant_service_proto_rawDescGZIP(), []int{31}
 }
 
 func (x *GetTenantResponse) GetTenant() *Tenant {
@@ -1644,7 +1819,7 @@ type ListTenantsRequest struct {
 
 func (x *ListTenantsRequest) Reset() {
 	*x = ListTenantsRequest{}
-	mi := &file_proto_scg_tenant_v1_tenant_service_proto_msgTypes[29]
+	mi := &file_proto_scg_tenant_v1_tenant_service_proto_msgTypes[32]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -1656,7 +1831,7 @@ func (x *ListTenantsRequest) String() string {
 func (*ListTenantsRequest) ProtoMessage() {}
 
 func (x *ListTenantsRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_proto_scg_tenant_v1_tenant_service_proto_msgTypes[29]
+	mi := &file_proto_scg_tenant_v1_tenant_service_proto_msgTypes[32]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -1669,7 +1844,7 @@ func (x *ListTenantsRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use ListTenantsRequest.ProtoReflect.Descriptor instead.
 func (*ListTenantsRequest) Descriptor() ([]byte, []int) {
-	return file_proto_scg_tenant_v1_tenant_service_proto_rawDescGZIP(), []int{29}
+	return file_proto_scg_tenant_v1_tenant_service_proto_rawDescGZIP(), []int{32}
 }
 
 func (x *ListTenantsRequest) GetPageSize() int32 {
@@ -1696,7 +1871,7 @@ type ListTenantsResponse struct {
 
 func (x *ListTenantsResponse) Reset() {
 	*x = ListTenantsResponse{}
-	mi := &file_proto_scg_tenant_v1_tenant_service_proto_msgTypes[30]
+	mi := &file_proto_scg_tenant_v1_tenant_service_proto_msgTypes[33]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -1708,7 +1883,7 @@ func (x *ListTenantsResponse) String() string {
 func (*ListTenantsResponse) ProtoMessage() {}
 
 func (x *ListTenantsResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_proto_scg_tenant_v1_tenant_service_proto_msgTypes[30]
+	mi := &file_proto_scg_tenant_v1_tenant_service_proto_msgTypes[33]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -1721,7 +1896,7 @@ func (x *ListTenantsResponse) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use ListTenantsResponse.ProtoReflect.Descriptor instead.
 func (*ListTenantsResponse) Descriptor() ([]byte, []int) {
-	return file_proto_scg_tenant_v1_tenant_service_proto_rawDescGZIP(), []int{30}
+	return file_proto_scg_tenant_v1_tenant_service_proto_rawDescGZIP(), []int{33}
 }
 
 func (x *ListTenantsResponse) GetTenants() []*Tenant {
@@ -1748,7 +1923,7 @@ type GetTenantMemberRequest struct {
 
 func (x *GetTenantMemberRequest) Reset() {
 	*x = GetTenantMemberRequest{}
-	mi := &file_proto_scg_tenant_v1_tenant_service_proto_msgTypes[31]
+	mi := &file_proto_scg_tenant_v1_tenant_service_proto_msgTypes[34]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -1760,7 +1935,7 @@ func (x *GetTenantMemberRequest) String() string {
 func (*GetTenantMemberRequest) ProtoMessage() {}
 
 func (x *GetTenantMemberRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_proto_scg_tenant_v1_tenant_service_proto_msgTypes[31]
+	mi := &file_proto_scg_tenant_v1_tenant_service_proto_msgTypes[34]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -1773,7 +1948,7 @@ func (x *GetTenantMemberRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use GetTenantMemberRequest.ProtoReflect.Descriptor instead.
 func (*GetTenantMemberRequest) Descriptor() ([]byte, []int) {
-	return file_proto_scg_tenant_v1_tenant_service_proto_rawDescGZIP(), []int{31}
+	return file_proto_scg_tenant_v1_tenant_service_proto_rawDescGZIP(), []int{34}
 }
 
 func (x *GetTenantMemberRequest) GetTenantId() string {
@@ -1799,7 +1974,7 @@ type GetTenantMemberResponse struct {
 
 func (x *GetTenantMemberResponse) Reset() {
 	*x = GetTenantMemberResponse{}
-	mi := &file_proto_scg_tenant_v1_tenant_service_proto_msgTypes[32]
+	mi := &file_proto_scg_tenant_v1_tenant_service_proto_msgTypes[35]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -1811,7 +1986,7 @@ func (x *GetTenantMemberResponse) String() string {
 func (*GetTenantMemberResponse) ProtoMessage() {}
 
 func (x *GetTenantMemberResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_proto_scg_tenant_v1_tenant_service_proto_msgTypes[32]
+	mi := &file_proto_scg_tenant_v1_tenant_service_proto_msgTypes[35]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -1824,7 +1999,7 @@ func (x *GetTenantMemberResponse) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use GetTenantMemberResponse.ProtoReflect.Descriptor instead.
 func (*GetTenantMemberResponse) Descriptor() ([]byte, []int) {
-	return file_proto_scg_tenant_v1_tenant_service_proto_rawDescGZIP(), []int{32}
+	return file_proto_scg_tenant_v1_tenant_service_proto_rawDescGZIP(), []int{35}
 }
 
 func (x *GetTenantMemberResponse) GetMember() *TenantMember {
@@ -1845,7 +2020,7 @@ type ListTenantMembersRequest struct {
 
 func (x *ListTenantMembersRequest) Reset() {
 	*x = ListTenantMembersRequest{}
-	mi := &file_proto_scg_tenant_v1_tenant_service_proto_msgTypes[33]
+	mi := &file_proto_scg_tenant_v1_tenant_service_proto_msgTypes[36]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -1857,7 +2032,7 @@ func (x *ListTenantMembersRequest) String() string {
 func (*ListTenantMembersRequest) ProtoMessage() {}
 
 func (x *ListTenantMembersRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_proto_scg_tenant_v1_tenant_service_proto_msgTypes[33]
+	mi := &file_proto_scg_tenant_v1_tenant_service_proto_msgTypes[36]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -1870,7 +2045,7 @@ func (x *ListTenantMembersRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use ListTenantMembersRequest.ProtoReflect.Descriptor instead.
 func (*ListTenantMembersRequest) Descriptor() ([]byte, []int) {
-	return file_proto_scg_tenant_v1_tenant_service_proto_rawDescGZIP(), []int{33}
+	return file_proto_scg_tenant_v1_tenant_service_proto_rawDescGZIP(), []int{36}
 }
 
 func (x *ListTenantMembersRequest) GetTenantId() string {
@@ -1904,7 +2079,7 @@ type ListTenantMembersResponse struct {
 
 func (x *ListTenantMembersResponse) Reset() {
 	*x = ListTenantMembersResponse{}
-	mi := &file_proto_scg_tenant_v1_tenant_service_proto_msgTypes[34]
+	mi := &file_proto_scg_tenant_v1_tenant_service_proto_msgTypes[37]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -1916,7 +2091,7 @@ func (x *ListTenantMembersResponse) String() string {
 func (*ListTenantMembersResponse) ProtoMessage() {}
 
 func (x *ListTenantMembersResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_proto_scg_tenant_v1_tenant_service_proto_msgTypes[34]
+	mi := &file_proto_scg_tenant_v1_tenant_service_proto_msgTypes[37]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -1929,7 +2104,7 @@ func (x *ListTenantMembersResponse) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use ListTenantMembersResponse.ProtoReflect.Descriptor instead.
 func (*ListTenantMembersResponse) Descriptor() ([]byte, []int) {
-	return file_proto_scg_tenant_v1_tenant_service_proto_rawDescGZIP(), []int{34}
+	return file_proto_scg_tenant_v1_tenant_service_proto_rawDescGZIP(), []int{37}
 }
 
 func (x *ListTenantMembersResponse) GetMembers() []*TenantMember {
@@ -1955,7 +2130,7 @@ type GetActivePolicySetRequest struct {
 
 func (x *GetActivePolicySetRequest) Reset() {
 	*x = GetActivePolicySetRequest{}
-	mi := &file_proto_scg_tenant_v1_tenant_service_proto_msgTypes[35]
+	mi := &file_proto_scg_tenant_v1_tenant_service_proto_msgTypes[38]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -1967,7 +2142,7 @@ func (x *GetActivePolicySetRequest) String() string {
 func (*GetActivePolicySetRequest) ProtoMessage() {}
 
 func (x *GetActivePolicySetRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_proto_scg_tenant_v1_tenant_service_proto_msgTypes[35]
+	mi := &file_proto_scg_tenant_v1_tenant_service_proto_msgTypes[38]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -1980,7 +2155,7 @@ func (x *GetActivePolicySetRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use GetActivePolicySetRequest.ProtoReflect.Descriptor instead.
 func (*GetActivePolicySetRequest) Descriptor() ([]byte, []int) {
-	return file_proto_scg_tenant_v1_tenant_service_proto_rawDescGZIP(), []int{35}
+	return file_proto_scg_tenant_v1_tenant_service_proto_rawDescGZIP(), []int{38}
 }
 
 func (x *GetActivePolicySetRequest) GetTenantId() string {
@@ -1999,7 +2174,7 @@ type GetActivePolicySetResponse struct {
 
 func (x *GetActivePolicySetResponse) Reset() {
 	*x = GetActivePolicySetResponse{}
-	mi := &file_proto_scg_tenant_v1_tenant_service_proto_msgTypes[36]
+	mi := &file_proto_scg_tenant_v1_tenant_service_proto_msgTypes[39]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -2011,7 +2186,7 @@ func (x *GetActivePolicySetResponse) String() string {
 func (*GetActivePolicySetResponse) ProtoMessage() {}
 
 func (x *GetActivePolicySetResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_proto_scg_tenant_v1_tenant_service_proto_msgTypes[36]
+	mi := &file_proto_scg_tenant_v1_tenant_service_proto_msgTypes[39]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -2024,7 +2199,7 @@ func (x *GetActivePolicySetResponse) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use GetActivePolicySetResponse.ProtoReflect.Descriptor instead.
 func (*GetActivePolicySetResponse) Descriptor() ([]byte, []int) {
-	return file_proto_scg_tenant_v1_tenant_service_proto_rawDescGZIP(), []int{36}
+	return file_proto_scg_tenant_v1_tenant_service_proto_rawDescGZIP(), []int{39}
 }
 
 func (x *GetActivePolicySetResponse) GetBundle() *PolicySet {
@@ -2045,7 +2220,7 @@ type ListPolicySetsRequest struct {
 
 func (x *ListPolicySetsRequest) Reset() {
 	*x = ListPolicySetsRequest{}
-	mi := &file_proto_scg_tenant_v1_tenant_service_proto_msgTypes[37]
+	mi := &file_proto_scg_tenant_v1_tenant_service_proto_msgTypes[40]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -2057,7 +2232,7 @@ func (x *ListPolicySetsRequest) String() string {
 func (*ListPolicySetsRequest) ProtoMessage() {}
 
 func (x *ListPolicySetsRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_proto_scg_tenant_v1_tenant_service_proto_msgTypes[37]
+	mi := &file_proto_scg_tenant_v1_tenant_service_proto_msgTypes[40]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -2070,7 +2245,7 @@ func (x *ListPolicySetsRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use ListPolicySetsRequest.ProtoReflect.Descriptor instead.
 func (*ListPolicySetsRequest) Descriptor() ([]byte, []int) {
-	return file_proto_scg_tenant_v1_tenant_service_proto_rawDescGZIP(), []int{37}
+	return file_proto_scg_tenant_v1_tenant_service_proto_rawDescGZIP(), []int{40}
 }
 
 func (x *ListPolicySetsRequest) GetTenantId() string {
@@ -2104,7 +2279,7 @@ type ListPolicySetsResponse struct {
 
 func (x *ListPolicySetsResponse) Reset() {
 	*x = ListPolicySetsResponse{}
-	mi := &file_proto_scg_tenant_v1_tenant_service_proto_msgTypes[38]
+	mi := &file_proto_scg_tenant_v1_tenant_service_proto_msgTypes[41]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -2116,7 +2291,7 @@ func (x *ListPolicySetsResponse) String() string {
 func (*ListPolicySetsResponse) ProtoMessage() {}
 
 func (x *ListPolicySetsResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_proto_scg_tenant_v1_tenant_service_proto_msgTypes[38]
+	mi := &file_proto_scg_tenant_v1_tenant_service_proto_msgTypes[41]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -2129,7 +2304,7 @@ func (x *ListPolicySetsResponse) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use ListPolicySetsResponse.ProtoReflect.Descriptor instead.
 func (*ListPolicySetsResponse) Descriptor() ([]byte, []int) {
-	return file_proto_scg_tenant_v1_tenant_service_proto_rawDescGZIP(), []int{38}
+	return file_proto_scg_tenant_v1_tenant_service_proto_rawDescGZIP(), []int{41}
 }
 
 func (x *ListPolicySetsResponse) GetBundles() []*PolicySet {
@@ -2156,7 +2331,7 @@ type GetPolicySetRequest struct {
 
 func (x *GetPolicySetRequest) Reset() {
 	*x = GetPolicySetRequest{}
-	mi := &file_proto_scg_tenant_v1_tenant_service_proto_msgTypes[39]
+	mi := &file_proto_scg_tenant_v1_tenant_service_proto_msgTypes[42]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -2168,7 +2343,7 @@ func (x *GetPolicySetRequest) String() string {
 func (*GetPolicySetRequest) ProtoMessage() {}
 
 func (x *GetPolicySetRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_proto_scg_tenant_v1_tenant_service_proto_msgTypes[39]
+	mi := &file_proto_scg_tenant_v1_tenant_service_proto_msgTypes[42]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -2181,7 +2356,7 @@ func (x *GetPolicySetRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use GetPolicySetRequest.ProtoReflect.Descriptor instead.
 func (*GetPolicySetRequest) Descriptor() ([]byte, []int) {
-	return file_proto_scg_tenant_v1_tenant_service_proto_rawDescGZIP(), []int{39}
+	return file_proto_scg_tenant_v1_tenant_service_proto_rawDescGZIP(), []int{42}
 }
 
 func (x *GetPolicySetRequest) GetTenantId() string {
@@ -2207,7 +2382,7 @@ type GetPolicySetResponse struct {
 
 func (x *GetPolicySetResponse) Reset() {
 	*x = GetPolicySetResponse{}
-	mi := &file_proto_scg_tenant_v1_tenant_service_proto_msgTypes[40]
+	mi := &file_proto_scg_tenant_v1_tenant_service_proto_msgTypes[43]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -2219,7 +2394,7 @@ func (x *GetPolicySetResponse) String() string {
 func (*GetPolicySetResponse) ProtoMessage() {}
 
 func (x *GetPolicySetResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_proto_scg_tenant_v1_tenant_service_proto_msgTypes[40]
+	mi := &file_proto_scg_tenant_v1_tenant_service_proto_msgTypes[43]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -2232,7 +2407,7 @@ func (x *GetPolicySetResponse) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use GetPolicySetResponse.ProtoReflect.Descriptor instead.
 func (*GetPolicySetResponse) Descriptor() ([]byte, []int) {
-	return file_proto_scg_tenant_v1_tenant_service_proto_rawDescGZIP(), []int{40}
+	return file_proto_scg_tenant_v1_tenant_service_proto_rawDescGZIP(), []int{43}
 }
 
 func (x *GetPolicySetResponse) GetBundle() *PolicySet {
@@ -2252,7 +2427,7 @@ type GetConnectorConfigRequest struct {
 
 func (x *GetConnectorConfigRequest) Reset() {
 	*x = GetConnectorConfigRequest{}
-	mi := &file_proto_scg_tenant_v1_tenant_service_proto_msgTypes[41]
+	mi := &file_proto_scg_tenant_v1_tenant_service_proto_msgTypes[44]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -2264,7 +2439,7 @@ func (x *GetConnectorConfigRequest) String() string {
 func (*GetConnectorConfigRequest) ProtoMessage() {}
 
 func (x *GetConnectorConfigRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_proto_scg_tenant_v1_tenant_service_proto_msgTypes[41]
+	mi := &file_proto_scg_tenant_v1_tenant_service_proto_msgTypes[44]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -2277,7 +2452,7 @@ func (x *GetConnectorConfigRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use GetConnectorConfigRequest.ProtoReflect.Descriptor instead.
 func (*GetConnectorConfigRequest) Descriptor() ([]byte, []int) {
-	return file_proto_scg_tenant_v1_tenant_service_proto_rawDescGZIP(), []int{41}
+	return file_proto_scg_tenant_v1_tenant_service_proto_rawDescGZIP(), []int{44}
 }
 
 func (x *GetConnectorConfigRequest) GetTenantId() string {
@@ -2303,7 +2478,7 @@ type GetConnectorConfigResponse struct {
 
 func (x *GetConnectorConfigResponse) Reset() {
 	*x = GetConnectorConfigResponse{}
-	mi := &file_proto_scg_tenant_v1_tenant_service_proto_msgTypes[42]
+	mi := &file_proto_scg_tenant_v1_tenant_service_proto_msgTypes[45]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -2315,7 +2490,7 @@ func (x *GetConnectorConfigResponse) String() string {
 func (*GetConnectorConfigResponse) ProtoMessage() {}
 
 func (x *GetConnectorConfigResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_proto_scg_tenant_v1_tenant_service_proto_msgTypes[42]
+	mi := &file_proto_scg_tenant_v1_tenant_service_proto_msgTypes[45]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -2328,7 +2503,7 @@ func (x *GetConnectorConfigResponse) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use GetConnectorConfigResponse.ProtoReflect.Descriptor instead.
 func (*GetConnectorConfigResponse) Descriptor() ([]byte, []int) {
-	return file_proto_scg_tenant_v1_tenant_service_proto_rawDescGZIP(), []int{42}
+	return file_proto_scg_tenant_v1_tenant_service_proto_rawDescGZIP(), []int{45}
 }
 
 func (x *GetConnectorConfigResponse) GetConnectorConfig() *ConnectorConfig {
@@ -2347,7 +2522,7 @@ type ListConnectorsRequest struct {
 
 func (x *ListConnectorsRequest) Reset() {
 	*x = ListConnectorsRequest{}
-	mi := &file_proto_scg_tenant_v1_tenant_service_proto_msgTypes[43]
+	mi := &file_proto_scg_tenant_v1_tenant_service_proto_msgTypes[46]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -2359,7 +2534,7 @@ func (x *ListConnectorsRequest) String() string {
 func (*ListConnectorsRequest) ProtoMessage() {}
 
 func (x *ListConnectorsRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_proto_scg_tenant_v1_tenant_service_proto_msgTypes[43]
+	mi := &file_proto_scg_tenant_v1_tenant_service_proto_msgTypes[46]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -2372,7 +2547,7 @@ func (x *ListConnectorsRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use ListConnectorsRequest.ProtoReflect.Descriptor instead.
 func (*ListConnectorsRequest) Descriptor() ([]byte, []int) {
-	return file_proto_scg_tenant_v1_tenant_service_proto_rawDescGZIP(), []int{43}
+	return file_proto_scg_tenant_v1_tenant_service_proto_rawDescGZIP(), []int{46}
 }
 
 func (x *ListConnectorsRequest) GetTenantId() string {
@@ -2391,7 +2566,7 @@ type ListConnectorsResponse struct {
 
 func (x *ListConnectorsResponse) Reset() {
 	*x = ListConnectorsResponse{}
-	mi := &file_proto_scg_tenant_v1_tenant_service_proto_msgTypes[44]
+	mi := &file_proto_scg_tenant_v1_tenant_service_proto_msgTypes[47]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -2403,7 +2578,7 @@ func (x *ListConnectorsResponse) String() string {
 func (*ListConnectorsResponse) ProtoMessage() {}
 
 func (x *ListConnectorsResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_proto_scg_tenant_v1_tenant_service_proto_msgTypes[44]
+	mi := &file_proto_scg_tenant_v1_tenant_service_proto_msgTypes[47]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -2416,7 +2591,7 @@ func (x *ListConnectorsResponse) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use ListConnectorsResponse.ProtoReflect.Descriptor instead.
 func (*ListConnectorsResponse) Descriptor() ([]byte, []int) {
-	return file_proto_scg_tenant_v1_tenant_service_proto_rawDescGZIP(), []int{44}
+	return file_proto_scg_tenant_v1_tenant_service_proto_rawDescGZIP(), []int{47}
 }
 
 func (x *ListConnectorsResponse) GetConnectors() []*ConnectorConfig {
@@ -2426,6 +2601,7 @@ func (x *ListConnectorsResponse) GetConnectors() []*ConnectorConfig {
 	return nil
 }
 
+// Deprecated: Marked as deprecated in proto/scg/tenant/v1/tenant_service.proto.
 type GetFeatureFlagsRequest struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
 	TenantId      string                 `protobuf:"bytes,1,opt,name=tenant_id,proto3" json:"tenant_id,omitempty"`
@@ -2435,7 +2611,7 @@ type GetFeatureFlagsRequest struct {
 
 func (x *GetFeatureFlagsRequest) Reset() {
 	*x = GetFeatureFlagsRequest{}
-	mi := &file_proto_scg_tenant_v1_tenant_service_proto_msgTypes[45]
+	mi := &file_proto_scg_tenant_v1_tenant_service_proto_msgTypes[48]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -2447,7 +2623,7 @@ func (x *GetFeatureFlagsRequest) String() string {
 func (*GetFeatureFlagsRequest) ProtoMessage() {}
 
 func (x *GetFeatureFlagsRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_proto_scg_tenant_v1_tenant_service_proto_msgTypes[45]
+	mi := &file_proto_scg_tenant_v1_tenant_service_proto_msgTypes[48]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -2460,7 +2636,7 @@ func (x *GetFeatureFlagsRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use GetFeatureFlagsRequest.ProtoReflect.Descriptor instead.
 func (*GetFeatureFlagsRequest) Descriptor() ([]byte, []int) {
-	return file_proto_scg_tenant_v1_tenant_service_proto_rawDescGZIP(), []int{45}
+	return file_proto_scg_tenant_v1_tenant_service_proto_rawDescGZIP(), []int{48}
 }
 
 func (x *GetFeatureFlagsRequest) GetTenantId() string {
@@ -2470,6 +2646,7 @@ func (x *GetFeatureFlagsRequest) GetTenantId() string {
 	return ""
 }
 
+// Deprecated: Marked as deprecated in proto/scg/tenant/v1/tenant_service.proto.
 type GetFeatureFlagsResponse struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
 	FeatureFlags  []*FeatureFlag         `protobuf:"bytes,1,rep,name=feature_flags,proto3" json:"feature_flags,omitempty"`
@@ -2479,7 +2656,7 @@ type GetFeatureFlagsResponse struct {
 
 func (x *GetFeatureFlagsResponse) Reset() {
 	*x = GetFeatureFlagsResponse{}
-	mi := &file_proto_scg_tenant_v1_tenant_service_proto_msgTypes[46]
+	mi := &file_proto_scg_tenant_v1_tenant_service_proto_msgTypes[49]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -2491,7 +2668,7 @@ func (x *GetFeatureFlagsResponse) String() string {
 func (*GetFeatureFlagsResponse) ProtoMessage() {}
 
 func (x *GetFeatureFlagsResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_proto_scg_tenant_v1_tenant_service_proto_msgTypes[46]
+	mi := &file_proto_scg_tenant_v1_tenant_service_proto_msgTypes[49]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -2504,12 +2681,100 @@ func (x *GetFeatureFlagsResponse) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use GetFeatureFlagsResponse.ProtoReflect.Descriptor instead.
 func (*GetFeatureFlagsResponse) Descriptor() ([]byte, []int) {
-	return file_proto_scg_tenant_v1_tenant_service_proto_rawDescGZIP(), []int{46}
+	return file_proto_scg_tenant_v1_tenant_service_proto_rawDescGZIP(), []int{49}
 }
 
 func (x *GetFeatureFlagsResponse) GetFeatureFlags() []*FeatureFlag {
 	if x != nil {
 		return x.FeatureFlags
+	}
+	return nil
+}
+
+type GetTenantSettingsRequest struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	TenantId      string                 `protobuf:"bytes,1,opt,name=tenant_id,proto3" json:"tenant_id,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *GetTenantSettingsRequest) Reset() {
+	*x = GetTenantSettingsRequest{}
+	mi := &file_proto_scg_tenant_v1_tenant_service_proto_msgTypes[50]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *GetTenantSettingsRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*GetTenantSettingsRequest) ProtoMessage() {}
+
+func (x *GetTenantSettingsRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_proto_scg_tenant_v1_tenant_service_proto_msgTypes[50]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use GetTenantSettingsRequest.ProtoReflect.Descriptor instead.
+func (*GetTenantSettingsRequest) Descriptor() ([]byte, []int) {
+	return file_proto_scg_tenant_v1_tenant_service_proto_rawDescGZIP(), []int{50}
+}
+
+func (x *GetTenantSettingsRequest) GetTenantId() string {
+	if x != nil {
+		return x.TenantId
+	}
+	return ""
+}
+
+type GetTenantSettingsResponse struct {
+	state          protoimpl.MessageState `protogen:"open.v1"`
+	TenantSettings []*TenantSetting       `protobuf:"bytes,1,rep,name=tenant_settings,proto3" json:"tenant_settings,omitempty"`
+	unknownFields  protoimpl.UnknownFields
+	sizeCache      protoimpl.SizeCache
+}
+
+func (x *GetTenantSettingsResponse) Reset() {
+	*x = GetTenantSettingsResponse{}
+	mi := &file_proto_scg_tenant_v1_tenant_service_proto_msgTypes[51]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *GetTenantSettingsResponse) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*GetTenantSettingsResponse) ProtoMessage() {}
+
+func (x *GetTenantSettingsResponse) ProtoReflect() protoreflect.Message {
+	mi := &file_proto_scg_tenant_v1_tenant_service_proto_msgTypes[51]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use GetTenantSettingsResponse.ProtoReflect.Descriptor instead.
+func (*GetTenantSettingsResponse) Descriptor() ([]byte, []int) {
+	return file_proto_scg_tenant_v1_tenant_service_proto_rawDescGZIP(), []int{51}
+}
+
+func (x *GetTenantSettingsResponse) GetTenantSettings() []*TenantSetting {
+	if x != nil {
+		return x.TenantSettings
 	}
 	return nil
 }
@@ -2522,7 +2787,7 @@ type LivenessRequest struct {
 
 func (x *LivenessRequest) Reset() {
 	*x = LivenessRequest{}
-	mi := &file_proto_scg_tenant_v1_tenant_service_proto_msgTypes[47]
+	mi := &file_proto_scg_tenant_v1_tenant_service_proto_msgTypes[52]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -2534,7 +2799,7 @@ func (x *LivenessRequest) String() string {
 func (*LivenessRequest) ProtoMessage() {}
 
 func (x *LivenessRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_proto_scg_tenant_v1_tenant_service_proto_msgTypes[47]
+	mi := &file_proto_scg_tenant_v1_tenant_service_proto_msgTypes[52]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -2547,7 +2812,7 @@ func (x *LivenessRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use LivenessRequest.ProtoReflect.Descriptor instead.
 func (*LivenessRequest) Descriptor() ([]byte, []int) {
-	return file_proto_scg_tenant_v1_tenant_service_proto_rawDescGZIP(), []int{47}
+	return file_proto_scg_tenant_v1_tenant_service_proto_rawDescGZIP(), []int{52}
 }
 
 type LivenessResponse struct {
@@ -2559,7 +2824,7 @@ type LivenessResponse struct {
 
 func (x *LivenessResponse) Reset() {
 	*x = LivenessResponse{}
-	mi := &file_proto_scg_tenant_v1_tenant_service_proto_msgTypes[48]
+	mi := &file_proto_scg_tenant_v1_tenant_service_proto_msgTypes[53]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -2571,7 +2836,7 @@ func (x *LivenessResponse) String() string {
 func (*LivenessResponse) ProtoMessage() {}
 
 func (x *LivenessResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_proto_scg_tenant_v1_tenant_service_proto_msgTypes[48]
+	mi := &file_proto_scg_tenant_v1_tenant_service_proto_msgTypes[53]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -2584,7 +2849,7 @@ func (x *LivenessResponse) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use LivenessResponse.ProtoReflect.Descriptor instead.
 func (*LivenessResponse) Descriptor() ([]byte, []int) {
-	return file_proto_scg_tenant_v1_tenant_service_proto_rawDescGZIP(), []int{48}
+	return file_proto_scg_tenant_v1_tenant_service_proto_rawDescGZIP(), []int{53}
 }
 
 func (x *LivenessResponse) GetOk() bool {
@@ -2602,7 +2867,7 @@ type ReadinessRequest struct {
 
 func (x *ReadinessRequest) Reset() {
 	*x = ReadinessRequest{}
-	mi := &file_proto_scg_tenant_v1_tenant_service_proto_msgTypes[49]
+	mi := &file_proto_scg_tenant_v1_tenant_service_proto_msgTypes[54]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -2614,7 +2879,7 @@ func (x *ReadinessRequest) String() string {
 func (*ReadinessRequest) ProtoMessage() {}
 
 func (x *ReadinessRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_proto_scg_tenant_v1_tenant_service_proto_msgTypes[49]
+	mi := &file_proto_scg_tenant_v1_tenant_service_proto_msgTypes[54]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -2627,7 +2892,7 @@ func (x *ReadinessRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use ReadinessRequest.ProtoReflect.Descriptor instead.
 func (*ReadinessRequest) Descriptor() ([]byte, []int) {
-	return file_proto_scg_tenant_v1_tenant_service_proto_rawDescGZIP(), []int{49}
+	return file_proto_scg_tenant_v1_tenant_service_proto_rawDescGZIP(), []int{54}
 }
 
 type DependencyStatus struct {
@@ -2641,7 +2906,7 @@ type DependencyStatus struct {
 
 func (x *DependencyStatus) Reset() {
 	*x = DependencyStatus{}
-	mi := &file_proto_scg_tenant_v1_tenant_service_proto_msgTypes[50]
+	mi := &file_proto_scg_tenant_v1_tenant_service_proto_msgTypes[55]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -2653,7 +2918,7 @@ func (x *DependencyStatus) String() string {
 func (*DependencyStatus) ProtoMessage() {}
 
 func (x *DependencyStatus) ProtoReflect() protoreflect.Message {
-	mi := &file_proto_scg_tenant_v1_tenant_service_proto_msgTypes[50]
+	mi := &file_proto_scg_tenant_v1_tenant_service_proto_msgTypes[55]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -2666,7 +2931,7 @@ func (x *DependencyStatus) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use DependencyStatus.ProtoReflect.Descriptor instead.
 func (*DependencyStatus) Descriptor() ([]byte, []int) {
-	return file_proto_scg_tenant_v1_tenant_service_proto_rawDescGZIP(), []int{50}
+	return file_proto_scg_tenant_v1_tenant_service_proto_rawDescGZIP(), []int{55}
 }
 
 func (x *DependencyStatus) GetName() string {
@@ -2700,7 +2965,7 @@ type ReadinessResponse struct {
 
 func (x *ReadinessResponse) Reset() {
 	*x = ReadinessResponse{}
-	mi := &file_proto_scg_tenant_v1_tenant_service_proto_msgTypes[51]
+	mi := &file_proto_scg_tenant_v1_tenant_service_proto_msgTypes[56]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -2712,7 +2977,7 @@ func (x *ReadinessResponse) String() string {
 func (*ReadinessResponse) ProtoMessage() {}
 
 func (x *ReadinessResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_proto_scg_tenant_v1_tenant_service_proto_msgTypes[51]
+	mi := &file_proto_scg_tenant_v1_tenant_service_proto_msgTypes[56]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -2725,7 +2990,7 @@ func (x *ReadinessResponse) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use ReadinessResponse.ProtoReflect.Descriptor instead.
 func (*ReadinessResponse) Descriptor() ([]byte, []int) {
-	return file_proto_scg_tenant_v1_tenant_service_proto_rawDescGZIP(), []int{51}
+	return file_proto_scg_tenant_v1_tenant_service_proto_rawDescGZIP(), []int{56}
 }
 
 func (x *ReadinessResponse) GetOk() bool {
@@ -2793,10 +3058,17 @@ const file_proto_scg_tenant_v1_tenant_service_proto_rawDesc = "" +
 	"created_at\x12:\n" +
 	"\n" +
 	"updated_at\x18\x06 \x01(\v2\x1a.google.protobuf.TimestampR\n" +
-	"updated_at\"\x95\x01\n" +
+	"updated_at\"\x99\x01\n" +
 	"\vFeatureFlag\x12\x1c\n" +
 	"\ttenant_id\x18\x01 \x01(\tR\ttenant_id\x12\x12\n" +
 	"\x04flag\x18\x02 \x01(\tR\x04flag\x12\x18\n" +
+	"\aenabled\x18\x03 \x01(\bR\aenabled\x12:\n" +
+	"\n" +
+	"updated_at\x18\x04 \x01(\v2\x1a.google.protobuf.TimestampR\n" +
+	"updated_at:\x02\x18\x01\"\x95\x01\n" +
+	"\rTenantSetting\x12\x1c\n" +
+	"\ttenant_id\x18\x01 \x01(\tR\ttenant_id\x12\x10\n" +
+	"\x03key\x18\x02 \x01(\tR\x03key\x12\x18\n" +
 	"\aenabled\x18\x03 \x01(\bR\aenabled\x12:\n" +
 	"\n" +
 	"updated_at\x18\x04 \x01(\v2\x1a.google.protobuf.TimestampR\n" +
@@ -2858,13 +3130,19 @@ const file_proto_scg_tenant_v1_tenant_service_proto_rawDesc = "" +
 	"\ttenant_id\x18\x01 \x01(\tR\ttenant_id\x12\x1c\n" +
 	"\tconnector\x18\x02 \x01(\tR\tconnector\"^\n" +
 	"\x18DisableConnectorResponse\x12B\n" +
-	"\tconnector\x18\x01 \x01(\v2$.proto.scg.tenant.v1.ConnectorConfigR\tconnector\"c\n" +
+	"\tconnector\x18\x01 \x01(\v2$.proto.scg.tenant.v1.ConnectorConfigR\tconnector\"g\n" +
 	"\x15SetFeatureFlagRequest\x12\x1c\n" +
 	"\ttenant_id\x18\x01 \x01(\tR\ttenant_id\x12\x12\n" +
 	"\x04flag\x18\x02 \x01(\tR\x04flag\x12\x18\n" +
-	"\aenabled\x18\x03 \x01(\bR\aenabled\"^\n" +
+	"\aenabled\x18\x03 \x01(\bR\aenabled:\x02\x18\x01\"b\n" +
 	"\x16SetFeatureFlagResponse\x12D\n" +
-	"\ffeature_flag\x18\x01 \x01(\v2 .proto.scg.tenant.v1.FeatureFlagR\ffeature_flag\"0\n" +
+	"\ffeature_flag\x18\x01 \x01(\v2 .proto.scg.tenant.v1.FeatureFlagR\ffeature_flag:\x02\x18\x01\"c\n" +
+	"\x17SetTenantSettingRequest\x12\x1c\n" +
+	"\ttenant_id\x18\x01 \x01(\tR\ttenant_id\x12\x10\n" +
+	"\x03key\x18\x02 \x01(\tR\x03key\x12\x18\n" +
+	"\aenabled\x18\x03 \x01(\bR\aenabled\"f\n" +
+	"\x18SetTenantSettingResponse\x12J\n" +
+	"\x0etenant_setting\x18\x01 \x01(\v2\".proto.scg.tenant.v1.TenantSettingR\x0etenant_setting\"0\n" +
 	"\x10GetTenantRequest\x12\x1c\n" +
 	"\ttenant_id\x18\x01 \x01(\tR\ttenant_id\"H\n" +
 	"\x11GetTenantResponse\x123\n" +
@@ -2919,11 +3197,15 @@ const file_proto_scg_tenant_v1_tenant_service_proto_rawDesc = "" +
 	"\x16ListConnectorsResponse\x12D\n" +
 	"\n" +
 	"connectors\x18\x01 \x03(\v2$.proto.scg.tenant.v1.ConnectorConfigR\n" +
-	"connectors\"6\n" +
+	"connectors\":\n" +
 	"\x16GetFeatureFlagsRequest\x12\x1c\n" +
-	"\ttenant_id\x18\x01 \x01(\tR\ttenant_id\"a\n" +
+	"\ttenant_id\x18\x01 \x01(\tR\ttenant_id:\x02\x18\x01\"e\n" +
 	"\x17GetFeatureFlagsResponse\x12F\n" +
-	"\rfeature_flags\x18\x01 \x03(\v2 .proto.scg.tenant.v1.FeatureFlagR\rfeature_flags\"\x11\n" +
+	"\rfeature_flags\x18\x01 \x03(\v2 .proto.scg.tenant.v1.FeatureFlagR\rfeature_flags:\x02\x18\x01\"8\n" +
+	"\x18GetTenantSettingsRequest\x12\x1c\n" +
+	"\ttenant_id\x18\x01 \x01(\tR\ttenant_id\"i\n" +
+	"\x19GetTenantSettingsResponse\x12L\n" +
+	"\x0ftenant_settings\x18\x01 \x03(\v2\".proto.scg.tenant.v1.TenantSettingR\x0ftenant_settings\"\x11\n" +
 	"\x0fLivenessRequest\"\"\n" +
 	"\x10LivenessResponse\x12\x0e\n" +
 	"\x02ok\x18\x01 \x01(\bR\x02ok\"\x12\n" +
@@ -2934,7 +3216,7 @@ const file_proto_scg_tenant_v1_tenant_service_proto_rawDesc = "" +
 	"\amessage\x18\x03 \x01(\tR\amessage\"n\n" +
 	"\x11ReadinessResponse\x12\x0e\n" +
 	"\x02ok\x18\x01 \x01(\bR\x02ok\x12I\n" +
-	"\fdependencies\x18\x02 \x03(\v2%.proto.scg.tenant.v1.DependencyStatusR\fdependencies2\xec\x13\n" +
+	"\fdependencies\x18\x02 \x03(\v2%.proto.scg.tenant.v1.DependencyStatusR\fdependencies2\xdb\x15\n" +
 	"\x19TenantControlPlaneService\x12c\n" +
 	"\fCreateTenant\x12(.proto.scg.tenant.v1.CreateTenantRequest\x1a).proto.scg.tenant.v1.CreateTenantResponse\x12c\n" +
 	"\fUpdateTenant\x12(.proto.scg.tenant.v1.UpdateTenantRequest\x1a).proto.scg.tenant.v1.UpdateTenantResponse\x12o\n" +
@@ -2945,8 +3227,9 @@ const file_proto_scg_tenant_v1_tenant_service_proto_rawDesc = "" +
 	"\x10PublishPolicySet\x12,.proto.scg.tenant.v1.PublishPolicySetRequest\x1a-.proto.scg.tenant.v1.PublishPolicySetResponse\x12r\n" +
 	"\x11ActivatePolicySet\x12-.proto.scg.tenant.v1.ActivatePolicySetRequest\x1a..proto.scg.tenant.v1.ActivatePolicySetResponse\x12~\n" +
 	"\x15UpsertConnectorConfig\x121.proto.scg.tenant.v1.UpsertConnectorConfigRequest\x1a2.proto.scg.tenant.v1.UpsertConnectorConfigResponse\x12o\n" +
-	"\x10DisableConnector\x12,.proto.scg.tenant.v1.DisableConnectorRequest\x1a-.proto.scg.tenant.v1.DisableConnectorResponse\x12i\n" +
-	"\x0eSetFeatureFlag\x12*.proto.scg.tenant.v1.SetFeatureFlagRequest\x1a+.proto.scg.tenant.v1.SetFeatureFlagResponse\x12Z\n" +
+	"\x10DisableConnector\x12,.proto.scg.tenant.v1.DisableConnectorRequest\x1a-.proto.scg.tenant.v1.DisableConnectorResponse\x12n\n" +
+	"\x0eSetFeatureFlag\x12*.proto.scg.tenant.v1.SetFeatureFlagRequest\x1a+.proto.scg.tenant.v1.SetFeatureFlagResponse\"\x03\x88\x02\x01\x12o\n" +
+	"\x10SetTenantSetting\x12,.proto.scg.tenant.v1.SetTenantSettingRequest\x1a-.proto.scg.tenant.v1.SetTenantSettingResponse\x12Z\n" +
 	"\tGetTenant\x12%.proto.scg.tenant.v1.GetTenantRequest\x1a&.proto.scg.tenant.v1.GetTenantResponse\x12`\n" +
 	"\vListTenants\x12'.proto.scg.tenant.v1.ListTenantsRequest\x1a(.proto.scg.tenant.v1.ListTenantsResponse\x12l\n" +
 	"\x0fGetTenantMember\x12+.proto.scg.tenant.v1.GetTenantMemberRequest\x1a,.proto.scg.tenant.v1.GetTenantMemberResponse\x12r\n" +
@@ -2955,8 +3238,9 @@ const file_proto_scg_tenant_v1_tenant_service_proto_rawDesc = "" +
 	"\x0eListPolicySets\x12*.proto.scg.tenant.v1.ListPolicySetsRequest\x1a+.proto.scg.tenant.v1.ListPolicySetsResponse\x12c\n" +
 	"\fGetPolicySet\x12(.proto.scg.tenant.v1.GetPolicySetRequest\x1a).proto.scg.tenant.v1.GetPolicySetResponse\x12u\n" +
 	"\x12GetConnectorConfig\x12..proto.scg.tenant.v1.GetConnectorConfigRequest\x1a/.proto.scg.tenant.v1.GetConnectorConfigResponse\x12i\n" +
-	"\x0eListConnectors\x12*.proto.scg.tenant.v1.ListConnectorsRequest\x1a+.proto.scg.tenant.v1.ListConnectorsResponse\x12l\n" +
-	"\x0fGetFeatureFlags\x12+.proto.scg.tenant.v1.GetFeatureFlagsRequest\x1a,.proto.scg.tenant.v1.GetFeatureFlagsResponse\x12W\n" +
+	"\x0eListConnectors\x12*.proto.scg.tenant.v1.ListConnectorsRequest\x1a+.proto.scg.tenant.v1.ListConnectorsResponse\x12q\n" +
+	"\x0fGetFeatureFlags\x12+.proto.scg.tenant.v1.GetFeatureFlagsRequest\x1a,.proto.scg.tenant.v1.GetFeatureFlagsResponse\"\x03\x88\x02\x01\x12r\n" +
+	"\x11GetTenantSettings\x12-.proto.scg.tenant.v1.GetTenantSettingsRequest\x1a..proto.scg.tenant.v1.GetTenantSettingsResponse\x12W\n" +
 	"\bLiveness\x12$.proto.scg.tenant.v1.LivenessRequest\x1a%.proto.scg.tenant.v1.LivenessResponse\x12Z\n" +
 	"\tReadiness\x12%.proto.scg.tenant.v1.ReadinessRequest\x1a&.proto.scg.tenant.v1.ReadinessResponseB\xe5\x01\n" +
 	"\x17com.proto.scg.tenant.v1B\x12TenantServiceProtoP\x01ZGgithub.com/next-trace/scg-contracts/gen/go/proto/scg/tenant/v1;tenantv1\xa2\x02\x03PST\xaa\x02\x13Proto.Scg.Tenant.V1\xca\x02\x13Proto\\Scg\\Tenant\\V1\xe2\x02\x1fProto\\Scg\\Tenant\\V1\\GPBMetadata\xea\x02\x16Proto::Scg::Tenant::V1b\x06proto3"
@@ -2973,145 +3257,157 @@ func file_proto_scg_tenant_v1_tenant_service_proto_rawDescGZIP() []byte {
 	return file_proto_scg_tenant_v1_tenant_service_proto_rawDescData
 }
 
-var file_proto_scg_tenant_v1_tenant_service_proto_msgTypes = make([]protoimpl.MessageInfo, 52)
+var file_proto_scg_tenant_v1_tenant_service_proto_msgTypes = make([]protoimpl.MessageInfo, 57)
 var file_proto_scg_tenant_v1_tenant_service_proto_goTypes = []any{
 	(*Tenant)(nil),                         // 0: proto.scg.tenant.v1.Tenant
 	(*TenantMember)(nil),                   // 1: proto.scg.tenant.v1.TenantMember
 	(*PolicySet)(nil),                      // 2: proto.scg.tenant.v1.PolicySet
 	(*ConnectorConfig)(nil),                // 3: proto.scg.tenant.v1.ConnectorConfig
 	(*FeatureFlag)(nil),                    // 4: proto.scg.tenant.v1.FeatureFlag
-	(*CreateTenantRequest)(nil),            // 5: proto.scg.tenant.v1.CreateTenantRequest
-	(*CreateTenantResponse)(nil),           // 6: proto.scg.tenant.v1.CreateTenantResponse
-	(*UpdateTenantRequest)(nil),            // 7: proto.scg.tenant.v1.UpdateTenantRequest
-	(*UpdateTenantResponse)(nil),           // 8: proto.scg.tenant.v1.UpdateTenantResponse
-	(*DeactivateTenantRequest)(nil),        // 9: proto.scg.tenant.v1.DeactivateTenantRequest
-	(*DeactivateTenantResponse)(nil),       // 10: proto.scg.tenant.v1.DeactivateTenantResponse
-	(*AddTenantMemberRequest)(nil),         // 11: proto.scg.tenant.v1.AddTenantMemberRequest
-	(*AddTenantMemberResponse)(nil),        // 12: proto.scg.tenant.v1.AddTenantMemberResponse
-	(*RemoveTenantMemberRequest)(nil),      // 13: proto.scg.tenant.v1.RemoveTenantMemberRequest
-	(*RemoveTenantMemberResponse)(nil),     // 14: proto.scg.tenant.v1.RemoveTenantMemberResponse
-	(*ChangeTenantMemberRoleRequest)(nil),  // 15: proto.scg.tenant.v1.ChangeTenantMemberRoleRequest
-	(*ChangeTenantMemberRoleResponse)(nil), // 16: proto.scg.tenant.v1.ChangeTenantMemberRoleResponse
-	(*PublishPolicySetRequest)(nil),        // 17: proto.scg.tenant.v1.PublishPolicySetRequest
-	(*PublishPolicySetResponse)(nil),       // 18: proto.scg.tenant.v1.PublishPolicySetResponse
-	(*ActivatePolicySetRequest)(nil),       // 19: proto.scg.tenant.v1.ActivatePolicySetRequest
-	(*ActivatePolicySetResponse)(nil),      // 20: proto.scg.tenant.v1.ActivatePolicySetResponse
-	(*UpsertConnectorConfigRequest)(nil),   // 21: proto.scg.tenant.v1.UpsertConnectorConfigRequest
-	(*UpsertConnectorConfigResponse)(nil),  // 22: proto.scg.tenant.v1.UpsertConnectorConfigResponse
-	(*DisableConnectorRequest)(nil),        // 23: proto.scg.tenant.v1.DisableConnectorRequest
-	(*DisableConnectorResponse)(nil),       // 24: proto.scg.tenant.v1.DisableConnectorResponse
-	(*SetFeatureFlagRequest)(nil),          // 25: proto.scg.tenant.v1.SetFeatureFlagRequest
-	(*SetFeatureFlagResponse)(nil),         // 26: proto.scg.tenant.v1.SetFeatureFlagResponse
-	(*GetTenantRequest)(nil),               // 27: proto.scg.tenant.v1.GetTenantRequest
-	(*GetTenantResponse)(nil),              // 28: proto.scg.tenant.v1.GetTenantResponse
-	(*ListTenantsRequest)(nil),             // 29: proto.scg.tenant.v1.ListTenantsRequest
-	(*ListTenantsResponse)(nil),            // 30: proto.scg.tenant.v1.ListTenantsResponse
-	(*GetTenantMemberRequest)(nil),         // 31: proto.scg.tenant.v1.GetTenantMemberRequest
-	(*GetTenantMemberResponse)(nil),        // 32: proto.scg.tenant.v1.GetTenantMemberResponse
-	(*ListTenantMembersRequest)(nil),       // 33: proto.scg.tenant.v1.ListTenantMembersRequest
-	(*ListTenantMembersResponse)(nil),      // 34: proto.scg.tenant.v1.ListTenantMembersResponse
-	(*GetActivePolicySetRequest)(nil),      // 35: proto.scg.tenant.v1.GetActivePolicySetRequest
-	(*GetActivePolicySetResponse)(nil),     // 36: proto.scg.tenant.v1.GetActivePolicySetResponse
-	(*ListPolicySetsRequest)(nil),          // 37: proto.scg.tenant.v1.ListPolicySetsRequest
-	(*ListPolicySetsResponse)(nil),         // 38: proto.scg.tenant.v1.ListPolicySetsResponse
-	(*GetPolicySetRequest)(nil),            // 39: proto.scg.tenant.v1.GetPolicySetRequest
-	(*GetPolicySetResponse)(nil),           // 40: proto.scg.tenant.v1.GetPolicySetResponse
-	(*GetConnectorConfigRequest)(nil),      // 41: proto.scg.tenant.v1.GetConnectorConfigRequest
-	(*GetConnectorConfigResponse)(nil),     // 42: proto.scg.tenant.v1.GetConnectorConfigResponse
-	(*ListConnectorsRequest)(nil),          // 43: proto.scg.tenant.v1.ListConnectorsRequest
-	(*ListConnectorsResponse)(nil),         // 44: proto.scg.tenant.v1.ListConnectorsResponse
-	(*GetFeatureFlagsRequest)(nil),         // 45: proto.scg.tenant.v1.GetFeatureFlagsRequest
-	(*GetFeatureFlagsResponse)(nil),        // 46: proto.scg.tenant.v1.GetFeatureFlagsResponse
-	(*LivenessRequest)(nil),                // 47: proto.scg.tenant.v1.LivenessRequest
-	(*LivenessResponse)(nil),               // 48: proto.scg.tenant.v1.LivenessResponse
-	(*ReadinessRequest)(nil),               // 49: proto.scg.tenant.v1.ReadinessRequest
-	(*DependencyStatus)(nil),               // 50: proto.scg.tenant.v1.DependencyStatus
-	(*ReadinessResponse)(nil),              // 51: proto.scg.tenant.v1.ReadinessResponse
-	(*timestamppb.Timestamp)(nil),          // 52: google.protobuf.Timestamp
+	(*TenantSetting)(nil),                  // 5: proto.scg.tenant.v1.TenantSetting
+	(*CreateTenantRequest)(nil),            // 6: proto.scg.tenant.v1.CreateTenantRequest
+	(*CreateTenantResponse)(nil),           // 7: proto.scg.tenant.v1.CreateTenantResponse
+	(*UpdateTenantRequest)(nil),            // 8: proto.scg.tenant.v1.UpdateTenantRequest
+	(*UpdateTenantResponse)(nil),           // 9: proto.scg.tenant.v1.UpdateTenantResponse
+	(*DeactivateTenantRequest)(nil),        // 10: proto.scg.tenant.v1.DeactivateTenantRequest
+	(*DeactivateTenantResponse)(nil),       // 11: proto.scg.tenant.v1.DeactivateTenantResponse
+	(*AddTenantMemberRequest)(nil),         // 12: proto.scg.tenant.v1.AddTenantMemberRequest
+	(*AddTenantMemberResponse)(nil),        // 13: proto.scg.tenant.v1.AddTenantMemberResponse
+	(*RemoveTenantMemberRequest)(nil),      // 14: proto.scg.tenant.v1.RemoveTenantMemberRequest
+	(*RemoveTenantMemberResponse)(nil),     // 15: proto.scg.tenant.v1.RemoveTenantMemberResponse
+	(*ChangeTenantMemberRoleRequest)(nil),  // 16: proto.scg.tenant.v1.ChangeTenantMemberRoleRequest
+	(*ChangeTenantMemberRoleResponse)(nil), // 17: proto.scg.tenant.v1.ChangeTenantMemberRoleResponse
+	(*PublishPolicySetRequest)(nil),        // 18: proto.scg.tenant.v1.PublishPolicySetRequest
+	(*PublishPolicySetResponse)(nil),       // 19: proto.scg.tenant.v1.PublishPolicySetResponse
+	(*ActivatePolicySetRequest)(nil),       // 20: proto.scg.tenant.v1.ActivatePolicySetRequest
+	(*ActivatePolicySetResponse)(nil),      // 21: proto.scg.tenant.v1.ActivatePolicySetResponse
+	(*UpsertConnectorConfigRequest)(nil),   // 22: proto.scg.tenant.v1.UpsertConnectorConfigRequest
+	(*UpsertConnectorConfigResponse)(nil),  // 23: proto.scg.tenant.v1.UpsertConnectorConfigResponse
+	(*DisableConnectorRequest)(nil),        // 24: proto.scg.tenant.v1.DisableConnectorRequest
+	(*DisableConnectorResponse)(nil),       // 25: proto.scg.tenant.v1.DisableConnectorResponse
+	(*SetFeatureFlagRequest)(nil),          // 26: proto.scg.tenant.v1.SetFeatureFlagRequest
+	(*SetFeatureFlagResponse)(nil),         // 27: proto.scg.tenant.v1.SetFeatureFlagResponse
+	(*SetTenantSettingRequest)(nil),        // 28: proto.scg.tenant.v1.SetTenantSettingRequest
+	(*SetTenantSettingResponse)(nil),       // 29: proto.scg.tenant.v1.SetTenantSettingResponse
+	(*GetTenantRequest)(nil),               // 30: proto.scg.tenant.v1.GetTenantRequest
+	(*GetTenantResponse)(nil),              // 31: proto.scg.tenant.v1.GetTenantResponse
+	(*ListTenantsRequest)(nil),             // 32: proto.scg.tenant.v1.ListTenantsRequest
+	(*ListTenantsResponse)(nil),            // 33: proto.scg.tenant.v1.ListTenantsResponse
+	(*GetTenantMemberRequest)(nil),         // 34: proto.scg.tenant.v1.GetTenantMemberRequest
+	(*GetTenantMemberResponse)(nil),        // 35: proto.scg.tenant.v1.GetTenantMemberResponse
+	(*ListTenantMembersRequest)(nil),       // 36: proto.scg.tenant.v1.ListTenantMembersRequest
+	(*ListTenantMembersResponse)(nil),      // 37: proto.scg.tenant.v1.ListTenantMembersResponse
+	(*GetActivePolicySetRequest)(nil),      // 38: proto.scg.tenant.v1.GetActivePolicySetRequest
+	(*GetActivePolicySetResponse)(nil),     // 39: proto.scg.tenant.v1.GetActivePolicySetResponse
+	(*ListPolicySetsRequest)(nil),          // 40: proto.scg.tenant.v1.ListPolicySetsRequest
+	(*ListPolicySetsResponse)(nil),         // 41: proto.scg.tenant.v1.ListPolicySetsResponse
+	(*GetPolicySetRequest)(nil),            // 42: proto.scg.tenant.v1.GetPolicySetRequest
+	(*GetPolicySetResponse)(nil),           // 43: proto.scg.tenant.v1.GetPolicySetResponse
+	(*GetConnectorConfigRequest)(nil),      // 44: proto.scg.tenant.v1.GetConnectorConfigRequest
+	(*GetConnectorConfigResponse)(nil),     // 45: proto.scg.tenant.v1.GetConnectorConfigResponse
+	(*ListConnectorsRequest)(nil),          // 46: proto.scg.tenant.v1.ListConnectorsRequest
+	(*ListConnectorsResponse)(nil),         // 47: proto.scg.tenant.v1.ListConnectorsResponse
+	(*GetFeatureFlagsRequest)(nil),         // 48: proto.scg.tenant.v1.GetFeatureFlagsRequest
+	(*GetFeatureFlagsResponse)(nil),        // 49: proto.scg.tenant.v1.GetFeatureFlagsResponse
+	(*GetTenantSettingsRequest)(nil),       // 50: proto.scg.tenant.v1.GetTenantSettingsRequest
+	(*GetTenantSettingsResponse)(nil),      // 51: proto.scg.tenant.v1.GetTenantSettingsResponse
+	(*LivenessRequest)(nil),                // 52: proto.scg.tenant.v1.LivenessRequest
+	(*LivenessResponse)(nil),               // 53: proto.scg.tenant.v1.LivenessResponse
+	(*ReadinessRequest)(nil),               // 54: proto.scg.tenant.v1.ReadinessRequest
+	(*DependencyStatus)(nil),               // 55: proto.scg.tenant.v1.DependencyStatus
+	(*ReadinessResponse)(nil),              // 56: proto.scg.tenant.v1.ReadinessResponse
+	(*timestamppb.Timestamp)(nil),          // 57: google.protobuf.Timestamp
 }
 var file_proto_scg_tenant_v1_tenant_service_proto_depIdxs = []int32{
-	52, // 0: proto.scg.tenant.v1.Tenant.created_at:type_name -> google.protobuf.Timestamp
-	52, // 1: proto.scg.tenant.v1.Tenant.updated_at:type_name -> google.protobuf.Timestamp
-	52, // 2: proto.scg.tenant.v1.TenantMember.created_at:type_name -> google.protobuf.Timestamp
-	52, // 3: proto.scg.tenant.v1.TenantMember.updated_at:type_name -> google.protobuf.Timestamp
-	52, // 4: proto.scg.tenant.v1.PolicySet.created_at:type_name -> google.protobuf.Timestamp
-	52, // 5: proto.scg.tenant.v1.PolicySet.updated_at:type_name -> google.protobuf.Timestamp
-	52, // 6: proto.scg.tenant.v1.ConnectorConfig.created_at:type_name -> google.protobuf.Timestamp
-	52, // 7: proto.scg.tenant.v1.ConnectorConfig.updated_at:type_name -> google.protobuf.Timestamp
-	52, // 8: proto.scg.tenant.v1.FeatureFlag.updated_at:type_name -> google.protobuf.Timestamp
-	0,  // 9: proto.scg.tenant.v1.CreateTenantResponse.tenant:type_name -> proto.scg.tenant.v1.Tenant
-	0,  // 10: proto.scg.tenant.v1.UpdateTenantResponse.tenant:type_name -> proto.scg.tenant.v1.Tenant
-	0,  // 11: proto.scg.tenant.v1.DeactivateTenantResponse.tenant:type_name -> proto.scg.tenant.v1.Tenant
-	1,  // 12: proto.scg.tenant.v1.AddTenantMemberResponse.member:type_name -> proto.scg.tenant.v1.TenantMember
-	1,  // 13: proto.scg.tenant.v1.RemoveTenantMemberResponse.member:type_name -> proto.scg.tenant.v1.TenantMember
-	1,  // 14: proto.scg.tenant.v1.ChangeTenantMemberRoleResponse.member:type_name -> proto.scg.tenant.v1.TenantMember
-	2,  // 15: proto.scg.tenant.v1.PublishPolicySetResponse.bundle:type_name -> proto.scg.tenant.v1.PolicySet
-	2,  // 16: proto.scg.tenant.v1.ActivatePolicySetResponse.bundle:type_name -> proto.scg.tenant.v1.PolicySet
-	3,  // 17: proto.scg.tenant.v1.UpsertConnectorConfigResponse.connector:type_name -> proto.scg.tenant.v1.ConnectorConfig
-	3,  // 18: proto.scg.tenant.v1.DisableConnectorResponse.connector:type_name -> proto.scg.tenant.v1.ConnectorConfig
-	4,  // 19: proto.scg.tenant.v1.SetFeatureFlagResponse.feature_flag:type_name -> proto.scg.tenant.v1.FeatureFlag
-	0,  // 20: proto.scg.tenant.v1.GetTenantResponse.tenant:type_name -> proto.scg.tenant.v1.Tenant
-	0,  // 21: proto.scg.tenant.v1.ListTenantsResponse.tenants:type_name -> proto.scg.tenant.v1.Tenant
-	1,  // 22: proto.scg.tenant.v1.GetTenantMemberResponse.member:type_name -> proto.scg.tenant.v1.TenantMember
-	1,  // 23: proto.scg.tenant.v1.ListTenantMembersResponse.members:type_name -> proto.scg.tenant.v1.TenantMember
-	2,  // 24: proto.scg.tenant.v1.GetActivePolicySetResponse.bundle:type_name -> proto.scg.tenant.v1.PolicySet
-	2,  // 25: proto.scg.tenant.v1.ListPolicySetsResponse.bundles:type_name -> proto.scg.tenant.v1.PolicySet
-	2,  // 26: proto.scg.tenant.v1.GetPolicySetResponse.bundle:type_name -> proto.scg.tenant.v1.PolicySet
-	3,  // 27: proto.scg.tenant.v1.GetConnectorConfigResponse.connector_config:type_name -> proto.scg.tenant.v1.ConnectorConfig
-	3,  // 28: proto.scg.tenant.v1.ListConnectorsResponse.connectors:type_name -> proto.scg.tenant.v1.ConnectorConfig
-	4,  // 29: proto.scg.tenant.v1.GetFeatureFlagsResponse.feature_flags:type_name -> proto.scg.tenant.v1.FeatureFlag
-	50, // 30: proto.scg.tenant.v1.ReadinessResponse.dependencies:type_name -> proto.scg.tenant.v1.DependencyStatus
-	5,  // 31: proto.scg.tenant.v1.TenantControlPlaneService.CreateTenant:input_type -> proto.scg.tenant.v1.CreateTenantRequest
-	7,  // 32: proto.scg.tenant.v1.TenantControlPlaneService.UpdateTenant:input_type -> proto.scg.tenant.v1.UpdateTenantRequest
-	9,  // 33: proto.scg.tenant.v1.TenantControlPlaneService.DeactivateTenant:input_type -> proto.scg.tenant.v1.DeactivateTenantRequest
-	11, // 34: proto.scg.tenant.v1.TenantControlPlaneService.AddTenantMember:input_type -> proto.scg.tenant.v1.AddTenantMemberRequest
-	13, // 35: proto.scg.tenant.v1.TenantControlPlaneService.RemoveTenantMember:input_type -> proto.scg.tenant.v1.RemoveTenantMemberRequest
-	15, // 36: proto.scg.tenant.v1.TenantControlPlaneService.ChangeTenantMemberRole:input_type -> proto.scg.tenant.v1.ChangeTenantMemberRoleRequest
-	17, // 37: proto.scg.tenant.v1.TenantControlPlaneService.PublishPolicySet:input_type -> proto.scg.tenant.v1.PublishPolicySetRequest
-	19, // 38: proto.scg.tenant.v1.TenantControlPlaneService.ActivatePolicySet:input_type -> proto.scg.tenant.v1.ActivatePolicySetRequest
-	21, // 39: proto.scg.tenant.v1.TenantControlPlaneService.UpsertConnectorConfig:input_type -> proto.scg.tenant.v1.UpsertConnectorConfigRequest
-	23, // 40: proto.scg.tenant.v1.TenantControlPlaneService.DisableConnector:input_type -> proto.scg.tenant.v1.DisableConnectorRequest
-	25, // 41: proto.scg.tenant.v1.TenantControlPlaneService.SetFeatureFlag:input_type -> proto.scg.tenant.v1.SetFeatureFlagRequest
-	27, // 42: proto.scg.tenant.v1.TenantControlPlaneService.GetTenant:input_type -> proto.scg.tenant.v1.GetTenantRequest
-	29, // 43: proto.scg.tenant.v1.TenantControlPlaneService.ListTenants:input_type -> proto.scg.tenant.v1.ListTenantsRequest
-	31, // 44: proto.scg.tenant.v1.TenantControlPlaneService.GetTenantMember:input_type -> proto.scg.tenant.v1.GetTenantMemberRequest
-	33, // 45: proto.scg.tenant.v1.TenantControlPlaneService.ListTenantMembers:input_type -> proto.scg.tenant.v1.ListTenantMembersRequest
-	35, // 46: proto.scg.tenant.v1.TenantControlPlaneService.GetActivePolicySet:input_type -> proto.scg.tenant.v1.GetActivePolicySetRequest
-	37, // 47: proto.scg.tenant.v1.TenantControlPlaneService.ListPolicySets:input_type -> proto.scg.tenant.v1.ListPolicySetsRequest
-	39, // 48: proto.scg.tenant.v1.TenantControlPlaneService.GetPolicySet:input_type -> proto.scg.tenant.v1.GetPolicySetRequest
-	41, // 49: proto.scg.tenant.v1.TenantControlPlaneService.GetConnectorConfig:input_type -> proto.scg.tenant.v1.GetConnectorConfigRequest
-	43, // 50: proto.scg.tenant.v1.TenantControlPlaneService.ListConnectors:input_type -> proto.scg.tenant.v1.ListConnectorsRequest
-	45, // 51: proto.scg.tenant.v1.TenantControlPlaneService.GetFeatureFlags:input_type -> proto.scg.tenant.v1.GetFeatureFlagsRequest
-	47, // 52: proto.scg.tenant.v1.TenantControlPlaneService.Liveness:input_type -> proto.scg.tenant.v1.LivenessRequest
-	49, // 53: proto.scg.tenant.v1.TenantControlPlaneService.Readiness:input_type -> proto.scg.tenant.v1.ReadinessRequest
-	6,  // 54: proto.scg.tenant.v1.TenantControlPlaneService.CreateTenant:output_type -> proto.scg.tenant.v1.CreateTenantResponse
-	8,  // 55: proto.scg.tenant.v1.TenantControlPlaneService.UpdateTenant:output_type -> proto.scg.tenant.v1.UpdateTenantResponse
-	10, // 56: proto.scg.tenant.v1.TenantControlPlaneService.DeactivateTenant:output_type -> proto.scg.tenant.v1.DeactivateTenantResponse
-	12, // 57: proto.scg.tenant.v1.TenantControlPlaneService.AddTenantMember:output_type -> proto.scg.tenant.v1.AddTenantMemberResponse
-	14, // 58: proto.scg.tenant.v1.TenantControlPlaneService.RemoveTenantMember:output_type -> proto.scg.tenant.v1.RemoveTenantMemberResponse
-	16, // 59: proto.scg.tenant.v1.TenantControlPlaneService.ChangeTenantMemberRole:output_type -> proto.scg.tenant.v1.ChangeTenantMemberRoleResponse
-	18, // 60: proto.scg.tenant.v1.TenantControlPlaneService.PublishPolicySet:output_type -> proto.scg.tenant.v1.PublishPolicySetResponse
-	20, // 61: proto.scg.tenant.v1.TenantControlPlaneService.ActivatePolicySet:output_type -> proto.scg.tenant.v1.ActivatePolicySetResponse
-	22, // 62: proto.scg.tenant.v1.TenantControlPlaneService.UpsertConnectorConfig:output_type -> proto.scg.tenant.v1.UpsertConnectorConfigResponse
-	24, // 63: proto.scg.tenant.v1.TenantControlPlaneService.DisableConnector:output_type -> proto.scg.tenant.v1.DisableConnectorResponse
-	26, // 64: proto.scg.tenant.v1.TenantControlPlaneService.SetFeatureFlag:output_type -> proto.scg.tenant.v1.SetFeatureFlagResponse
-	28, // 65: proto.scg.tenant.v1.TenantControlPlaneService.GetTenant:output_type -> proto.scg.tenant.v1.GetTenantResponse
-	30, // 66: proto.scg.tenant.v1.TenantControlPlaneService.ListTenants:output_type -> proto.scg.tenant.v1.ListTenantsResponse
-	32, // 67: proto.scg.tenant.v1.TenantControlPlaneService.GetTenantMember:output_type -> proto.scg.tenant.v1.GetTenantMemberResponse
-	34, // 68: proto.scg.tenant.v1.TenantControlPlaneService.ListTenantMembers:output_type -> proto.scg.tenant.v1.ListTenantMembersResponse
-	36, // 69: proto.scg.tenant.v1.TenantControlPlaneService.GetActivePolicySet:output_type -> proto.scg.tenant.v1.GetActivePolicySetResponse
-	38, // 70: proto.scg.tenant.v1.TenantControlPlaneService.ListPolicySets:output_type -> proto.scg.tenant.v1.ListPolicySetsResponse
-	40, // 71: proto.scg.tenant.v1.TenantControlPlaneService.GetPolicySet:output_type -> proto.scg.tenant.v1.GetPolicySetResponse
-	42, // 72: proto.scg.tenant.v1.TenantControlPlaneService.GetConnectorConfig:output_type -> proto.scg.tenant.v1.GetConnectorConfigResponse
-	44, // 73: proto.scg.tenant.v1.TenantControlPlaneService.ListConnectors:output_type -> proto.scg.tenant.v1.ListConnectorsResponse
-	46, // 74: proto.scg.tenant.v1.TenantControlPlaneService.GetFeatureFlags:output_type -> proto.scg.tenant.v1.GetFeatureFlagsResponse
-	48, // 75: proto.scg.tenant.v1.TenantControlPlaneService.Liveness:output_type -> proto.scg.tenant.v1.LivenessResponse
-	51, // 76: proto.scg.tenant.v1.TenantControlPlaneService.Readiness:output_type -> proto.scg.tenant.v1.ReadinessResponse
-	54, // [54:77] is the sub-list for method output_type
-	31, // [31:54] is the sub-list for method input_type
-	31, // [31:31] is the sub-list for extension type_name
-	31, // [31:31] is the sub-list for extension extendee
-	0,  // [0:31] is the sub-list for field type_name
+	57, // 0: proto.scg.tenant.v1.Tenant.created_at:type_name -> google.protobuf.Timestamp
+	57, // 1: proto.scg.tenant.v1.Tenant.updated_at:type_name -> google.protobuf.Timestamp
+	57, // 2: proto.scg.tenant.v1.TenantMember.created_at:type_name -> google.protobuf.Timestamp
+	57, // 3: proto.scg.tenant.v1.TenantMember.updated_at:type_name -> google.protobuf.Timestamp
+	57, // 4: proto.scg.tenant.v1.PolicySet.created_at:type_name -> google.protobuf.Timestamp
+	57, // 5: proto.scg.tenant.v1.PolicySet.updated_at:type_name -> google.protobuf.Timestamp
+	57, // 6: proto.scg.tenant.v1.ConnectorConfig.created_at:type_name -> google.protobuf.Timestamp
+	57, // 7: proto.scg.tenant.v1.ConnectorConfig.updated_at:type_name -> google.protobuf.Timestamp
+	57, // 8: proto.scg.tenant.v1.FeatureFlag.updated_at:type_name -> google.protobuf.Timestamp
+	57, // 9: proto.scg.tenant.v1.TenantSetting.updated_at:type_name -> google.protobuf.Timestamp
+	0,  // 10: proto.scg.tenant.v1.CreateTenantResponse.tenant:type_name -> proto.scg.tenant.v1.Tenant
+	0,  // 11: proto.scg.tenant.v1.UpdateTenantResponse.tenant:type_name -> proto.scg.tenant.v1.Tenant
+	0,  // 12: proto.scg.tenant.v1.DeactivateTenantResponse.tenant:type_name -> proto.scg.tenant.v1.Tenant
+	1,  // 13: proto.scg.tenant.v1.AddTenantMemberResponse.member:type_name -> proto.scg.tenant.v1.TenantMember
+	1,  // 14: proto.scg.tenant.v1.RemoveTenantMemberResponse.member:type_name -> proto.scg.tenant.v1.TenantMember
+	1,  // 15: proto.scg.tenant.v1.ChangeTenantMemberRoleResponse.member:type_name -> proto.scg.tenant.v1.TenantMember
+	2,  // 16: proto.scg.tenant.v1.PublishPolicySetResponse.bundle:type_name -> proto.scg.tenant.v1.PolicySet
+	2,  // 17: proto.scg.tenant.v1.ActivatePolicySetResponse.bundle:type_name -> proto.scg.tenant.v1.PolicySet
+	3,  // 18: proto.scg.tenant.v1.UpsertConnectorConfigResponse.connector:type_name -> proto.scg.tenant.v1.ConnectorConfig
+	3,  // 19: proto.scg.tenant.v1.DisableConnectorResponse.connector:type_name -> proto.scg.tenant.v1.ConnectorConfig
+	4,  // 20: proto.scg.tenant.v1.SetFeatureFlagResponse.feature_flag:type_name -> proto.scg.tenant.v1.FeatureFlag
+	5,  // 21: proto.scg.tenant.v1.SetTenantSettingResponse.tenant_setting:type_name -> proto.scg.tenant.v1.TenantSetting
+	0,  // 22: proto.scg.tenant.v1.GetTenantResponse.tenant:type_name -> proto.scg.tenant.v1.Tenant
+	0,  // 23: proto.scg.tenant.v1.ListTenantsResponse.tenants:type_name -> proto.scg.tenant.v1.Tenant
+	1,  // 24: proto.scg.tenant.v1.GetTenantMemberResponse.member:type_name -> proto.scg.tenant.v1.TenantMember
+	1,  // 25: proto.scg.tenant.v1.ListTenantMembersResponse.members:type_name -> proto.scg.tenant.v1.TenantMember
+	2,  // 26: proto.scg.tenant.v1.GetActivePolicySetResponse.bundle:type_name -> proto.scg.tenant.v1.PolicySet
+	2,  // 27: proto.scg.tenant.v1.ListPolicySetsResponse.bundles:type_name -> proto.scg.tenant.v1.PolicySet
+	2,  // 28: proto.scg.tenant.v1.GetPolicySetResponse.bundle:type_name -> proto.scg.tenant.v1.PolicySet
+	3,  // 29: proto.scg.tenant.v1.GetConnectorConfigResponse.connector_config:type_name -> proto.scg.tenant.v1.ConnectorConfig
+	3,  // 30: proto.scg.tenant.v1.ListConnectorsResponse.connectors:type_name -> proto.scg.tenant.v1.ConnectorConfig
+	4,  // 31: proto.scg.tenant.v1.GetFeatureFlagsResponse.feature_flags:type_name -> proto.scg.tenant.v1.FeatureFlag
+	5,  // 32: proto.scg.tenant.v1.GetTenantSettingsResponse.tenant_settings:type_name -> proto.scg.tenant.v1.TenantSetting
+	55, // 33: proto.scg.tenant.v1.ReadinessResponse.dependencies:type_name -> proto.scg.tenant.v1.DependencyStatus
+	6,  // 34: proto.scg.tenant.v1.TenantControlPlaneService.CreateTenant:input_type -> proto.scg.tenant.v1.CreateTenantRequest
+	8,  // 35: proto.scg.tenant.v1.TenantControlPlaneService.UpdateTenant:input_type -> proto.scg.tenant.v1.UpdateTenantRequest
+	10, // 36: proto.scg.tenant.v1.TenantControlPlaneService.DeactivateTenant:input_type -> proto.scg.tenant.v1.DeactivateTenantRequest
+	12, // 37: proto.scg.tenant.v1.TenantControlPlaneService.AddTenantMember:input_type -> proto.scg.tenant.v1.AddTenantMemberRequest
+	14, // 38: proto.scg.tenant.v1.TenantControlPlaneService.RemoveTenantMember:input_type -> proto.scg.tenant.v1.RemoveTenantMemberRequest
+	16, // 39: proto.scg.tenant.v1.TenantControlPlaneService.ChangeTenantMemberRole:input_type -> proto.scg.tenant.v1.ChangeTenantMemberRoleRequest
+	18, // 40: proto.scg.tenant.v1.TenantControlPlaneService.PublishPolicySet:input_type -> proto.scg.tenant.v1.PublishPolicySetRequest
+	20, // 41: proto.scg.tenant.v1.TenantControlPlaneService.ActivatePolicySet:input_type -> proto.scg.tenant.v1.ActivatePolicySetRequest
+	22, // 42: proto.scg.tenant.v1.TenantControlPlaneService.UpsertConnectorConfig:input_type -> proto.scg.tenant.v1.UpsertConnectorConfigRequest
+	24, // 43: proto.scg.tenant.v1.TenantControlPlaneService.DisableConnector:input_type -> proto.scg.tenant.v1.DisableConnectorRequest
+	26, // 44: proto.scg.tenant.v1.TenantControlPlaneService.SetFeatureFlag:input_type -> proto.scg.tenant.v1.SetFeatureFlagRequest
+	28, // 45: proto.scg.tenant.v1.TenantControlPlaneService.SetTenantSetting:input_type -> proto.scg.tenant.v1.SetTenantSettingRequest
+	30, // 46: proto.scg.tenant.v1.TenantControlPlaneService.GetTenant:input_type -> proto.scg.tenant.v1.GetTenantRequest
+	32, // 47: proto.scg.tenant.v1.TenantControlPlaneService.ListTenants:input_type -> proto.scg.tenant.v1.ListTenantsRequest
+	34, // 48: proto.scg.tenant.v1.TenantControlPlaneService.GetTenantMember:input_type -> proto.scg.tenant.v1.GetTenantMemberRequest
+	36, // 49: proto.scg.tenant.v1.TenantControlPlaneService.ListTenantMembers:input_type -> proto.scg.tenant.v1.ListTenantMembersRequest
+	38, // 50: proto.scg.tenant.v1.TenantControlPlaneService.GetActivePolicySet:input_type -> proto.scg.tenant.v1.GetActivePolicySetRequest
+	40, // 51: proto.scg.tenant.v1.TenantControlPlaneService.ListPolicySets:input_type -> proto.scg.tenant.v1.ListPolicySetsRequest
+	42, // 52: proto.scg.tenant.v1.TenantControlPlaneService.GetPolicySet:input_type -> proto.scg.tenant.v1.GetPolicySetRequest
+	44, // 53: proto.scg.tenant.v1.TenantControlPlaneService.GetConnectorConfig:input_type -> proto.scg.tenant.v1.GetConnectorConfigRequest
+	46, // 54: proto.scg.tenant.v1.TenantControlPlaneService.ListConnectors:input_type -> proto.scg.tenant.v1.ListConnectorsRequest
+	48, // 55: proto.scg.tenant.v1.TenantControlPlaneService.GetFeatureFlags:input_type -> proto.scg.tenant.v1.GetFeatureFlagsRequest
+	50, // 56: proto.scg.tenant.v1.TenantControlPlaneService.GetTenantSettings:input_type -> proto.scg.tenant.v1.GetTenantSettingsRequest
+	52, // 57: proto.scg.tenant.v1.TenantControlPlaneService.Liveness:input_type -> proto.scg.tenant.v1.LivenessRequest
+	54, // 58: proto.scg.tenant.v1.TenantControlPlaneService.Readiness:input_type -> proto.scg.tenant.v1.ReadinessRequest
+	7,  // 59: proto.scg.tenant.v1.TenantControlPlaneService.CreateTenant:output_type -> proto.scg.tenant.v1.CreateTenantResponse
+	9,  // 60: proto.scg.tenant.v1.TenantControlPlaneService.UpdateTenant:output_type -> proto.scg.tenant.v1.UpdateTenantResponse
+	11, // 61: proto.scg.tenant.v1.TenantControlPlaneService.DeactivateTenant:output_type -> proto.scg.tenant.v1.DeactivateTenantResponse
+	13, // 62: proto.scg.tenant.v1.TenantControlPlaneService.AddTenantMember:output_type -> proto.scg.tenant.v1.AddTenantMemberResponse
+	15, // 63: proto.scg.tenant.v1.TenantControlPlaneService.RemoveTenantMember:output_type -> proto.scg.tenant.v1.RemoveTenantMemberResponse
+	17, // 64: proto.scg.tenant.v1.TenantControlPlaneService.ChangeTenantMemberRole:output_type -> proto.scg.tenant.v1.ChangeTenantMemberRoleResponse
+	19, // 65: proto.scg.tenant.v1.TenantControlPlaneService.PublishPolicySet:output_type -> proto.scg.tenant.v1.PublishPolicySetResponse
+	21, // 66: proto.scg.tenant.v1.TenantControlPlaneService.ActivatePolicySet:output_type -> proto.scg.tenant.v1.ActivatePolicySetResponse
+	23, // 67: proto.scg.tenant.v1.TenantControlPlaneService.UpsertConnectorConfig:output_type -> proto.scg.tenant.v1.UpsertConnectorConfigResponse
+	25, // 68: proto.scg.tenant.v1.TenantControlPlaneService.DisableConnector:output_type -> proto.scg.tenant.v1.DisableConnectorResponse
+	27, // 69: proto.scg.tenant.v1.TenantControlPlaneService.SetFeatureFlag:output_type -> proto.scg.tenant.v1.SetFeatureFlagResponse
+	29, // 70: proto.scg.tenant.v1.TenantControlPlaneService.SetTenantSetting:output_type -> proto.scg.tenant.v1.SetTenantSettingResponse
+	31, // 71: proto.scg.tenant.v1.TenantControlPlaneService.GetTenant:output_type -> proto.scg.tenant.v1.GetTenantResponse
+	33, // 72: proto.scg.tenant.v1.TenantControlPlaneService.ListTenants:output_type -> proto.scg.tenant.v1.ListTenantsResponse
+	35, // 73: proto.scg.tenant.v1.TenantControlPlaneService.GetTenantMember:output_type -> proto.scg.tenant.v1.GetTenantMemberResponse
+	37, // 74: proto.scg.tenant.v1.TenantControlPlaneService.ListTenantMembers:output_type -> proto.scg.tenant.v1.ListTenantMembersResponse
+	39, // 75: proto.scg.tenant.v1.TenantControlPlaneService.GetActivePolicySet:output_type -> proto.scg.tenant.v1.GetActivePolicySetResponse
+	41, // 76: proto.scg.tenant.v1.TenantControlPlaneService.ListPolicySets:output_type -> proto.scg.tenant.v1.ListPolicySetsResponse
+	43, // 77: proto.scg.tenant.v1.TenantControlPlaneService.GetPolicySet:output_type -> proto.scg.tenant.v1.GetPolicySetResponse
+	45, // 78: proto.scg.tenant.v1.TenantControlPlaneService.GetConnectorConfig:output_type -> proto.scg.tenant.v1.GetConnectorConfigResponse
+	47, // 79: proto.scg.tenant.v1.TenantControlPlaneService.ListConnectors:output_type -> proto.scg.tenant.v1.ListConnectorsResponse
+	49, // 80: proto.scg.tenant.v1.TenantControlPlaneService.GetFeatureFlags:output_type -> proto.scg.tenant.v1.GetFeatureFlagsResponse
+	51, // 81: proto.scg.tenant.v1.TenantControlPlaneService.GetTenantSettings:output_type -> proto.scg.tenant.v1.GetTenantSettingsResponse
+	53, // 82: proto.scg.tenant.v1.TenantControlPlaneService.Liveness:output_type -> proto.scg.tenant.v1.LivenessResponse
+	56, // 83: proto.scg.tenant.v1.TenantControlPlaneService.Readiness:output_type -> proto.scg.tenant.v1.ReadinessResponse
+	59, // [59:84] is the sub-list for method output_type
+	34, // [34:59] is the sub-list for method input_type
+	34, // [34:34] is the sub-list for extension type_name
+	34, // [34:34] is the sub-list for extension extendee
+	0,  // [0:34] is the sub-list for field type_name
 }
 
 func init() { file_proto_scg_tenant_v1_tenant_service_proto_init() }
@@ -3125,7 +3421,7 @@ func file_proto_scg_tenant_v1_tenant_service_proto_init() {
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
 			RawDescriptor: unsafe.Slice(unsafe.StringData(file_proto_scg_tenant_v1_tenant_service_proto_rawDesc), len(file_proto_scg_tenant_v1_tenant_service_proto_rawDesc)),
 			NumEnums:      0,
-			NumMessages:   52,
+			NumMessages:   57,
 			NumExtensions: 0,
 			NumServices:   1,
 		},
