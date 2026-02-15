@@ -22,6 +22,7 @@ service TenantControlPlaneService {
   rpc DisableConnector(DisableConnectorRequest) returns (DisableConnectorResponse);
 
   rpc SetFeatureFlag(SetFeatureFlagRequest) returns (SetFeatureFlagResponse);
+  rpc SetTenantSetting(SetTenantSettingRequest) returns (SetTenantSettingResponse);
 
   rpc GetTenant(GetTenantRequest) returns (GetTenantResponse);
   rpc ListTenants(ListTenantsRequest) returns (ListTenantsResponse);
@@ -35,6 +36,7 @@ service TenantControlPlaneService {
   rpc GetConnectorConfig(GetConnectorConfigRequest) returns (GetConnectorConfigResponse);
   rpc ListConnectors(ListConnectorsRequest) returns (ListConnectorsResponse);
   rpc GetFeatureFlags(GetFeatureFlagsRequest) returns (GetFeatureFlagsResponse);
+  rpc GetTenantSettings(GetTenantSettingsRequest) returns (GetTenantSettingsResponse);
 
   rpc Liveness(LivenessRequest) returns (LivenessResponse);
   rpc Readiness(ReadinessRequest) returns (ReadinessResponse);
@@ -84,57 +86,80 @@ message FeatureFlag {
   google.protobuf.Timestamp updated_at = 4 [json_name = "updated_at"];
 }
 
+message TenantSetting {
+  string tenant_id = 1 [json_name = "tenant_id"];
+  string key = 2 [json_name = "key"];
+  bool enabled = 3 [json_name = "enabled"];
+  google.protobuf.Timestamp updated_at = 4 [json_name = "updated_at"];
+}
+
 message CreateTenantRequest {
   string tenant_id = 1 [json_name = "tenant_id"];
   string tenant_key = 2 [json_name = "tenant_key"];
   string name = 3 [json_name = "name"];
 }
-message CreateTenantResponse { Tenant tenant = 1 [json_name = "tenant"]; }
+message CreateTenantResponse {
+  Tenant tenant = 1 [json_name = "tenant"];
+}
 
 message UpdateTenantRequest {
   string tenant_id = 1 [json_name = "tenant_id"];
   string name = 2 [json_name = "name"];
 }
-message UpdateTenantResponse { Tenant tenant = 1 [json_name = "tenant"]; }
+message UpdateTenantResponse {
+  Tenant tenant = 1 [json_name = "tenant"];
+}
 
 message DeactivateTenantRequest {
   string tenant_id = 1 [json_name = "tenant_id"];
   string reason = 2 [json_name = "reason"];
 }
-message DeactivateTenantResponse { Tenant tenant = 1 [json_name = "tenant"]; }
+message DeactivateTenantResponse {
+  Tenant tenant = 1 [json_name = "tenant"];
+}
 
 message AddTenantMemberRequest {
   string tenant_id = 1 [json_name = "tenant_id"];
   string user_id = 2 [json_name = "user_id"];
   string role = 3 [json_name = "role"];
 }
-message AddTenantMemberResponse { TenantMember member = 1 [json_name = "member"]; }
+message AddTenantMemberResponse {
+  TenantMember member = 1 [json_name = "member"];
+}
 
 message RemoveTenantMemberRequest {
   string tenant_id = 1 [json_name = "tenant_id"];
   string user_id = 2 [json_name = "user_id"];
 }
-message RemoveTenantMemberResponse { TenantMember member = 1 [json_name = "member"]; }
+message RemoveTenantMemberResponse {
+  TenantMember member = 1 [json_name = "member"];
+}
 
 message ChangeTenantMemberRoleRequest {
   string tenant_id = 1 [json_name = "tenant_id"];
   string user_id = 2 [json_name = "user_id"];
   string role = 3 [json_name = "role"];
 }
-message ChangeTenantMemberRoleResponse { TenantMember member = 1 [json_name = "member"]; }
+message ChangeTenantMemberRoleResponse {
+  TenantMember member = 1 [json_name = "member"];
+}
 
 message PublishPolicySetRequest {
   string tenant_id = 1 [json_name = "tenant_id"];
   string policy_set_id = 2 [json_name = "policy_set_id"];
   string payload_json = 3 [json_name = "payload_json"];
 }
-message PublishPolicySetResponse { PolicySet bundle = 1 [json_name = "bundle"]; }
+message PublishPolicySetResponse {
+  PolicySet bundle = 1 [json_name = "bundle"];
+}
 
 message ActivatePolicySetRequest {
   string tenant_id = 1 [json_name = "tenant_id"];
   string policy_set_id = 2 [json_name = "policy_set_id"];
 }
-message ActivatePolicySetResponse { PolicySet bundle = 1 [json_name = "bundle"]; }
+message ActivatePolicySetResponse {
+  PolicySet bundle = 1 [json_name = "bundle"];
+}
 
 message UpsertConnectorConfigRequest {
   string tenant_id = 1 [json_name = "tenant_id"];
@@ -142,23 +167,42 @@ message UpsertConnectorConfigRequest {
   string config_json = 3 [json_name = "config_json"];
   bool enabled = 4 [json_name = "enabled"];
 }
-message UpsertConnectorConfigResponse { ConnectorConfig connector = 1 [json_name = "connector"]; }
+message UpsertConnectorConfigResponse {
+  ConnectorConfig connector = 1 [json_name = "connector"];
+}
 
 message DisableConnectorRequest {
   string tenant_id = 1 [json_name = "tenant_id"];
   string connector = 2 [json_name = "connector"];
 }
-message DisableConnectorResponse { ConnectorConfig connector = 1 [json_name = "connector"]; }
+message DisableConnectorResponse {
+  ConnectorConfig connector = 1 [json_name = "connector"];
+}
 
 message SetFeatureFlagRequest {
   string tenant_id = 1 [json_name = "tenant_id"];
   string flag = 2 [json_name = "flag"];
   bool enabled = 3 [json_name = "enabled"];
 }
-message SetFeatureFlagResponse { FeatureFlag feature_flag = 1 [json_name = "feature_flag"]; }
+message SetFeatureFlagResponse {
+  FeatureFlag feature_flag = 1 [json_name = "feature_flag"];
+}
 
-message GetTenantRequest { string tenant_id = 1 [json_name = "tenant_id"]; }
-message GetTenantResponse { Tenant tenant = 1 [json_name = "tenant"]; }
+message SetTenantSettingRequest {
+  string tenant_id = 1 [json_name = "tenant_id"];
+  string key = 2 [json_name = "key"];
+  bool enabled = 3 [json_name = "enabled"];
+}
+message SetTenantSettingResponse {
+  TenantSetting tenant_setting = 1 [json_name = "tenant_setting"];
+}
+
+message GetTenantRequest {
+  string tenant_id = 1 [json_name = "tenant_id"];
+}
+message GetTenantResponse {
+  Tenant tenant = 1 [json_name = "tenant"];
+}
 
 message ListTenantsRequest {
   int32 page_size = 1 [json_name = "page_size"];
@@ -173,7 +217,9 @@ message GetTenantMemberRequest {
   string tenant_id = 1 [json_name = "tenant_id"];
   string user_id = 2 [json_name = "user_id"];
 }
-message GetTenantMemberResponse { TenantMember member = 1 [json_name = "member"]; }
+message GetTenantMemberResponse {
+  TenantMember member = 1 [json_name = "member"];
+}
 
 message ListTenantMembersRequest {
   string tenant_id = 1 [json_name = "tenant_id"];
@@ -185,8 +231,12 @@ message ListTenantMembersResponse {
   string next_page_token = 2 [json_name = "next_page_token"];
 }
 
-message GetActivePolicySetRequest { string tenant_id = 1 [json_name = "tenant_id"]; }
-message GetActivePolicySetResponse { PolicySet bundle = 1 [json_name = "bundle"]; }
+message GetActivePolicySetRequest {
+  string tenant_id = 1 [json_name = "tenant_id"];
+}
+message GetActivePolicySetResponse {
+  PolicySet bundle = 1 [json_name = "bundle"];
+}
 
 message ListPolicySetsRequest {
   string tenant_id = 1 [json_name = "tenant_id"];
@@ -202,22 +252,43 @@ message GetPolicySetRequest {
   string tenant_id = 1 [json_name = "tenant_id"];
   string policy_set_id = 2 [json_name = "policy_set_id"];
 }
-message GetPolicySetResponse { PolicySet bundle = 1 [json_name = "bundle"]; }
+message GetPolicySetResponse {
+  PolicySet bundle = 1 [json_name = "bundle"];
+}
 
 message GetConnectorConfigRequest {
   string tenant_id = 1 [json_name = "tenant_id"];
   string connector = 2 [json_name = "connector"];
 }
-message GetConnectorConfigResponse { ConnectorConfig connector_config = 1 [json_name = "connector_config"]; }
+message GetConnectorConfigResponse {
+  ConnectorConfig connector_config = 1 [json_name = "connector_config"];
+}
 
-message ListConnectorsRequest { string tenant_id = 1 [json_name = "tenant_id"]; }
-message ListConnectorsResponse { repeated ConnectorConfig connectors = 1 [json_name = "connectors"]; }
+message ListConnectorsRequest {
+  string tenant_id = 1 [json_name = "tenant_id"];
+}
+message ListConnectorsResponse {
+  repeated ConnectorConfig connectors = 1 [json_name = "connectors"];
+}
 
-message GetFeatureFlagsRequest { string tenant_id = 1 [json_name = "tenant_id"]; }
-message GetFeatureFlagsResponse { repeated FeatureFlag feature_flags = 1 [json_name = "feature_flags"]; }
+message GetFeatureFlagsRequest {
+  string tenant_id = 1 [json_name = "tenant_id"];
+}
+message GetFeatureFlagsResponse {
+  repeated FeatureFlag feature_flags = 1 [json_name = "feature_flags"];
+}
+
+message GetTenantSettingsRequest {
+  string tenant_id = 1 [json_name = "tenant_id"];
+}
+message GetTenantSettingsResponse {
+  repeated TenantSetting tenant_settings = 1 [json_name = "tenant_settings"];
+}
 
 message LivenessRequest {}
-message LivenessResponse { bool ok = 1 [json_name = "ok"]; }
+message LivenessResponse {
+  bool ok = 1 [json_name = "ok"];
+}
 
 message ReadinessRequest {}
 message DependencyStatus {
